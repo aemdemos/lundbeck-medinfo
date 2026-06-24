@@ -1,0 +1,78 @@
+@import url('../search/search-tokens.css');
+
+/* search-product — Lundbeck product/category/keyword filter widget.
+   White card overlaid below the hero headline. Mobile-first. */
+
+main .search-product .search-product-form {
+  background: var(--background-color, #fff);
+  border-radius: var(--search-input-border-radius);
+  box-shadow: 0 2px 12px rgb(0 0 0 / 15%);
+  padding: var(--spacing-m, 1.5rem);
+}
+
+main .search-product .search-product-intro {
+  margin: 0 0 var(--spacing-s, 1rem);
+  font-size: var(--body-font-size-s, 0.875rem);
+}
+
+main .search-product .search-product-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s, 1rem);
+}
+
+main .search-product .search-product-select,
+main .search-product .search-product-keywords {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--search-result-border-color, #ccc);
+  border-radius: var(--search-input-border-radius);
+  font-size: var(--body-font-size-m, 1rem);
+  background: #fff;
+}
+
+main .search-product .search-product-select.search-product-error,
+main .search-product .search-product-keywords.search-product-error {
+  border-color: var(--brand-secondary, #c8102e);
+}
+
+main .search-product .search-product-button {
+  padding: 0.6rem 1.5rem;
+  border: 0;
+  border-radius: var(--search-input-border-radius);
+  background: var(--brand-secondary, #c8102e);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+main .search-product .search-product-button:hover {
+  filter: brightness(0.92);
+}
+
+main .search-product .search-product-help {
+  margin: var(--spacing-xs, 0.5rem) 0 0;
+  font-size: var(--body-font-size-xs, 0.75rem);
+  color: var(--text-color-secondary, #666);
+}
+
+/* Tablet+ : controls laid out in a row */
+@media (width >= 600px) {
+  main .search-product .search-product-controls {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  main .search-product .search-product-select {
+    flex: 1 1 30%;
+  }
+
+  main .search-product .search-product-keywords {
+    flex: 1 1 30%;
+  }
+
+  main .search-product .search-product-button {
+    flex: 0 0 auto;
+  }
+}
