@@ -1,7 +1,7 @@
 @import url('./footer-tokens.css');
 
 footer { /* @boilerplate */
-  background-color: var(--light-color); /* @boilerplate */
+  background-color: var(--footer-background-color);
   font-size: var(--body-font-size-xs); /* @boilerplate */
 }
 

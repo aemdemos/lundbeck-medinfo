@@ -48,7 +48,7 @@
   --background-color: #fff; /* @libs */
   --light-color: #e1f0f6; /* @libs */
   --dark-color: var(--brand-primary-dark);
-  --text-color: #333; /* @libs */
+  --text-color: #4a4a4a;
   --text-color-light: #666; /* @libs */
   --link-color: var(--brand-primary);
   --link-hover-color: var(--brand-primary-light);
@@ -57,16 +57,36 @@
   --section-divider-width: 1px; /* @libs */
   --section-divider-color: var(--link-hover-color); /* @libs */
   --section-padding: 24px;
-  
+
+  /* generic design-system scale — referenced by cards/form/search Tier 2 tokens.
+     Defined here (Tier 1) so those blocks resolve to medinfo values instead of UA defaults. */
+  --color-surface: transparent;
+  --color-on-surface: var(--text-color);
+  --color-action: var(--brand-primary);
+  --border-color: rgb(202 65 29 / 10%);
+  --border-width-s: 1px;
+  --border-radius-s: 0;
+  --spacing-xs: 8px;
+  --spacing-s: 16px;
+  --spacing-m: 24px;
+  --spacing-l: 32px;
+  --spacing-xl: 40px;
+  --focus-ring-offset: 2px;
+  --transition-duration: 0.2s;
+
   /* fonts */
-  --body-font-family: proxima-nova, proxima-nova-fallback, sans-serif; /* @libs */
-  --heading-font-family: proxima-nova, proxima-nova-fallback, sans-serif; /* @libs */
-  --body-line-height: 1.4; /* @libs */
-  --heading-font-weight: 800; /* @libs */
+  --body-font-family: mulish, mulish-fallback, sans-serif;
+  --heading-font-family: mulish, mulish-fallback, sans-serif;
+  --display-font-family: inter, inter-fallback, sans-serif;
+  --body-line-height: 1.5;
+  --heading-font-weight: 700;
   --heading-line-height: 1.2; /* @libs */
+  --font-weight-medium: 500;
   --font-weight-bold: 700; /* @libs */
+  --font-weight-extrabold: 800;
   --block-margin-top: 0.8em; /* @libs */
   --block-margin-bottom: 0.25em; /* @libs */
+  --paragraph-margin-bottom: 24px;
 
   /* body sizes */
   --body-font-size-m: 24px; /* @libs */
@@ -74,16 +94,17 @@
   --body-font-size-s: 16px; /* @libs */
   --body-font-size-xs: 14px; /* @libs */
 
-  /* heading sizes (mobile-first) */
-  --heading-font-size-xxl: 32px; /* @libs */
-  --heading-font-size-xl: 24px; /* @libs */
-  --heading-font-size-l: 20px; /* @libs */
-  --heading-font-size-m: 18px; /* @libs */
-  --heading-font-size-s: 18px; /* @libs */
-  --heading-font-size-xs: 16px; /* @libs */
+  /* heading sizes (mobile-first) — mapped to live medinfo sizes per role, not strict h-order */
+  --heading-font-size-xxl: 20px; /* h1 */
+  --heading-font-size-xl: 18px; /* h4 product name */
+  --heading-font-size-l: 18px; /* h3 band */
+  --heading-font-size-m: 16px; /* h5 card head */
+  --heading-font-size-s: 16px; /* h2 subhead */
+  --heading-font-size-xs: 12px; /* h6 trademark */
 
   /* layout */
   --max-width-site: 1140px; /* @libs */
+  --content-max-width: 780px;
   --section-padding-vertical: 40px; /* @libs */
   --icon-size: 24px; /* @libs */
   --h1-max-width: 14em; /* @libs */
@@ -99,7 +120,7 @@
 
   /* button tokens — shared */
   --button-margin: 0; /* @libs */
-  --button-border-radius: 100px; /* @libs */
+  --button-border-radius: 0;
   --button-border-width: 2px; /* @libs */
   --button-padding: 19px 25px; /* @libs */
   --button-font-size: 18px; /* @libs */
@@ -157,19 +178,26 @@
 
 }
 
-/* fallback font for proxima-nova */
-@font-face { /* @libs */
-  font-family: proxima-nova-fallback; /* @libs */
-  font-weight: 400; /* @libs */
-  size-adjust: 98%; /* @libs */
-  src: local('Arial'); /* @libs */
+/* metric-tuned fallback for mulish (body + h3–h6) — minimizes CLS before webfont swaps in */
+@font-face {
+  font-family: mulish-fallback;
+  font-style: normal;
+  size-adjust: 100%;
+  ascent-override: 94%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+  src: local('Arial');
 }
 
-@font-face { /* @libs */
-  font-family: proxima-nova-fallback; /* @libs */
-  font-weight: 700; /* @libs */
-  size-adjust: 98%; /* @libs */
-  src: local('Arial Bold'), local('Arial-BoldMT'), local('Arial'); /* @libs */
+/* metric-tuned fallback for inter (h1/h2 display) */
+@font-face {
+  font-family: inter-fallback;
+  font-style: normal;
+  size-adjust: 107%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+  src: local('Arial');
 }
 
 body { /* @libs */
@@ -212,54 +240,60 @@ h2,
 h3,
 h4,
 h5,
-h6 { /* @libs */
-  margin-top: var(--block-margin-top); /* @libs */
-  margin-bottom: var(--block-margin-bottom); /* @libs */
-  font-family: var(--heading-font-family); /* @libs */
-  font-weight: var(--heading-font-weight); /* @libs */
-  line-height: var(--heading-line-height); /* @libs */
-  scroll-margin: 40px; /* @libs */
-  color: var(--text-color); /* @libs */
+h6 {
+  margin-top: var(--block-margin-top);
+  margin-bottom: var(--block-margin-bottom);
+  font-family: var(--heading-font-family);
+  font-weight: var(--heading-font-weight);
+  line-height: var(--heading-line-height);
+  scroll-margin: 40px;
+  color: var(--text-color);
 }
 
-h1 { /* @libs */
-  font-size: var(--heading-font-size-xxl); /* @libs */
-  line-height: 1.125; /* @libs */
+h1 {
+  font-family: var(--display-font-family);
+  font-size: var(--heading-font-size-xxl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.17;
   color: var(--brand-primary);
-  margin-top: 0; /* @libs */
-  max-width: var(--h1-max-width); /* @libs */
+  margin-top: 0;
+  margin-bottom: 10px;
+  max-width: var(--h1-max-width);
 }
 
-h2 { /* @libs */
-  font-size: var(--heading-font-size-xl); /* @libs */
-  line-height: var(--heading-line-height); /* @libs */
-  color: var(--brand-primary);
+h2 {
+  font-family: var(--display-font-family);
+  font-size: var(--heading-font-size-s);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.27;
+  color: var(--text-color);
 }
 
-h3 { /* @libs */
-  font-size: var(--heading-font-size-l); /* @libs */
-  font-weight: var(--font-weight-bold); /* @libs */
-  line-height: 1.6; /* @libs */
-  color: var(--text-color); /* @libs */
-  margin-bottom: 0; /* @libs */
+h3 {
+  font-size: var(--heading-font-size-l);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  color: var(--text-color);
+  margin-bottom: 0;
 }
 
-h4 { /* @libs */
-  font-size: var(--heading-font-size-m); /* @libs */
-  font-weight: var(--font-weight-bold); /* @libs */
-  line-height: 1.5; /* @libs */
+h4 {
+  font-size: var(--heading-font-size-xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.05;
+  margin-bottom: 16px;
 }
 
-h5 { /* @libs */
-  font-size: var(--heading-font-size-s); /* @libs */
-  font-weight: var(--font-weight-bold); /* @libs */
-  line-height: 1.22; /* @libs */
-  color: var(--brand-primary-dark);
+h5 {
+  font-size: var(--heading-font-size-m);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.18;
 }
 
-h6 { /* @libs */
-  font-size: var(--heading-font-size-xs); /* @libs */
-  font-weight: var(--font-weight-bold); /* @libs */
+h6 {
+  font-size: var(--heading-font-size-xs);
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 p,
@@ -267,9 +301,9 @@ dl,
 ol,
 ul,
 pre,
-blockquote { /* @libs */
-  margin-top: var(--block-margin-top); /* @libs */
-  margin-bottom: var(--block-margin-bottom); /* @libs */
+blockquote {
+  margin-top: 0;
+  margin-bottom: var(--paragraph-margin-bottom);
 }
 
 code,
@@ -298,10 +332,10 @@ button { /* @libs */
 }
 
 /* links */
-a { /* @libs */
-  color: var(--link-color); /* @libs */
-  text-decoration: none; /* @libs */
-  font-weight: var(--font-weight-bold); /* @libs */
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
   overflow-wrap: break-word; /* @libs */
 }
 
@@ -497,6 +531,22 @@ main .icon.icon-bullet { /* @libs */
   }
 }
 
+.left {
+  text-align: left;
+
+  &.columns > div > div {
+    justify-content: left;
+  }
+}
+
+.right {
+  text-align: right;
+
+  &.columns > div > div {
+    justify-content: right;
+  }
+}
+
 /* sections */
 main > .section { /* @libs */
   margin: 0; /* @libs */
@@ -646,19 +696,19 @@ main .section.stats-callout h4 {
   }
 }
 
-@media (width >= 768px) { /* @libs */
-  :root { /* @libs */
-    /* heading sizes scale up on desktop */
-    --body-font-size-m: 24px; /* @libs */
-    --body-font-size-ms: 18px; /* @libs */
-    --body-font-size-s: 16px; /* @libs */
-    --body-font-size-xs: 14px; /* @libs */
-    --heading-font-size-xxl: 56px; /* @libs */
-    --heading-font-size-xl: 24px; /* @libs */
-    --heading-font-size-l: 24px; /* @libs */
-    --heading-font-size-m: 18px; /* @libs */
-    --heading-font-size-s: 18px; /* @libs */
-    --heading-font-size-xs: 16px; /* @libs */
+@media (width >= 768px) {
+  :root {
+    /* heading sizes scale up on desktop — live medinfo desktop values */
+    --body-font-size-m: 24px;
+    --body-font-size-ms: 18px;
+    --body-font-size-s: 16px;
+    --body-font-size-xs: 14px;
+    --heading-font-size-xxl: 36px; /* h1 */
+    --heading-font-size-xl: 32px; /* h4 product name */
+    --heading-font-size-l: 24px; /* h3 band */
+    --heading-font-size-m: 22px; /* h5 card head */
+    --heading-font-size-s: 22px; /* h2 subhead */
+    --heading-font-size-xs: 20px; /* h6 trademark */
   }
 
     .hide-desktop {
@@ -691,8 +741,8 @@ main .section.stats-callout h4 {
     height: calc(var(--nav-height) + 23px); /* @libs */
 }
 
-main > .section > div { /* @libs */
-  max-width: var(--max-width-site); /* @libs */
+main > .section > div {
+  max-width: var(--content-max-width);
   padding: 0 32px; /* @libs */
 }
 

@@ -1,8 +1,8 @@
 /* hero design tokens */
 :root {
-  /* display font */
-  --hero-font-family-display: "nunito", sans-serif;
-  --hero-single-font-family: "proxima-nova";
+  /* display font — align to global medinfo fonts (Inter display, Mulish body) */
+  --hero-font-family-display: var(--display-font-family);
+  --hero-single-font-family: var(--heading-font-family);
 
   /* colors */
   --hero-text-color-light: #fff;
