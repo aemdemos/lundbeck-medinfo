@@ -1,6 +1,20 @@
 /* footer design tokens */
-:root { /* @boilerplate */
-  --footer-max-width: var(--max-width-site); /* @boilerplate */
+:root {
+  --footer-max-width: var(--max-width-site);
   --footer-padding: var(--spacing-xl) var(--spacing-m) var(--spacing-m); /* @boilerplate */
   --footer-padding-desktop: var(--spacing-xl) var(--spacing-l) var(--spacing-m); /* @boilerplate */
+
+  /* brand: medinfo footer is a full-width brand-red band with white text */
+  --footer-background-color: var(--brand-primary);
+  --footer-text-color: var(--background-color);
+}
+
+/* White text + links on the brand-red band (kept here, not in footer.css, so the
+   boilerplate block CSS stays untouched; footer.css @imports this file). */
+footer {
+  color: var(--footer-text-color);
+}
+
+footer a {
+  color: var(--footer-text-color);
 }
