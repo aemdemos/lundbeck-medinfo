@@ -592,7 +592,7 @@ main > .section.divider > div:last-child { /* @libs */
   padding-bottom: var(--section-padding);
 }
 
-main > .section > div { /* @libs */
+main > .section > div:not(.bg-image) { /* @libs */
   max-width: 540px; /* @libs */
   margin: auto; /* @libs */
   padding: 0 15px; /* @libs */
@@ -758,7 +758,7 @@ main .section.stats-callout h4 {
       padding: var(--section-padding-vertical) 0;
     }
 
-    main > .section > div { /* @libs */
+    main > .section > div:not(.bg-image) { /* @libs */
       max-width: 720px; /* @libs */
     }
   
@@ -776,7 +776,7 @@ main .section.stats-callout h4 {
     height: calc(var(--nav-height) + 23px); /* @libs */
 }
 
-main > .section > div {
+main > .section > div:not(.bg-image) {
   max-width: var(--content-max-width);
   padding: 0 32px; /* @libs */
 }
