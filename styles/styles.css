@@ -75,8 +75,8 @@
   --transition-duration: 0.2s;
 
   /* fonts */
-  --body-font-family: mulish, mulish-fallback, sans-serif;
-  --heading-font-family: mulish, mulish-fallback, sans-serif;
+  --body-font-family: 'bliss-pro', bliss-pro-fallback, sans-serif;
+  --heading-font-family: 'bliss-pro', bliss-pro-fallback, sans-serif;
   --display-font-family: inter, inter-fallback, sans-serif;
   --body-line-height: 1.5;
   --heading-font-weight: 700;
@@ -178,9 +178,9 @@
 
 }
 
-/* metric-tuned fallback for mulish (body + h3–h6) — minimizes CLS before webfont swaps in */
+/* metric-tuned fallback for bliss-pro (body + brand headings) — minimizes CLS before webfont swaps in */
 @font-face {
-  font-family: mulish-fallback;
+  font-family: bliss-pro-fallback;
   font-style: normal;
   size-adjust: 100%;
   ascent-override: 94%;
@@ -585,6 +585,16 @@ main > .section > .bg-image img { /* @boilerplate */
 
 main > .section > .bg-image img { /* @boilerplate */
   object-fit: cover; /* @boilerplate */
+}
+
+/* hcp-home hero: space text/fragment so bg image shows */
+main > .section.search-product-container > .default-content-wrapper {
+  padding-top: var(--spacing-xl);
+}
+
+main > .section.search-product-container > .fragment-wrapper {
+  padding-top: var(--spacing-l);
+  padding-bottom: var(--spacing-xl);
 }
 
 main > .section.divider > div:last-child { /* @libs */
