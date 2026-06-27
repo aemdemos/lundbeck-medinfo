@@ -1,0 +1,101 @@
+/* search-results — Lundbeck product-information results listing.
+   Light background; tabular results with column headers and an empty state.
+   Mobile-first. */
+
+main .search-results .search-results-section {
+  padding: var(--spacing-m, 1.5rem) 0;
+}
+
+main .search-results .search-results-count {
+  margin: 0 0 var(--spacing-s, 1rem);
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-m);
+  color: var(--text-color);
+}
+
+main .search-results .search-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs, 0.5rem);
+}
+
+/* Column headers are hidden on mobile (stacked layout); shown at tablet+ */
+main .search-results .search-results-headers {
+  display: none;
+}
+
+main .search-results .search-results-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: var(--spacing-s, 1rem) 0;
+  border-bottom: 1px solid var(--search-result-border-color, #e0e0e0);
+}
+
+main .search-results .search-results-cell {
+  font-size: var(--body-font-size-m, 1rem);
+  color: var(--text-color);
+}
+
+main .search-results .search-results-cell a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+main .search-results .search-results-cell a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+/* "View"/access action styled as a button, matching search-product's button */
+main .search-results .search-results-cell .results-button,
+main .search-results .search-results-cell a.results-button {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  border: 0;
+  border-radius: var(--search-input-border-radius, 4px);
+  background: var(--brand-secondary, #ca411d);
+  color: var(--background-color, #fff);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+main .search-results .search-results-cell .results-button:hover,
+main .search-results .search-results-cell a.results-button:hover {
+  background: var(--brand-secondary-dark, #9e3216);
+}
+
+main .search-results .search-results-empty {
+  padding: var(--spacing-m, 1.5rem) 0;
+}
+
+main .search-results .search-results-empty p {
+  margin: 0;
+  font-size: var(--body-font-size-m, 1rem);
+  color: var(--text-color-secondary, #666);
+}
+
+/* Tablet+ : show column headers and lay results out in a row grid */
+@media (width >= 600px) {
+  main .search-results .search-results-headers {
+    display: grid;
+    grid-template-columns: 5fr 4fr 3fr;
+    gap: var(--spacing-s, 1rem);
+    padding: var(--spacing-xs, 0.5rem) 0;
+    border-bottom: 2px solid var(--brand-secondary, #ca411d);
+  }
+
+  main .search-results .search-results-header-cell {
+    font-family: var(--heading-font-family);
+    font-weight: 700;
+    font-size: var(--body-font-size-s, 0.875rem);
+    color: var(--text-color);
+  }
+
+  main .search-results .search-results-row {
+    display: grid;
+    grid-template-columns: 5fr 4fr 3fr;
+    align-items: center;
+    gap: var(--spacing-s, 1rem);
+  }
+}
