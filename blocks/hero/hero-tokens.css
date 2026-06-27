@@ -78,3 +78,114 @@
   --hero-z-content: 1;
   --hero-z-caption: 2;
 }
+
+/* ═══════════════════════════════════════════════════
+   INTRO VARIANT (brand-specific) — small decorative image + heading/CTA
+   message panel (404, thank-you). Mobile: image floats so the heading sits
+   beside it and the subheading/CTA wrap below. Desktop: image | text columns.
+   ═══════════════════════════════════════════════════ */
+
+main > .section.hero-container:has(.hero.intro) {
+  padding-bottom: var(--section-padding-vertical);
+}
+
+.hero.intro {
+  position: static;
+  min-height: 0;
+}
+
+.hero.intro .hero-intro-inner {
+  max-width: var(--max-width-site);
+  margin: 0 auto;
+  padding: 32px 15px;
+  box-sizing: border-box;
+}
+
+.hero.intro .hero-intro-image {
+  float: left;
+  width: 70px;
+  margin: 0 20px 10px 0;
+}
+
+.hero.intro .hero-intro-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Heading flows beside the floated image; subheading/CTA clear below it. */
+.hero.intro .hero-intro-text h2 {
+  clear: left;
+}
+
+.hero.intro h1 {
+  color: var(--text-color);
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-l);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+.hero.intro h2 {
+  color: var(--text-color);
+  font-family: var(--display-font-family);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+  clear: left;
+}
+
+/* Red square CTA button */
+.hero.intro a {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 15px 40px;
+  background-color: var(--brand-primary);
+  color: var(--background-color);
+  border-radius: var(--button-border-radius);
+  font-size: 16px;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  text-decoration: none;
+}
+
+.hero.intro a:hover,
+.hero.intro a:focus {
+  background-color: var(--brand-primary-light);
+}
+
+@media (width >= 768px) {
+  /* Desktop: image and text as two columns so the whole text block (heading,
+     subheading, CTA) sits left-aligned to the right of the image. */
+  .hero.intro .hero-intro-inner {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .hero.intro .hero-intro-image {
+    float: none;
+    flex: 0 0 auto;
+    width: 126px;
+    margin: 0 64px 0 0;
+  }
+
+  .hero.intro .hero-intro-text {
+    flex: 1;
+  }
+
+  .hero.intro .hero-intro-text h2 {
+    clear: none;
+  }
+
+  .hero.intro h1 {
+    font-size: 22px;
+  }
+
+  .hero.intro h2 {
+    font-size: 36px;
+  }
+}

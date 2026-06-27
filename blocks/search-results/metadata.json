@@ -1,0 +1,40 @@
+{
+  "variantName": "search-results",
+  "baseBlock": "search-results",
+  "version": "1.0.0",
+  "created": "2026-06-27T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.lundbeckmedinfo.com/us/en/hcp/search-results",
+    "originPage": "HCP search results page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "search-results-listing",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "results-count heading + column headers (Full Prescribing Information / Description / Access) + repeating result rows + no-results empty state",
+    "buttonCount": 1,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "product-information search results listings",
+      "query-driven results pages with column headers and per-result action links",
+      "pages with a no-results empty state"
+    ],
+    "notSuitableFor": [
+      "free-text site search autocomplete (use the search block)",
+      "the search input/filter form (use the search-product block)",
+      "general tabular data display (use the table block)"
+    ]
+  },
+  "newBlockRationale": "Genuinely new structural/behavioral block. The source div.searchresult product-info results listing has no equivalent among existing project blocks (search-product is the input form; the local search block is a free-text query-index autocomplete) or the lundbeck-libs library. Created with the base name (not a styled variant suffix) because it is a new structural block, not a visual variant of an existing block.",
+  "usage": {
+    "pagesUsing": ["/us/en/hcp/search-results"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-27T00:00:00.000Z"
+  }
+}

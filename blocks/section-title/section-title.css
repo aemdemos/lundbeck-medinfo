@@ -1,3 +1,5 @@
+@import url('./section-title-tokens.css');
+
 /* Section title: scoped to main; sizes use global heading tokens; text colors use :root palette tokens */
 
 main .section-title { /* @boilerplate */
