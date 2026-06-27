@@ -1,0 +1,12 @@
+/* section-title brand overrides (section-title.css @imports this file) */
+
+/* symmetric band padding; neutralize the heading's stray margins so the red band is balanced */
+main .section-title-wrapper .section-title {
+  padding: 14px 0;
+}
+
+main .section-title-wrapper .section-title .title,
+main .section-title-wrapper .section-title .subtitle {
+  margin-top: 0;
+  margin-bottom: 0;
+}

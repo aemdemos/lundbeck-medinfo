@@ -56,6 +56,7 @@
   --error-color: #c5221f;
   --section-divider-width: 1px; /* @libs */
   --section-divider-color: var(--link-hover-color); /* @libs */
+  --section-divider-top-color: #ccc;
   --section-padding: 24px;
 
   /* generic design-system scale — referenced by cards/form/search Tier 2 tokens.
@@ -587,6 +588,13 @@ main > .section > .bg-image img { /* @boilerplate */
   object-fit: cover; /* @boilerplate */
 }
 
+/* bg-contain: decorative fixed-shape background (e.g. a ribbon/plaque) sized to fit and
+   centered behind content, instead of stretched full-bleed. Author via section style. */
+main > .section.bg-contain > .bg-image img {
+  object-fit: contain;
+  object-position: center;
+}
+
 /* hcp-home hero: space text/fragment so bg image shows */
 main > .section.search-product-container > .default-content-wrapper {
   padding-top: var(--spacing-xl);
@@ -600,6 +608,12 @@ main > .section.search-product-container > .fragment-wrapper {
 main > .section.divider > div:last-child { /* @libs */
   border-bottom: var(--section-divider-width) solid var(--section-divider-color); /* @libs */
   padding-bottom: var(--section-padding);
+}
+
+/* divider-top: top border line on the section (mirror of .divider). Author via section style.
+   Set on the section itself so it works with or without a .bg-image. */
+main > .section.divider-top {
+  border-top: var(--section-divider-width) solid var(--section-divider-top-color);
 }
 
 main > .section > div:not(.bg-image) { /* @libs */
