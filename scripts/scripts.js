@@ -337,7 +337,7 @@ export function decorateSections(main) {
     let defaultContent = false;
     // Snapshot children so moving nodes during iteration doesn't invalidate indices
     const sectionChildren = [...section.children].slice(0, MAX_SECTION_CHILDREN);
-    for (const e of sectionChildren) {
+    sectionChildren.forEach((e) => {
       // from the da boilerplate
       if (e.classList.contains('richtext')) {
         e.removeAttribute('class');
@@ -354,7 +354,7 @@ export function decorateSections(main) {
         if (defaultContent) wrapper.classList.add('default-content-wrapper');
       }
       wrappers.at(-1)?.append(e);
-    }
+    });
 
     // Add wrapped content back
     wrappers.forEach((wrapper) => section.append(wrapper));
@@ -557,11 +557,9 @@ function parseSplitClasses(raw) {
 
 const SPLIT_INLINE_TAGS = new Set(['STRONG', 'EM', 'A', 'BR']);
 
-// eslint-disable-next-line sonarjs/slow-regex
 const SPLIT_OPEN_RE = /\[\[([a-z0-9,-]+)\]\s*$/;
 
-// eslint-disable-next-line sonarjs/slow-regex
-const BRACKET_RE = /\[\[[^\]]+\]([^\]]*)\]/g;
+const BRACKET_RE = /\[\[(?=([^\]]+))\1\](?=([^\]]*))\2\]/g;
 
 function applySplitBoundaryPass(el) {
   const children = [...el.childNodes];
