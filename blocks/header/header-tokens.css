@@ -24,3 +24,50 @@
   --header-line-height-m: 22px;
   --header-line-height-l: 24px;
 }
+
+/* medinfo brand header overrides (header.css @imports this file) */
+
+/* mobile header is the collapsed brand row; full nav height only applies at desktop */
+@media (width < 992px) {
+  header {
+    height: var(--nav-brand-row-height-mobile);
+  }
+}
+
+/* hide search (header.js builds it unconditionally) */
+header .nav-search,
+header .nav-mobile-search {
+  display: none;
+}
+
+/* hide hardcoded VYEPTI tagline */
+header nav .nav-brand .nav-brand-tagline {
+  display: none;
+}
+
+/* right-align desktop nav links */
+@media (width >= 992px) {
+  header .nav-links-list {
+    justify-content: flex-end;
+  }
+}
+
+/* dark nav link text (anchors wrapped in <p> by EDS) */
+header nav .nav-links-list > li,
+header nav .nav-links-list > li > a,
+header nav .nav-links-list > li > p,
+header nav .nav-links-list > li p a,
+header nav .nav-links-list > li > a {
+  color: var(--text-color);
+}
+
+header nav .nav-links-list > li:hover,
+header nav .nav-links-list > li p a:hover,
+header nav .nav-links-list > li > a:hover {
+  color: var(--brand-primary);
+}
+
+/* no active-page underline indicator */
+header nav .nav-links-list > li:first-child::after {
+  display: none;
+}

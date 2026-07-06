@@ -8,4 +8,38 @@
   --cards-card-body-margin: var(--spacing-s);
   --cards-image-aspect-ratio: 4 / 3; /* @boilerplate */
   --cards-image-object-fit: cover; /* @boilerplate */
+  --cards-icon-size: 64px;
+  --cards-icon-gap: var(--spacing-m);
+}
+
+/* icon beside text: lay the card out as an icon column + text column */
+.cards > ul > li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--cards-icon-gap);
+}
+
+.cards > ul > li > .cards-card-body:first-child {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.cards > ul > li > .cards-card-body:last-child {
+  flex: 1;
+  margin: 0;
+}
+
+/* drop default margins so icon top lines up with the heading */
+.cards > ul > li > .cards-card-body:first-child p {
+  margin: 0;
+}
+
+.cards > ul > li > .cards-card-body:last-child > :first-child {
+  margin-top: 0;
+}
+
+.cards > ul > li .icon,
+.cards > ul > li .icon img {
+  width: var(--cards-icon-size);
+  height: var(--cards-icon-size);
 }

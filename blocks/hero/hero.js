@@ -133,8 +133,53 @@ function consolidateSinglePanelImage(block) {
   imageCell.replaceChildren(built);
 }
 
+/**
+ * Intro variant: a small decorative image floated left with heading, subheading
+ * and a single CTA flowing beside it (and wrapping below on narrow widths).
+ * Used on simple message pages (404, thank-you). Authored as one row with an
+ * image cell + a text cell.
+ * @param {Element} block
+ */
+function decorateIntro(block) {
+  applyAccentColor(block);
+
+  const row = block.querySelector(':scope > div');
+  const cells = row ? [...row.children] : [];
+  const imageCell = cells[0];
+  const textCell = cells[1];
+  if (!imageCell || !textCell) return;
+
+  const picture = imageCell.querySelector('picture')
+    || buildPictureContentFromImageCell(imageCell);
+
+  const inner = document.createElement('div');
+  inner.className = 'hero-intro-inner';
+
+  const imageWrap = document.createElement('div');
+  imageWrap.className = 'hero-intro-image';
+  imageWrap.append(picture);
+  inner.append(imageWrap);
+
+  // Text in its own wrapper: at narrow widths the image floats and the text
+  // block flows around it (heading beside image, subheading/CTA below); at
+  // desktop the inner becomes a two-column flex (image | text).
+  const textWrap = document.createElement('div');
+  textWrap.className = 'hero-intro-text';
+  [...textCell.children].forEach((el) => textWrap.append(el));
+  inner.append(textWrap);
+
+  block.textContent = '';
+  block.append(inner);
+}
+
 export default function decorate(block) {
   const rows = [...block.children];
+
+  // Intro variant: small image + heading/CTA message panel
+  if (block.classList.contains('intro')) {
+    decorateIntro(block);
+    return;
+  }
 
   // Section style single-light / single-dark always renders as a single panel
   if (hasSingleSectionStyle(block)) {
