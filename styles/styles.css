@@ -553,12 +553,6 @@ main > .section { /* @libs */
   margin: 0; /* @libs */
 }
 
-main > .section > div:not(.bg-image) { /* @boilerplate */
-  max-width: var(--max-width-site); /* @boilerplate */
-  margin: auto; /* @boilerplate */
-  padding: 0 var(--spacing-m); /* @boilerplate */
-}
-
 /* Section metadata: background image sits behind content */
 main > .section:has(> .bg-image) { /* @boilerplate */
   position: relative; /* @boilerplate */
