@@ -110,6 +110,14 @@
   --icon-size: 24px; /* @libs */
   --h1-max-width: 14em; /* @libs */
 
+  /* hcp-home hero (section-level, not block-scoped) */
+  --hero-h1-font-size: 48px;
+  --hero-h1-max-width: 60%;
+  --hero-h2-max-width: 65%;
+
+  /* decorative plaque behind a section-title (e.g. "MORE FROM LUNDBECK") */
+  --section-title-bg-image-width: 360px;
+
   /* nav heights */
   --nav-height: 200px; /* @libs */
   --nav-brand-row-height-mobile: 97px; /* @libs */
@@ -589,6 +597,22 @@ main > .section.bg-contain > .bg-image img {
   object-position: center;
 }
 
+/* section-title sections with a decorative background image (e.g. the "MORE FROM
+   LUNDBECK" plaque) keep the shape centered at a constrained width rather than
+   stretching it full-bleed across the section. */
+main > .section.section-title-container > .bg-image {
+  left: 50%;
+  right: auto;
+  width: 100%;
+  max-width: var(--section-title-bg-image-width);
+  transform: translateX(-50%);
+}
+
+main > .section.section-title-container > .bg-image img {
+  object-fit: contain;
+  object-position: center;
+}
+
 /* hcp-home hero: space text/fragment so bg image shows */
 main > .section.search-product-container > .default-content-wrapper {
   padding-top: var(--spacing-xl);
@@ -801,6 +825,22 @@ main > .section > div:not(.bg-image) {
 
 main .section.stats-callout > div:not(.bg-image) {
   max-width: 960px;
+}
+
+/* HCP home hero: the headline column matches the search widget's full width,
+   and the H1 steps up to the display size used in the source. The headline
+   text wraps within the left ~60%, leaving the right side open (matches source). */
+main > .section:has(.search-product) > .default-content-wrapper {
+  max-width: var(--max-width-site);
+}
+
+main > .section:has(.search-product) > .default-content-wrapper h1 {
+  max-width: var(--hero-h1-max-width);
+  font-size: var(--hero-h1-font-size);
+}
+
+main > .section:has(.search-product) > .default-content-wrapper h2 {
+  max-width: var(--hero-h2-max-width);
 }
 
   main .section.accent > div { /* @libs */

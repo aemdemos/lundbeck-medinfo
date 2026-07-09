@@ -17,6 +17,105 @@
   display: block; /* @boilerplate */
 }
 
+/* In-content links inside divider columns are black + underlined (matches
+   source); the global default makes links brand-red with no underline. Button
+   CTAs (e.g. "Go to Form") keep their own styling and are excluded. */
+main .columns.divider a:not(.button) {
+  color: var(--columns-link-color);
+  text-decoration: var(--columns-link-decoration);
+}
+
+main .columns.divider a:not(.button):hover {
+  color: var(--columns-link-color);
+}
+
+/* divider columns: top-level list items (the icon rows) are spaced apart, but
+   nested sub-lists (e.g. the ABILIFY products) stay tightly grouped under their
+   parent line rather than inheriting the full paragraph margin + deep indent. */
+main .columns.divider ul {
+  margin: 0;
+  padding-inline-start: 1.5em;
+}
+
+main .columns.divider > div > div > ul {
+  padding-inline-start: 0;
+  list-style: none;
+}
+
+main .columns.divider > div > div > ul > li {
+  margin-bottom: 1.25rem;
+}
+
+/* paragraphs inside the icon-row list items carry the global 24px bottom margin,
+   which pushes any nested sub-list (e.g. "1-800-438-9927 for" under "Call") too
+   far down. Collapse it so nested lines sit directly under their parent line. */
+main .columns.divider > div > div > ul li p {
+  margin: 0;
+}
+
+/* icon-bullet rows: the leading icon sits in a fixed-width left gutter and all
+   the row's content (the first line, its wrapped lines, and any nested sub-list)
+   aligns to one consistent left edge to the right of the icon (matches source).
+   The icon is pulled into the gutter with absolute positioning, so this works
+   whether the icon is a direct child of the <li> or nested in its first <p>. */
+main .columns.divider > div > div > ul > li:has(.icon) {
+  position: relative;
+  padding-inline-start: var(--columns-icon-gutter);
+}
+
+main .columns.divider > div > div > ul > li > .icon:first-child,
+main .columns.divider > div > div > ul > li > p:first-child > .icon:first-child {
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+}
+
+main .columns.divider .icon img {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+main .columns.divider ul ul {
+  margin-top: 0.15em;
+}
+
+main .columns.divider ul ul li {
+  white-space: nowrap;
+}
+
+/* NARROW variant typography (HCP home). Mapped to the closest existing tokens;
+   source values noted where they differ. P stays 16px/400 (already correct). */
+
+/* block-1 heading — source 28px/800; nearest token is 24px (no 28px in scale) */
+main .columns.divider.narrow h5 {
+  font-size: var(--heading-font-size-l);
+  font-weight: var(--font-weight-extrabold);
+}
+
+/* block-1 col2 list text — source 18px/700 */
+main .columns.divider.narrow > div > div:nth-child(2) ul {
+  font-size: var(--body-font-size-ms);
+  font-weight: var(--font-weight-bold);
+}
+
+/* block-2 contact headings — source 18px/500 */
+main .columns.divider.narrow h4 {
+  font-size: var(--body-font-size-ms);
+  font-weight: var(--font-weight-medium);
+}
+
+/* block-2 phone link — source 18px/700 */
+main .columns.divider.narrow a[href^="tel:"] {
+  font-size: var(--body-font-size-ms);
+  font-weight: var(--font-weight-bold);
+}
+
+/* block-2 mail link — source 16px/400 */
+main .columns.divider.narrow a[href^="mailto:"] {
+  font-size: var(--body-font-size-s);
+  font-weight: 400;
+}
+
 /* stats-callout variant — vyepti study/survey results callouts.
    Teal headings, large red italic "X fewer" numbers, centered copy. */
 main .columns.stats-callout > div > div {
@@ -98,17 +197,67 @@ main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) > p:first
   }
 
   .columns.divider.columns-2-cols > div {
-    align-items: stretch;
+    align-items: flex-start;
     gap: 0;
   }
 
+  /* content is pushed toward the central divider, leaving outer margins
+     (matches source). align-items: flex-start keeps the divider only as
+     tall as its column's content rather than the full stretched height. */
   .columns.divider.columns-2-cols > div > :first-child {
-    padding-inline-end: var(--columns-divider-spacing);
+    padding-inline: var(--columns-outer-indent) var(--columns-divider-spacing);
   }
 
+  /* NARROW variant (opt-in, e.g. HCP home): text content is capped narrower than
+     the column box (source col1 text ~290px, col2 text ~440px) so it wraps like
+     the source and doesn't fill the full column width. Columns are equal height
+     with a full-height divider, split ~40/60, and the shorter first column
+     centers its content vertically. The default (no .narrow) divider block stays
+     wide — content fills the column — as used on medical-inquiry / patient home. */
+  .columns.divider.narrow.columns-2-cols > div {
+    align-items: stretch;
+  }
+
+  .columns.divider.narrow.columns-2-cols > div > :first-child {
+    flex: 0 0 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  /* keep the capped text block's own text left-aligned even though the block
+     is pushed toward the divider */
+  .columns.divider.narrow.columns-2-cols > div > :first-child > * {
+    width: 100%;
+    max-width: var(--columns-col1-text-width);
+  }
+
+  .columns.divider.narrow.columns-2-cols > div > :nth-child(2) {
+    flex: 0 0 60%;
+  }
+
+  .columns.divider.narrow.columns-2-cols > div > :nth-child(2) > * {
+    max-width: var(--columns-col2-text-width);
+  }
+
+  /* divider line drawn as a centered pseudo-element so it can be shorter than
+     the full column height (default 70%, leaving ~15% clear top and bottom).
+     A border-inline-start would always span the full height, so we use ::before. */
   .columns.divider.columns-2-cols > div > :nth-child(2) {
-    border-inline-start: var(--columns-divider-width) solid var(--columns-divider-color);
-    padding-inline-start: var(--columns-divider-spacing);
+    position: relative;
+    padding-inline: var(--columns-divider-spacing) var(--columns-outer-indent);
+  }
+
+  .columns.divider.columns-2-cols > div > :nth-child(2)::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--columns-divider-width);
+    height: var(--columns-divider-height);
+    background: var(--columns-divider-color);
   }
   
   main .columns.stats-callout > div {
@@ -134,5 +283,14 @@ main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) > p:first
 
   main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) {
     text-align: left;
+  }
+}
+
+/* Two-column divider sections span the full site width (matches the source
+   .banner-section, 1140px), overriding the boilerplate 780px content cap that
+   applies to section content wrappers at this breakpoint. */
+@media (width >= 992px) {
+  main > .section > .columns-wrapper:has(.columns.divider.columns-2-cols) {
+    max-width: var(--max-width-site);
   }
 }
