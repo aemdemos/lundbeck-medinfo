@@ -118,23 +118,22 @@ main > .section.hero-container:has(.hero.intro) {
   clear: left;
 }
 
+/* H1/H2 match the HCP home hero (brand-red display H1, medium-weight subhead) */
 .hero.intro h1 {
-  color: var(--text-color);
-  font-family: var(--heading-font-family);
-  font-size: var(--heading-font-size-l);
+  color: var(--brand-primary);
+  font-family: var(--display-font-family);
+  font-size: var(--heading-font-size-xxl);
   font-weight: var(--font-weight-extrabold);
-  line-height: 1.2;
-  letter-spacing: 0.02em;
-  margin: 0 0 8px;
-  text-transform: uppercase;
+  line-height: 1.17;
+  margin: 0 0 10px;
 }
 
 .hero.intro h2 {
   color: var(--text-color);
   font-family: var(--display-font-family);
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 1.2;
+  font-size: var(--heading-font-size-s);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.27;
   margin: 0;
   clear: left;
 }
@@ -181,11 +180,8 @@ main > .section.hero-container:has(.hero.intro) {
     clear: none;
   }
 
+  /* desktop: H1 steps up to the home-hero display size (48px); H2 stays 22px */
   .hero.intro h1 {
-    font-size: 22px;
-  }
-
-  .hero.intro h2 {
-    font-size: 36px;
+    font-size: var(--hero-h1-font-size, 48px);
   }
 }
