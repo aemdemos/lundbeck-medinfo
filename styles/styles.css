@@ -220,7 +220,22 @@ body { /* @libs */
 }
 
 body.appear { /* @libs */
-  display: block; /* @libs */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Sticky footer: main grows to push the footer to the bottom of the viewport on
+   short pages. main is itself a column so its last section can absorb the slack
+   and fill the empty space with that section's background (matches source). */
+main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+main > .section:last-child {
+  flex: 1 0 auto;
 }
 
 .color-secondary {
