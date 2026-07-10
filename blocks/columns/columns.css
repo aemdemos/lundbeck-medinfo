@@ -33,6 +33,20 @@ main .columns.divider a:not(.button):hover {
   color: var(--columns-link-color);
 }
 
+/* "Go to Form" CTA: fixed source size, centered label, no trailing arrow icon */
+main .columns.divider a.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--columns-cta-width, 228px);
+  height: var(--columns-cta-height, 53px);
+  padding: 0 1rem;
+}
+
+main .columns.divider a.button::after {
+  content: none;
+}
+
 /* divider columns: top-level list items (the icon rows) are spaced apart, but
    nested sub-lists (e.g. the ABILIFY products) stay tightly grouped under their
    parent line rather than inheriting the full paragraph margin + deep indent. */

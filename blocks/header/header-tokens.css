@@ -50,6 +50,12 @@ header nav .nav-brand .nav-brand-tagline {
   header .nav-links-list {
     justify-content: flex-end;
   }
+
+  /* header fits its content instead of the fixed --nav-height, removing the
+     empty gap the boilerplate 200px height left below the nav block. */
+  header {
+    height: auto;
+  }
 }
 
 /* dark nav link text (anchors wrapped in <p> by EDS) */

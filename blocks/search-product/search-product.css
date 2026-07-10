@@ -30,6 +30,7 @@ main .search-product .search-product-field {
 main .search-product .search-product-select,
 main .search-product .search-product-keywords {
   width: 100%;
+  min-height: var(--search-product-control-height, 52px);
   padding: 0.6rem 0.75rem;
   border: 1px solid var(--search-result-border-color, #ccc);
   border-radius: var(--search-input-border-radius);
@@ -37,6 +38,7 @@ main .search-product .search-product-keywords {
   font-weight: 500;
   color: var(--brand-primary, #ca411d);
   background: #fff;
+  box-sizing: border-box;
 }
 
 /* Custom dropdown affordance: red box with a white chevron (matches source).
@@ -68,6 +70,7 @@ main .search-product .search-product-button {
   justify-content: center;
   gap: 0.5rem;
   width: 100%;
+  min-height: var(--search-product-control-height, 52px);
   padding: 0.6rem 1.5rem;
   border: 0;
   border-radius: var(--search-input-border-radius);
@@ -75,6 +78,7 @@ main .search-product .search-product-button {
   color: #fff;
   font-weight: 700;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 main .search-product .search-product-button:hover {
@@ -116,12 +120,22 @@ main .search-product .search-product-confirm {
      subtext wraps beneath it (matches source ~316px inputs vs ~141px button). */
   main .search-product .search-product-select,
   main .search-product .search-product-field:not(:last-child) {
-    flex: 1 1 0;
+    flex: 1 1 var(--search-product-input-width, 316px);
+    min-width: 0;
     align-self: flex-start;
   }
 
   main .search-product .search-product-field:last-child {
-    flex: 0 0 var(--search-product-button-col-width, 150px);
+    flex: 0 0 var(--search-product-button-col-width, 115px);
+    min-width: 0;
+  }
+
+  /* subtexts under keyword/button may be longer than their column; don't let
+     them force the flex column wider than its allotted track */
+  main .search-product .search-product-field .search-product-help,
+  main .search-product .search-product-field .search-product-confirm {
+    width: 0;
+    min-width: 100%;
   }
 
   main .search-product .search-product-button {
