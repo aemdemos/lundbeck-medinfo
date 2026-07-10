@@ -10,6 +10,7 @@
   --cards-image-object-fit: cover; /* @boilerplate */
   --cards-icon-size: 48px;
   --cards-icon-gap: var(--spacing-m);
+  --cards-block-padding-vertical: 50px;
 }
 
 /* icon beside text: lay the card out as an icon column + text column */

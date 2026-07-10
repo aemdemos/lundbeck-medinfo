@@ -105,3 +105,9 @@ main .section[data-background-color] .section-title:not([class*="section-title-c
 main .section[data-background-color] .section-title:not([class*="section-title-color-"]) .subtitle {
   color: var(--background-color);
 }
+
+/* Section-title over a decorative plaque background image (e.g. "MORE FROM
+   LUNDBECK"): source uses a smaller 20px title than the plain band. */
+main .section:has(> .bg-image) .section-title .title {
+  font-size: 20px;
+}

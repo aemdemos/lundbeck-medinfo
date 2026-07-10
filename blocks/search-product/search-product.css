@@ -111,21 +111,21 @@ main .search-product .search-product-confirm {
     align-items: flex-start;
   }
 
-  main .search-product .search-product-select {
-    flex: 1 1 30%;
+  /* the three inputs (2 selects + keyword field) share the row and grow larger;
+     the button column is fixed narrow so the button stays small and its confirm
+     subtext wraps beneath it (matches source ~316px inputs vs ~141px button). */
+  main .search-product .search-product-select,
+  main .search-product .search-product-field:not(:last-child) {
+    flex: 1 1 0;
     align-self: flex-start;
   }
 
-  main .search-product .search-product-field {
-    flex: 1 1 30%;
-  }
-
   main .search-product .search-product-field:last-child {
-    flex: 0 0 auto;
+    flex: 0 0 var(--search-product-button-col-width, 150px);
   }
 
   main .search-product .search-product-button {
-    width: auto;
+    width: 100%;
   }
 }
 

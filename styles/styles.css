@@ -116,7 +116,7 @@
   --hero-h2-max-width: 65%;
 
   /* decorative plaque behind a section-title (e.g. "MORE FROM LUNDBECK") */
-  --section-title-bg-image-width: 360px;
+  --section-title-bg-image-width: 50%;
 
   /* nav heights */
   --nav-height: 200px; /* @libs */

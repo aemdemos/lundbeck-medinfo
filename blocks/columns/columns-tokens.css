@@ -11,4 +11,5 @@
   --columns-col2-text-width: 440px;
   --columns-link-color: var(--text-color);
   --columns-link-decoration: underline;
+  --columns-block-padding-vertical: 50px;
 }

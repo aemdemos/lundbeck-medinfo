@@ -1,5 +1,9 @@
 @import url('./columns-tokens.css');
 
+.columns { /* vertical breathing room around the columns */
+  padding-block: var(--columns-block-padding-vertical);
+}
+
 .columns > div { /* @boilerplate */
   display: flex; /* @boilerplate */
   flex-direction: column; /* @boilerplate */

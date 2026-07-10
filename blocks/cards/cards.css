@@ -1,5 +1,9 @@
 @import url('./cards-tokens.css');
 
+.cards { /* vertical breathing room around the grid */
+  padding-block: var(--cards-block-padding-vertical);
+}
+
 .cards > ul { /* @boilerplate */
   list-style: none; /* @boilerplate */
   margin: 0; /* @boilerplate */
