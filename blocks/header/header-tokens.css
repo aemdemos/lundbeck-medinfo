@@ -51,27 +51,21 @@ header nav .nav-brand .nav-brand-tagline {
     justify-content: flex-end;
   }
 
-  /* header fits its content instead of the fixed --nav-height, removing the
-     empty gap the boilerplate 200px height left below the nav block. */
+  /* header fits its content, removing the fixed --nav-height gap */
   header {
     height: auto;
   }
 
-  /* Single-row header (matches source for this brand): the boilerplate stacks
-     the brand row above the links row; flex the nav so the logo sits on the
-     left and the nav links on the right, on one vertically-centered line.
-     The nav is capped at the site content width and centered so the logo/links
-     align with the page sections below. Vertical padding (47px top / 25px
-     bottom) frames the links line to match the source. */
+  /* single-row header: logo left, links right, capped to the site content width */
   header nav {
     display: flex;
-    align-items: flex-end; /* links align to the bottom (matches source); logo sits above */
+    align-items: flex-end; /* links bottom-aligned; logo above */
     justify-content: space-between;
     flex-wrap: wrap;
     box-sizing: content-box;
     max-width: var(--max-width-site);
     margin-inline: auto;
-    padding: var(--header-links-padding-top, 47px) 32px var(--header-links-padding-bottom, 25px);
+    padding: var(--header-links-padding-top, 27px) 32px var(--header-links-padding-bottom, 15px);
   }
 
   header nav .nav-brand-row {
@@ -82,8 +76,7 @@ header nav .nav-brand .nav-brand-tagline {
     flex: 1 1 auto;
   }
 
-  /* the inner containers center themselves independently in the boilerplate
-     layout; neutralize that so the logo/links sit flush to the nav edges. */
+  /* neutralize inner-container centering so logo/links sit flush to nav edges */
   header nav .nav-brand-container,
   header nav .nav-links-container {
     max-width: none;

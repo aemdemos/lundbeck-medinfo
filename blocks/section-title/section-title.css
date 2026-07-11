@@ -98,16 +98,14 @@ main .section-title.center { text-align: center; } /* @boilerplate */
 main .section-title.right { text-align: right; } /* @boilerplate */
 main .section-title.left { text-align: left; } /* @boilerplate */
 
-/* On a section with a solid background colour (e.g. the brand-red band), the
-   title/subtitle default to white for contrast — unless an explicit
-   section-title-color-* class overrides it. */
+/* on a coloured-background section, title/subtitle default to white (unless a
+   section-title-color-* class overrides it) */
 main .section[data-background-color] .section-title:not([class*="section-title-color-"]) .title,
 main .section[data-background-color] .section-title:not([class*="section-title-color-"]) .subtitle {
   color: var(--background-color);
 }
 
-/* Section-title over a decorative plaque background image (e.g. "MORE FROM
-   LUNDBECK"): source uses a smaller 20px title than the plain band. */
+/* plaque background image (e.g. "MORE FROM LUNDBECK"): smaller 20px title */
 main .section:has(> .bg-image) .section-title .title {
   font-size: 20px;
 }

@@ -15,8 +15,7 @@ footer .footer p { /* @boilerplate */
   margin: 0; /* @boilerplate */
 }
 
-/* Mobile: the two sections stack. The links section is a 2-column grid; the
-   copyright section sits below it. */
+/* mobile: links as a 2-col grid, copyright stacked below */
 footer .footer > div > .section {
   display: grid;
   grid-template-columns: 1fr 1fr;

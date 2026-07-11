@@ -41,8 +41,7 @@ main .search-product .search-product-keywords {
   box-sizing: border-box;
 }
 
-/* Custom dropdown affordance: red box with a white chevron (matches source).
-   Hides the native select arrow. SVG scales to the control height. */
+/* custom dropdown affordance: red box + white chevron (hides native arrow) */
 main .search-product .search-product-select {
   appearance: none;
   padding-right: 2.5rem;
@@ -106,8 +105,7 @@ main .search-product .search-product-confirm {
   color: var(--text-color-secondary, #666);
 }
 
-/* Tablet+ : controls laid out in a row. Subtexts sit under their field via
-   the .search-product-field wrappers, aligned to the top of the row. */
+/* tablet+: controls in a row, subtexts under their fields */
 @media (width >= 600px) {
   main .search-product .search-product-controls {
     flex-direction: row;
@@ -115,9 +113,7 @@ main .search-product .search-product-confirm {
     align-items: flex-start;
   }
 
-  /* the three inputs (2 selects + keyword field) share the row and grow larger;
-     the button column is fixed narrow so the button stays small and its confirm
-     subtext wraps beneath it (matches source ~316px inputs vs ~141px button). */
+  /* three inputs share the row (~316px); button column fixed narrow */
   main .search-product .search-product-select,
   main .search-product .search-product-field:not(:last-child) {
     flex: 1 1 var(--search-product-input-width, 316px);
@@ -130,8 +126,7 @@ main .search-product .search-product-confirm {
     min-width: 0;
   }
 
-  /* subtexts under keyword/button may be longer than their column; don't let
-     them force the flex column wider than its allotted track */
+  /* keep long subtexts from forcing their flex column wider */
   main .search-product .search-product-field .search-product-help,
   main .search-product .search-product-field .search-product-confirm {
     width: 0;
@@ -143,8 +138,7 @@ main .search-product .search-product-confirm {
   }
 }
 
-/* Desktop: the widget breaks out of the default content column to the full
-   site width (matches source). Only widens wrappers that hold this widget. */
+/* desktop: widget breaks out to the full site width */
 @media (width >= 992px) {
   main > .section > .fragment-wrapper:has(.search-product),
   main > .section.search-product-container > .search-product-wrapper {

@@ -1,6 +1,6 @@
 /* section-title brand overrides (section-title.css @imports this file) */
 
-/* symmetric band padding; neutralize the heading's stray margins so the red band is balanced */
+/* symmetric band padding + neutralized heading margins */
 main .section-title-wrapper .section-title {
   padding: 14px 0;
 }
@@ -9,4 +9,21 @@ main .section-title-wrapper .section-title .title,
 main .section-title-wrapper .section-title .subtitle {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+/* columns-heading variant: title acting as the heading above a divider-columns
+   block; aligns to the first column's indent and hugs the columns. */
+@media (width >= 992px) {
+  main > .section:has(.section-title.columns-heading) > .section-title-wrapper {
+    max-width: var(--max-width-site);
+  }
+
+  main .section-title.columns-heading .title {
+    margin-inline-start: var(--columns-outer-indent);
+    margin-bottom: 0;
+  }
+
+  main > .section:has(.section-title.columns-heading) .columns {
+    padding-top: 0;
+  }
 }

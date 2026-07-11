@@ -39,8 +39,7 @@
   margin-top: 0;
 }
 
-/* the large card icon lives in the first body (icon column); scope the size
-   here so it doesn't affect small inline icons (e.g. the READ MORE arrow). */
+/* large card icon (icon column only, not inline link icons) */
 .cards > ul > li > .cards-card-body:first-child .icon,
 .cards > ul > li > .cards-card-body:first-child .icon img {
   width: var(--cards-icon-size);

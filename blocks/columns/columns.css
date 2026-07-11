@@ -21,9 +21,7 @@
   display: block; /* @boilerplate */
 }
 
-/* In-content links inside divider columns are black + underlined (matches
-   source); the global default makes links brand-red with no underline. Button
-   CTAs (e.g. "Go to Form") keep their own styling and are excluded. */
+/* divider-column in-content links: black + underlined (buttons excluded) */
 main .columns.divider a:not(.button) {
   color: var(--columns-link-color);
   text-decoration: var(--columns-link-decoration);
@@ -47,9 +45,7 @@ main .columns.divider a.button::after {
   content: none;
 }
 
-/* divider columns: top-level list items (the icon rows) are spaced apart, but
-   nested sub-lists (e.g. the ABILIFY products) stay tightly grouped under their
-   parent line rather than inheriting the full paragraph margin + deep indent. */
+/* divider columns: spaced icon rows, tightly-grouped nested sub-lists */
 main .columns.divider ul {
   margin: 0;
   padding-inline-start: 1.5em;
@@ -64,18 +60,12 @@ main .columns.divider > div > div > ul > li {
   margin-bottom: 1.25rem;
 }
 
-/* paragraphs inside the icon-row list items carry the global 24px bottom margin,
-   which pushes any nested sub-list (e.g. "1-800-438-9927 for" under "Call") too
-   far down. Collapse it so nested lines sit directly under their parent line. */
+/* collapse list-item paragraph margins so nested lines sit under their parent */
 main .columns.divider > div > div > ul li p {
   margin: 0;
 }
 
-/* icon-bullet rows: the leading icon sits in a fixed-width left gutter and all
-   the row's content (the first line, its wrapped lines, and any nested sub-list)
-   aligns to one consistent left edge to the right of the icon (matches source).
-   The icon is pulled into the gutter with absolute positioning, so this works
-   whether the icon is a direct child of the <li> or nested in its first <p>. */
+/* icon-bullet rows: icon in a fixed left gutter, text hangs to one aligned edge */
 main .columns.divider > div > div > ul > li:has(.icon) {
   position: relative;
   padding-inline-start: var(--columns-icon-gutter);
@@ -101,10 +91,9 @@ main .columns.divider ul ul li {
   white-space: nowrap;
 }
 
-/* NARROW variant typography (HCP home). Mapped to the closest existing tokens;
-   source values noted where they differ. P stays 16px/400 (already correct). */
+/* narrow variant typography (HCP home) */
 
-/* block-1 heading — source 28px/800; nearest token is 24px (no 28px in scale) */
+/* block-1 heading — source 28px/800; nearest token is 24px */
 main .columns.divider.narrow h5 {
   font-size: var(--heading-font-size-l);
   font-weight: var(--font-weight-extrabold);
@@ -134,8 +123,7 @@ main .columns.divider.narrow a[href^="mailto:"] {
   font-weight: 400;
 }
 
-/* stats-callout variant — vyepti study/survey results callouts.
-   Teal headings, large red italic "X fewer" numbers, centered copy. */
+/* stats-callout variant — teal headings, red italic numbers, centered copy */
 main .columns.stats-callout > div > div {
   text-align: center;
   align-items: flex-start;
@@ -173,8 +161,7 @@ main .columns.stats-callout p {
   margin: 0.4em 0;
 }
 
-/* survey results block (image + text rows): small circular patient photo with an
-   enlarged lead paragraph. Mobile-first: photo centered on top, centered text. */
+/* survey results block (image + text rows): centered photo + enlarged lead */
 main .columns.stats-callout:has(img) > div {
   gap: 1.5rem;
   align-items: center;
@@ -198,10 +185,7 @@ main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) > p:first
   line-height: 1.3;
 }
 
-/* Source (Bootstrap) breakpoint: the survey rows and intro/comparison columns
-   switch from stacked to side-by-side at 768px (col-md/col-lg on the source).
-   The base columns block only flips to a row at 900px, so the variant flips
-   its own flex-direction here to match the source. */
+/* desktop: columns flip from stacked to side-by-side at 768px (matches source) */
 @media (width >= 768px) {
   .columns > div { /* @boilerplate */
     align-items: center; /* @boilerplate */
@@ -219,19 +203,13 @@ main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) > p:first
     gap: 0;
   }
 
-  /* content is pushed toward the central divider, leaving outer margins
-     (matches source). align-items: flex-start keeps the divider only as
-     tall as its column's content rather than the full stretched height. */
+  /* content pushed toward the central divider, leaving outer margins */
   .columns.divider.columns-2-cols > div > :first-child {
     padding-inline: var(--columns-outer-indent) var(--columns-divider-spacing);
   }
 
-  /* NARROW variant (opt-in, e.g. HCP home): text content is capped narrower than
-     the column box (source col1 text ~290px, col2 text ~440px) so it wraps like
-     the source and doesn't fill the full column width. Columns are equal height
-     with a full-height divider, split ~40/60, and the shorter first column
-     centers its content vertically. The default (no .narrow) divider block stays
-     wide — content fills the column — as used on medical-inquiry / patient home. */
+  /* narrow variant (opt-in, HCP home): capped text widths, 40/60 split,
+     equal-height columns, col1 vertically centered */
   .columns.divider.narrow.columns-2-cols > div {
     align-items: stretch;
   }
@@ -244,8 +222,7 @@ main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) > p:first
     align-items: flex-end;
   }
 
-  /* keep the capped text block's own text left-aligned even though the block
-     is pushed toward the divider */
+  /* keep the capped text left-aligned within the divider-pushed block */
   .columns.divider.narrow.columns-2-cols > div > :first-child > * {
     width: 100%;
     max-width: var(--columns-col1-text-width);
@@ -259,9 +236,7 @@ main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) > p:first
     max-width: var(--columns-col2-text-width);
   }
 
-  /* divider line drawn as a centered pseudo-element so it can be shorter than
-     the full column height (default 70%, leaving ~15% clear top and bottom).
-     A border-inline-start would always span the full height, so we use ::before. */
+  /* divider line as a centered pseudo-element (can be shorter than full height) */
   .columns.divider.columns-2-cols > div > :nth-child(2) {
     position: relative;
     padding-inline: var(--columns-divider-spacing) var(--columns-outer-indent);
@@ -304,11 +279,10 @@ main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) > p:first
   }
 }
 
-/* Two-column divider sections span the full site width (matches the source
-   .banner-section, 1140px), overriding the boilerplate 780px content cap that
-   applies to section content wrappers at this breakpoint. */
+/* two-column divider sections (+ any lead line above them) span the site width */
 @media (width >= 992px) {
-  main > .section > .columns-wrapper:has(.columns.divider.columns-2-cols) {
+  main > .section:has(.columns.divider.columns-2-cols) > .columns-wrapper,
+  main > .section:has(.columns.divider.columns-2-cols) > .default-content-wrapper {
     max-width: var(--max-width-site);
   }
 }

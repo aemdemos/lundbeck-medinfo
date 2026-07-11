@@ -22,21 +22,23 @@
   margin: var(--cards-card-body-margin); /* @boilerplate */
 }
 
-/* card typography — source: H5 16px/700, body copy (incl. links) 14px/400 */
+/* card typography — source: H5 16px/700, body copy 14px/400, "READ MORE" link 16px */
 .cards .cards-card-body h5 {
   font-size: var(--body-font-size-s);
   font-weight: var(--font-weight-bold);
 }
 
-.cards .cards-card-body p,
-.cards .cards-card-body a {
+.cards .cards-card-body p {
   font-size: var(--body-font-size-xs);
   font-weight: 400;
 }
 
-/* READ MORE arrow: size to the text and tint it the link colour. decorateIcons
-   injects the SVG as an <img>, which can't be recoloured directly, so the icon
-   span is masked with the SVG and filled via background-color (currentColor). */
+.cards .cards-card-body a {
+  font-size: var(--body-font-size-s);
+  font-weight: 400;
+}
+
+/* READ MORE arrow: masked SVG tinted via currentColor, sized to the text */
 .cards .cards-card-body a .icon {
   width: 0.9em;
   height: 0.9em;
@@ -61,8 +63,7 @@
 }
 
 @media (width >= 992px) {
-  /* cards sections span the full site width to match the source, overriding the
-     boilerplate 780px content cap on section content wrappers at this breakpoint */
+  /* cards sections span the full site width */
   main > .section > div.cards-wrapper:not(.bg-image) {
     max-width: var(--max-width-site);
   }
