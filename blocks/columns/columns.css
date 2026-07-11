@@ -199,7 +199,7 @@ main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) > p:first
   }
 
   .columns.divider.columns-2-cols > div {
-    align-items: flex-start;
+    align-items: stretch;
     gap: 0;
   }
 

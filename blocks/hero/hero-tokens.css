@@ -142,6 +142,7 @@ main > .section.hero-container:has(.hero.intro) {
 .hero.intro.small h1 {
   font-size: var(--hero-intro-small-h1-font-size, 22px);
   font-weight: var(--hero-intro-small-h1-font-weight, 900);
+  color: var(--text-color);
 }
 
 .hero.intro.small h2 {
