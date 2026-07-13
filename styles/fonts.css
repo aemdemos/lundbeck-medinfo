@@ -4,7 +4,7 @@
    Weights supplied: ExtraLight 200, Medium 500, Bold 700, ExtraBold 800.
    No Regular(400) was provided, so 400 maps to Medium (closest available) for body + h6. */
 @font-face {
-  font-family: 'bliss-pro';
+  font-family: bliss-pro;
   font-style: normal;
   font-weight: 200;
   font-display: swap;
@@ -13,7 +13,7 @@
 }
 
 @font-face {
-  font-family: 'bliss-pro';
+  font-family: bliss-pro;
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -22,7 +22,7 @@
 }
 
 @font-face {
-  font-family: 'bliss-pro';
+  font-family: bliss-pro;
   font-style: normal;
   font-weight: 500;
   font-display: swap;
@@ -31,7 +31,7 @@
 }
 
 @font-face {
-  font-family: 'bliss-pro';
+  font-family: bliss-pro;
   font-style: normal;
   font-weight: 700;
   font-display: swap;
@@ -40,7 +40,7 @@
 }
 
 @font-face {
-  font-family: 'bliss-pro';
+  font-family: bliss-pro;
   font-style: normal;
   font-weight: 800;
   font-display: swap;
