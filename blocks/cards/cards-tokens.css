@@ -8,8 +8,9 @@
   --cards-card-body-margin: var(--spacing-s);
   --cards-image-aspect-ratio: 4 / 3; /* @boilerplate */
   --cards-image-object-fit: cover; /* @boilerplate */
-  --cards-icon-size: 64px;
+  --cards-icon-size: 48px;
   --cards-icon-gap: var(--spacing-m);
+  --cards-block-padding-vertical: 50px;
 }
 
 /* icon beside text: lay the card out as an icon column + text column */
@@ -38,8 +39,9 @@
   margin-top: 0;
 }
 
-.cards > ul > li .icon,
-.cards > ul > li .icon img {
+/* large card icon (icon column only, not inline link icons) */
+.cards > ul > li > .cards-card-body:first-child .icon,
+.cards > ul > li > .cards-card-body:first-child .icon img {
   width: var(--cards-icon-size);
   height: var(--cards-icon-size);
 }

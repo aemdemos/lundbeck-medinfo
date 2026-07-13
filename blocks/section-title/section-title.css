@@ -97,3 +97,15 @@ main .section-title .icon img { /* @boilerplate */
 main .section-title.center { text-align: center; } /* @boilerplate */
 main .section-title.right { text-align: right; } /* @boilerplate */
 main .section-title.left { text-align: left; } /* @boilerplate */
+
+/* on a coloured-background section, title/subtitle default to white (unless a
+   section-title-color-* class overrides it) */
+main .section[data-background-color] .section-title:not([class*="section-title-color-"]) .title,
+main .section[data-background-color] .section-title:not([class*="section-title-color-"]) .subtitle {
+  color: var(--background-color);
+}
+
+/* plaque background image (e.g. "MORE FROM LUNDBECK"): smaller 20px title */
+main .section:has(> .bg-image) .section-title .title {
+  font-size: 20px;
+}

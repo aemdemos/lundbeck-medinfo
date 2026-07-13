@@ -3,5 +3,15 @@
   --columns-gap: var(--spacing-m, 24px); /* @boilerplate */
   --columns-divider-width: 1px;
   --columns-divider-spacing: var(--spacing-l, 32px);
-  --columns-divider-color: var(--brand-primary-light);
+  --columns-divider-color: var(--brand-primary);
+  --columns-divider-height: 100%;
+  --columns-outer-indent: 8%;
+  --columns-icon-gutter: 2.5rem;
+  --columns-col1-text-width: 290px;
+  --columns-col2-text-width: 440px;
+  --columns-link-color: var(--text-color);
+  --columns-link-decoration: underline;
+  --columns-block-padding-vertical: 50px;
+  --columns-cta-width: 228px;
+  --columns-cta-height: 53px;
 }

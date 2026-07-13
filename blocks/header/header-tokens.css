@@ -50,6 +50,39 @@ header nav .nav-brand .nav-brand-tagline {
   header .nav-links-list {
     justify-content: flex-end;
   }
+
+  /* header fits its content, removing the fixed --nav-height gap */
+  header {
+    height: auto;
+  }
+
+  /* single-row header: logo left, links right, capped to the site content width */
+  header nav {
+    display: flex;
+    align-items: flex-end; /* links bottom-aligned; logo above */
+    justify-content: space-between;
+    flex-wrap: wrap;
+    box-sizing: content-box;
+    max-width: var(--max-width-site);
+    margin-inline: auto;
+    padding: var(--header-links-padding-top, 27px) 32px var(--header-links-padding-bottom, 15px);
+  }
+
+  header nav .nav-brand-row {
+    flex: 0 0 auto;
+  }
+
+  header nav .nav-links-row {
+    flex: 1 1 auto;
+  }
+
+  /* neutralize inner-container centering so logo/links sit flush to nav edges */
+  header nav .nav-brand-container,
+  header nav .nav-links-container {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 /* dark nav link text (anchors wrapped in <p> by EDS) */

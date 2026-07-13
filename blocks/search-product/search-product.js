@@ -11,6 +11,8 @@
  * On submit it composes a query and navigates to the results path.
  */
 
+import { decorateIcons } from '../../scripts/aem.js';
+
 function buildSelect(id, options, placeholder) {
   const select = document.createElement('select');
   select.id = id;
@@ -46,6 +48,7 @@ export default function decorate(block) {
   const productOptions = getListItems(rows[1]);
   const categoryOptions = getListItems(rows[2]);
   const keywordHelp = rows[3] ? rows[3].textContent.trim() : 'Separate multiple terms with a comma.';
+  const confirmText = rows[4] ? rows[4].textContent.trim() : '';
 
   const productPlaceholder = productOptions[0] || 'Select a Product*';
   const categoryPlaceholder = categoryOptions[0] || 'Category*';
@@ -76,18 +79,38 @@ export default function decorate(block) {
   keyword.placeholder = 'Keyword(s)';
   keyword.setAttribute('aria-label', 'Keywords');
 
+  const keywordField = document.createElement('div');
+  keywordField.className = 'search-product-field';
+  keywordField.append(keyword);
+  if (keywordHelp) {
+    const help = document.createElement('p');
+    help.className = 'search-product-help';
+    help.textContent = keywordHelp;
+    keywordField.append(help);
+  }
+
   const button = document.createElement('button');
   button.type = 'submit';
   button.className = 'search-product-button';
-  button.textContent = 'Search';
+  const icon = document.createElement('span');
+  icon.className = 'icon icon-search';
+  const buttonLabel = document.createElement('span');
+  buttonLabel.className = 'search-product-button-label';
+  buttonLabel.textContent = 'Search';
+  button.append(icon, buttonLabel);
 
-  controls.append(productSelect, categorySelect, keyword, button);
+  const buttonField = document.createElement('div');
+  buttonField.className = 'search-product-field';
+  buttonField.append(button);
+  if (confirmText) {
+    const confirm = document.createElement('p');
+    confirm.className = 'search-product-confirm';
+    confirm.textContent = confirmText;
+    buttonField.append(confirm);
+  }
+
+  controls.append(productSelect, categorySelect, keywordField, buttonField);
   form.append(controls);
-
-  const help = document.createElement('p');
-  help.className = 'search-product-help';
-  help.textContent = keywordHelp;
-  form.append(help);
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -103,4 +126,5 @@ export default function decorate(block) {
   });
 
   block.append(form);
+  decorateIcons(block);
 }

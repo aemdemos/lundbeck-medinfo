@@ -15,8 +15,45 @@ footer .footer p { /* @boilerplate */
   margin: 0; /* @boilerplate */
 }
 
+/* mobile: links as a 2-col grid, copyright stacked below */
+footer .footer > div > .section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--footer-links-gap, 16px 24px);
+}
+
+footer .footer > div > .section + .section {
+  grid-template-columns: 1fr;
+  margin-top: var(--footer-copyright-gap, 24px);
+}
+
+/* let the links/copyright paragraphs be direct grid/flex items */
+footer .footer .default-content-wrapper {
+  display: contents;
+}
+
 @media (width >= 768px) { /* @boilerplate */
   footer .footer > div { /* @boilerplate */
     padding: var(--footer-padding-desktop); /* @boilerplate */
+    display: flex; /* links section left, copyright section right */
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-l, 32px);
+  }
+
+  /* links in a single row on the left */
+  footer .footer > div > .section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--footer-links-gap-desktop, 40px);
+    margin-top: 0;
+  }
+
+  /* copyright right-aligned, no top margin on desktop */
+  footer .footer > div > .section + .section {
+    display: block;
+    margin-top: 0;
+    text-align: right;
   }
 }

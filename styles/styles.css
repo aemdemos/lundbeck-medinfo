@@ -110,6 +110,14 @@
   --icon-size: 24px; /* @libs */
   --h1-max-width: 14em; /* @libs */
 
+  /* hcp-home hero (section-level, not block-scoped) */
+  --hero-h1-font-size: 48px;
+  --hero-h1-max-width: 60%;
+  --hero-h2-max-width: 65%;
+
+  /* decorative plaque behind a section-title (e.g. "MORE FROM LUNDBECK") */
+  --section-title-bg-image-width: 50%;
+
   /* nav heights */
   --nav-height: 200px; /* @libs */
   --nav-brand-row-height-mobile: 97px; /* @libs */
@@ -212,7 +220,21 @@ body { /* @libs */
 }
 
 body.appear { /* @libs */
-  display: block; /* @libs */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* sticky footer: main grows to fill short pages; its last section absorbs the
+   slack so that section's background fills the space above the footer */
+main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+main > .section:last-child {
+  flex: 1 0 auto;
 }
 
 .color-secondary {
@@ -589,6 +611,20 @@ main > .section.bg-contain > .bg-image img {
   object-position: center;
 }
 
+/* section-title plaque image: centered at a constrained width, not full-bleed */
+main > .section.section-title-container > .bg-image {
+  left: 50%;
+  right: auto;
+  width: 100%;
+  max-width: var(--section-title-bg-image-width);
+  transform: translateX(-50%);
+}
+
+main > .section.section-title-container > .bg-image img {
+  object-fit: contain;
+  object-position: center;
+}
+
 /* hcp-home hero: space text/fragment so bg image shows */
 main > .section.search-product-container > .default-content-wrapper {
   padding-top: var(--spacing-xl);
@@ -801,6 +837,20 @@ main > .section > div:not(.bg-image) {
 
 main .section.stats-callout > div:not(.bg-image) {
   max-width: 960px;
+}
+
+/* HCP home hero: full-width headline column; H1/H2 wrap within the left ~60% */
+main > .section:has(.search-product) > .default-content-wrapper {
+  max-width: var(--max-width-site);
+}
+
+main > .section:has(.search-product) > .default-content-wrapper h1 {
+  max-width: var(--hero-h1-max-width);
+  font-size: var(--hero-h1-font-size);
+}
+
+main > .section:has(.search-product) > .default-content-wrapper h2 {
+  max-width: var(--hero-h2-max-width);
 }
 
   main .section.accent > div { /* @libs */
