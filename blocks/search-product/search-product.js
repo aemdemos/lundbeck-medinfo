@@ -118,11 +118,12 @@ export default function decorate(block) {
     categorySelect.classList.toggle('search-product-error', !categorySelect.value);
     if (!productSelect.value || !categorySelect.value) return;
 
-    const params = new URLSearchParams();
-    params.set('product', productSelect.value);
-    params.set('category', categorySelect.value);
-    if (keyword.value.trim()) params.set('q', keyword.value.trim());
-    window.location.assign(`/us/en/hcp/products?${params.toString()}`);
+    const resultsUrl = new URL('/us/en/hcp/products', window.location.origin);
+    resultsUrl.searchParams.set('product', productSelect.value);
+    resultsUrl.searchParams.set('category', categorySelect.value);
+    const trimmedKeyword = keyword.value.trim();
+    if (trimmedKeyword) resultsUrl.searchParams.set('q', trimmedKeyword);
+    window.location.href = `${resultsUrl.pathname}${resultsUrl.search}`;
   });
 
   block.append(form);
