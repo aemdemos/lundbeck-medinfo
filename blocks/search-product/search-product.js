@@ -21,9 +21,10 @@ let dropdownIdCounter = 0;
  * Builds a custom accessible dropdown. The first option is the placeholder.
  * @returns {{ el: HTMLElement, getValue: () => string, setError: (on: boolean) => void }}
  */
-function buildDropdown(options, placeholder) {
+function buildDropdown(options, placeholder, errorMessage) {
   dropdownIdCounter += 1;
   const listId = `search-product-listbox-${dropdownIdCounter}`;
+  const errorId = `search-product-error-${dropdownIdCounter}`;
   const values = options.slice(1); // drop the placeholder entry
 
   const wrap = document.createElement('div');
@@ -59,7 +60,13 @@ function buildDropdown(options, placeholder) {
     panel.append(item);
   });
 
-  wrap.append(trigger, panel);
+  const error = document.createElement('p');
+  error.className = 'search-product-error-message';
+  error.id = errorId;
+  error.textContent = errorMessage;
+  error.hidden = true;
+
+  wrap.append(trigger, panel, error);
 
   const close = () => {
     panel.hidden = true;
@@ -81,6 +88,8 @@ function buildDropdown(options, placeholder) {
     triggerLabel.textContent = item.textContent;
     triggerLabel.classList.remove('is-placeholder');
     wrap.classList.remove('search-product-error');
+    error.hidden = true;
+    trigger.removeAttribute('aria-describedby');
     close();
     trigger.focus();
   };
@@ -134,7 +143,12 @@ function buildDropdown(options, placeholder) {
   return {
     el: wrap,
     getValue: () => trigger.dataset.value,
-    setError: (on) => wrap.classList.toggle('search-product-error', on),
+    setError: (on) => {
+      wrap.classList.toggle('search-product-error', on);
+      error.hidden = !on;
+      if (on) trigger.setAttribute('aria-describedby', errorId);
+      else trigger.removeAttribute('aria-describedby');
+    },
   };
 }
 
@@ -151,6 +165,8 @@ export default function decorate(block) {
   const categoryOptions = getListItems(rows[2]);
   const keywordHelp = rows[3] ? rows[3].textContent.trim() : 'Separate multiple terms with a comma.';
   const confirmText = rows[4] ? rows[4].textContent.trim() : '';
+  const productError = rows[5] ? rows[5].textContent.trim() : 'Product selection is required';
+  const categoryError = rows[6] ? rows[6].textContent.trim() : 'Category selection is required';
 
   const productPlaceholder = productOptions[0] || 'Select a Product*';
   const categoryPlaceholder = categoryOptions[0] || 'Category*';
@@ -171,8 +187,8 @@ export default function decorate(block) {
   const controls = document.createElement('div');
   controls.className = 'search-product-controls';
 
-  const productDropdown = buildDropdown(productOptions, productPlaceholder);
-  const categoryDropdown = buildDropdown(categoryOptions, categoryPlaceholder);
+  const productDropdown = buildDropdown(productOptions, productPlaceholder, productError);
+  const categoryDropdown = buildDropdown(categoryOptions, categoryPlaceholder, categoryError);
 
   const keyword = document.createElement('input');
   keyword.type = 'text';

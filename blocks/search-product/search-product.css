@@ -120,6 +120,18 @@ main .search-product .search-product-keywords.search-product-error {
   border-color: var(--brand-secondary, #c8102e);
 }
 
+/* validation directive shown under a dropdown after a failed search submit */
+main .search-product .search-product-error-message {
+  margin: var(--spacing-xs, 0.5rem) 0 0;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--brand-primary, #ca411d);
+}
+
+main .search-product .search-product-error-message::before {
+  content: '* ';
+}
+
 main .search-product .search-product-button {
   display: flex;
   align-items: center;
