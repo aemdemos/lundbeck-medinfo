@@ -10,6 +10,34 @@ import {
 */
 
 /*
+  A gate remembers the visitor's choice for the current browser session, matching
+  the source site's cookies (session cookies, cleared when the browser closes):
+  - `showModal=1` marks the gate as answered so it does not reappear this session
+  - `clickedButton=hcp|patient|lundbeck` records which audience was chosen, which
+    downstream pages use to redirect. The value is derived from the option's href
+    (DA strips authored id/class attributes, so we cannot rely on them).
+  Reloads and navigation within the session skip the gate; a new session shows it.
+*/
+const GATE_DISMISS_COOKIE = 'showModal';
+const GATE_CHOICE_COOKIE = 'clickedButton';
+
+function isGateDismissed() {
+  return document.cookie.split('; ').some((c) => c === `${GATE_DISMISS_COOKIE}=1`);
+}
+
+function gateChoiceFromHref(href) {
+  if (/\/patient\//.test(href)) return 'patient';
+  if (/lundbeck\.com/.test(href)) return 'lundbeck';
+  if (/\/hcp\//.test(href)) return 'hcp';
+  return '';
+}
+
+function dismissGate(choice) {
+  document.cookie = `${GATE_DISMISS_COOKIE}=1; path=/; SameSite=Lax`;
+  if (choice) document.cookie = `${GATE_CHOICE_COOKIE}=${choice}; path=/; SameSite=Lax`;
+}
+
+/*
   Enhances a gate modal (e.g. the entrance interstitial) so its styling does not
   depend on authored classes/spans, which Document Authoring strips on publish:
   - tags the paragraph that holds the logo + title so CSS can lay it out as a header
@@ -33,7 +61,7 @@ function decorateGateContent(root) {
   });
 }
 
-export async function createModal(contentNodes, { staticBackdrop = false, gateKey } = {}) {
+export async function createModal(contentNodes, { staticBackdrop = false, gate = false } = {}) {
   await loadCSS(`${window.hlx.codeBasePath}/blocks/modal/modal.css`);
   const dialog = document.createElement('dialog');
   if (staticBackdrop) dialog.classList.add('modal-static-backdrop');
@@ -43,13 +71,11 @@ export async function createModal(contentNodes, { staticBackdrop = false, gateKe
   if (staticBackdrop) decorateGateContent(dialogContent);
   dialog.append(dialogContent);
 
-  // a gate remembers the visitor's choice so it does not reappear on reload
-  if (staticBackdrop && gateKey) {
+  // remember the visitor's choice for this session so the gate does not reappear
+  if (gate) {
     dialogContent.querySelectorAll('a.button').forEach((link) => {
       link.addEventListener('click', () => {
-        try {
-          window.localStorage.setItem(gateKey, '1');
-        } catch { /* storage unavailable — gate will show again, acceptable */ }
+        dismissGate(gateChoiceFromHref(link.getAttribute('href') || ''));
         dialog.close();
       });
     });
@@ -121,12 +147,8 @@ export async function openModal(fragmentUrl, options = {}) {
     ? new URL(fragmentUrl, window.location).pathname
     : fragmentUrl;
 
-  // a remembered gate choice suppresses the modal on subsequent visits
-  if (options.gateKey) {
-    try {
-      if (window.localStorage.getItem(options.gateKey)) return;
-    } catch { /* storage unavailable — fall through and show the gate */ }
-  }
+  // a remembered gate choice suppresses the modal for the rest of the session
+  if (options.gate && isGateDismissed()) return;
 
   const fragment = await loadFragment(path);
   const { showModal } = await createModal(fragment.childNodes, options);
