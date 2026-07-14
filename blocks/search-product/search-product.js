@@ -6,34 +6,136 @@
  *   Row 2: a list of product options (first item is the placeholder, e.g. "Select a Product*")
  *   Row 3: a list of category options (first item is the placeholder, e.g. "Category*")
  *   Row 4 (optional): keyword field help text
+ *   Row 5 (optional): confirmation text under the search button
  *
- * The block renders two dropdowns, a keyword input and a search button.
- * On submit it composes a query and navigates to the results path.
+ * Renders two custom dropdowns, a keyword input and a search button. Custom
+ * dropdowns (button + panel) are used instead of native <select> so the open
+ * menu can be styled to match the source (white panel, bordered rows).
  */
 
 import { decorateIcons } from '../../scripts/aem.js';
 
-function buildSelect(id, options, placeholder) {
-  const select = document.createElement('select');
-  select.id = id;
-  select.className = 'search-product-select';
-  select.setAttribute('aria-label', placeholder);
+let dropdownIdCounter = 0;
 
-  const items = [...options];
-  // first item is treated as the placeholder
-  items.forEach((label, i) => {
-    const opt = document.createElement('option');
-    opt.textContent = label;
-    if (i === 0) {
-      opt.value = '';
-      opt.disabled = true;
-      opt.selected = true;
-    } else {
-      opt.value = label;
-    }
-    select.append(opt);
+/**
+ * Builds a custom accessible dropdown. The first option is the placeholder.
+ * @returns {{ el: HTMLElement, getValue: () => string, setError: (on: boolean) => void }}
+ */
+function buildDropdown(options, placeholder) {
+  dropdownIdCounter += 1;
+  const listId = `search-product-listbox-${dropdownIdCounter}`;
+  const values = options.slice(1); // drop the placeholder entry
+
+  const wrap = document.createElement('div');
+  wrap.className = 'search-product-select';
+
+  const trigger = document.createElement('button');
+  trigger.type = 'button';
+  trigger.className = 'search-product-select-trigger';
+  trigger.setAttribute('aria-haspopup', 'listbox');
+  trigger.setAttribute('aria-expanded', 'false');
+  trigger.setAttribute('aria-label', placeholder);
+  trigger.dataset.value = '';
+  const triggerLabel = document.createElement('span');
+  triggerLabel.className = 'search-product-select-label is-placeholder';
+  triggerLabel.textContent = placeholder;
+  trigger.append(triggerLabel);
+
+  const panel = document.createElement('ul');
+  panel.className = 'search-product-select-panel';
+  panel.id = listId;
+  panel.setAttribute('role', 'listbox');
+  panel.hidden = true;
+  trigger.setAttribute('aria-controls', listId);
+
+  values.forEach((label) => {
+    const item = document.createElement('li');
+    item.className = 'search-product-select-option';
+    item.setAttribute('role', 'option');
+    item.setAttribute('aria-selected', 'false');
+    item.tabIndex = -1;
+    item.dataset.value = label;
+    item.textContent = label;
+    panel.append(item);
   });
-  return select;
+
+  wrap.append(trigger, panel);
+
+  const close = () => {
+    panel.hidden = true;
+    trigger.setAttribute('aria-expanded', 'false');
+  };
+  const open = () => {
+    document.dispatchEvent(new CustomEvent('search-product-dropdown-open', { detail: wrap }));
+    panel.hidden = false;
+    trigger.setAttribute('aria-expanded', 'true');
+    const current = panel.querySelector('[aria-selected="true"]') || panel.firstElementChild;
+    current?.focus();
+  };
+  const toggle = () => (panel.hidden ? open() : close());
+
+  const select = (item) => {
+    panel.querySelectorAll('[aria-selected="true"]').forEach((o) => o.setAttribute('aria-selected', 'false'));
+    item.setAttribute('aria-selected', 'true');
+    trigger.dataset.value = item.dataset.value;
+    triggerLabel.textContent = item.textContent;
+    triggerLabel.classList.remove('is-placeholder');
+    wrap.classList.remove('search-product-error');
+    close();
+    trigger.focus();
+  };
+
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggle();
+  });
+
+  trigger.addEventListener('keydown', (e) => {
+    if (['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(e.key)) {
+      e.preventDefault();
+      open();
+    }
+  });
+
+  panel.addEventListener('click', (e) => {
+    const item = e.target.closest('.search-product-select-option');
+    if (item) select(item);
+  });
+
+  panel.addEventListener('keydown', (e) => {
+    const items = [...panel.children];
+    const idx = items.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      (items[idx + 1] || items[0]).focus();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      (items[idx - 1] || items[items.length - 1]).focus();
+    } else if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      if (document.activeElement.classList.contains('search-product-select-option')) {
+        select(document.activeElement);
+      }
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      close();
+      trigger.focus();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!wrap.contains(e.target)) close();
+  });
+
+  document.addEventListener('search-product-dropdown-open', (e) => {
+    if (e.detail !== wrap) close();
+  });
+
+  return {
+    el: wrap,
+    getValue: () => trigger.dataset.value,
+    setError: (on) => wrap.classList.toggle('search-product-error', on),
+  };
 }
 
 function getListItems(row) {
@@ -69,8 +171,8 @@ export default function decorate(block) {
   const controls = document.createElement('div');
   controls.className = 'search-product-controls';
 
-  const productSelect = buildSelect('search-product-product', productOptions, productPlaceholder);
-  const categorySelect = buildSelect('search-product-category', categoryOptions, categoryPlaceholder);
+  const productDropdown = buildDropdown(productOptions, productPlaceholder);
+  const categoryDropdown = buildDropdown(categoryOptions, categoryPlaceholder);
 
   const keyword = document.createElement('input');
   keyword.type = 'text';
@@ -109,18 +211,20 @@ export default function decorate(block) {
     buttonField.append(confirm);
   }
 
-  controls.append(productSelect, categorySelect, keywordField, buttonField);
+  controls.append(productDropdown.el, categoryDropdown.el, keywordField, buttonField);
   form.append(controls);
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    productSelect.classList.toggle('search-product-error', !productSelect.value);
-    categorySelect.classList.toggle('search-product-error', !categorySelect.value);
-    if (!productSelect.value || !categorySelect.value) return;
+    const productValue = productDropdown.getValue();
+    const categoryValue = categoryDropdown.getValue();
+    productDropdown.setError(!productValue);
+    categoryDropdown.setError(!categoryValue);
+    if (!productValue || !categoryValue) return;
 
     const resultsUrl = new URL('/us/en/hcp/products', window.location.origin);
-    resultsUrl.searchParams.set('product', productSelect.value);
-    resultsUrl.searchParams.set('category', categorySelect.value);
+    resultsUrl.searchParams.set('product', productValue);
+    resultsUrl.searchParams.set('category', categoryValue);
     const trimmedKeyword = keyword.value.trim();
     if (trimmedKeyword) resultsUrl.searchParams.set('q', trimmedKeyword);
     window.location.href = `${resultsUrl.pathname}${resultsUrl.search}`;

@@ -14,6 +14,7 @@ main .search-product .search-product-intro {
   margin: 0 0 var(--spacing-s, 1rem);
   font-size: 1rem;
   font-weight: 400;
+  text-align: center;
 }
 
 main .search-product .search-product-controls {
@@ -27,8 +28,16 @@ main .search-product .search-product-field {
   flex-direction: column;
 }
 
-main .search-product .search-product-select,
+/* custom dropdown wrapper anchors the absolutely-positioned panel */
+main .search-product .search-product-select {
+  position: relative;
+}
+
+/* shared control chrome: closed dropdown trigger + keyword input */
+main .search-product .search-product-select-trigger,
 main .search-product .search-product-keywords {
+  display: flex;
+  align-items: center;
   width: 100%;
   min-height: var(--search-product-control-height, 52px);
   padding: 0.6rem 0.75rem;
@@ -36,29 +45,76 @@ main .search-product .search-product-keywords {
   border-radius: var(--search-input-border-radius);
   font-size: 1rem;
   font-weight: 500;
-  color: var(--brand-primary, #ca411d);
+  color: var(--text-color);
   background: #fff;
   box-sizing: border-box;
+  text-align: left;
 }
 
-/* custom dropdown affordance: red box + white chevron (hides native arrow) */
-main .search-product .search-product-select {
-  appearance: none;
+/* trigger shows a red box + white chevron on the right (matches source) */
+main .search-product .search-product-select-trigger {
   padding-right: 2.5rem;
+  cursor: pointer;
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect width="40" height="40" rx="3" fill="%23ca411d"/><polyline points="12,16 20,25 28,16" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>');
   background-repeat: no-repeat;
   background-position: right 0.6rem center;
   background-size: 1.5rem 1.5rem;
 }
 
-main .search-product .search-product-select option,
+/* placeholder label is red; a chosen value renders in the normal dark colour */
+main .search-product .search-product-select-label.is-placeholder {
+  color: var(--brand-primary, #ca411d);
+}
+
 main .search-product .search-product-keywords::placeholder {
   color: var(--brand-primary, #ca411d);
-  font-weight: 500;
   opacity: 1;
 }
 
-main .search-product .search-product-select.search-product-error,
+/* the fragment section wraps both the hero bg-image and this widget, so it
+   inherits the boilerplate overflow:hidden that clips bg-images. Undo it here
+   so the open dropdown panel can overlay content below the section. */
+main > .section:has(.search-product) {
+  overflow: visible;
+}
+
+/* open menu panel: white, bordered rows (matches source) */
+main .search-product .search-product-select-panel {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% - 1px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 320px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid var(--search-result-border-color, #ccc);
+  box-shadow: 0 6px 16px rgb(0 0 0 / 12%);
+}
+
+main .search-product .search-product-select-option {
+  padding: 0.7rem 0.75rem;
+  font-size: 1rem;
+  color: var(--text-color);
+  cursor: pointer;
+  border-top: 1px solid var(--search-result-border-color, #eee);
+}
+
+main .search-product .search-product-select-option:first-child {
+  border-top: 0;
+}
+
+main .search-product .search-product-select-option:hover,
+main .search-product .search-product-select-option:focus,
+main .search-product .search-product-select-option[aria-selected="true"] {
+  background: var(--light-color, #f2f2f2);
+  outline: none;
+}
+
+main .search-product .search-product-select.search-product-error .search-product-select-trigger,
 main .search-product .search-product-keywords.search-product-error {
   border-color: var(--brand-secondary, #c8102e);
 }
@@ -86,13 +142,15 @@ main .search-product .search-product-button:hover {
 
 main .search-product .search-product-button .icon {
   display: inline-flex;
-  width: 1.1em;
-  height: 1.1em;
+  flex: 0 0 auto;
+  width: 1.4em;
+  height: 1.4em;
 }
 
 main .search-product .search-product-button .icon img {
   width: 100%;
   height: 100%;
+  object-fit: contain;
 
   /* recolor the black source SVG to white to match the button text */
   filter: brightness(0) invert(1);
@@ -113,16 +171,17 @@ main .search-product .search-product-confirm {
     align-items: flex-start;
   }
 
-  /* three inputs share the row (~316px); button column fixed narrow */
+  /* three inputs share the row; button column wider so its confirm subtext
+     wraps to two lines instead of three */
   main .search-product .search-product-select,
   main .search-product .search-product-field:not(:last-child) {
-    flex: 1 1 var(--search-product-input-width, 316px);
+    flex: 1 1 var(--search-product-input-width, 300px);
     min-width: 0;
     align-self: flex-start;
   }
 
   main .search-product .search-product-field:last-child {
-    flex: 0 0 var(--search-product-button-col-width, 115px);
+    flex: 0 0 var(--search-product-button-col-width, 150px);
     min-width: 0;
   }
 
