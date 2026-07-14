@@ -9,9 +9,10 @@ import {
   Other blocks can also use the createModal() and openModal() functions.
 */
 
-export async function createModal(contentNodes) {
+export async function createModal(contentNodes, { staticBackdrop = false } = {}) {
   await loadCSS(`${window.hlx.codeBasePath}/blocks/modal/modal.css`);
   const dialog = document.createElement('dialog');
+  if (staticBackdrop) dialog.classList.add('modal-static-backdrop');
   const dialogContent = document.createElement('div');
   dialogContent.classList.add('modal-content');
   dialogContent.append(...contentNodes);
@@ -32,16 +33,29 @@ export async function createModal(contentNodes) {
   decorateBlock(block);
   await loadBlock(block);
 
-  // close on click outside the dialog
+  // click outside the dialog: close, or "bounce" when the backdrop is static
   dialog.addEventListener('click', (e) => {
     const {
       left, right, top, bottom,
     } = dialog.getBoundingClientRect();
     const { clientX, clientY } = e;
     if (clientX < left || clientX > right || clientY < top || clientY > bottom) {
-      dialog.close();
+      if (staticBackdrop) {
+        dialog.classList.remove('bounce');
+        // force reflow so the animation can retrigger on repeated clicks
+        void dialog.offsetWidth;
+        dialog.classList.add('bounce');
+      } else {
+        dialog.close();
+      }
     }
   });
+
+  if (staticBackdrop) {
+    dialog.addEventListener('animationend', () => dialog.classList.remove('bounce'));
+    // prevent Escape from dismissing a static-backdrop modal
+    dialog.addEventListener('cancel', (e) => e.preventDefault());
+  }
 
   dialog.addEventListener('close', () => {
     document.body.classList.remove('modal-open');
@@ -62,12 +76,12 @@ export async function createModal(contentNodes) {
   };
 }
 
-export async function openModal(fragmentUrl) {
+export async function openModal(fragmentUrl, options = {}) {
   const path = fragmentUrl.startsWith('http')
     ? new URL(fragmentUrl, window.location).pathname
     : fragmentUrl;
 
   const fragment = await loadFragment(path);
-  const { showModal } = await createModal(fragment.childNodes);
+  const { showModal } = await createModal(fragment.childNodes, options);
   showModal();
 }

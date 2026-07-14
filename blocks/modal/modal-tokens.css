@@ -11,3 +11,79 @@
   --modal-close-icon-size: var(--icon-size); /* @boilerplate */
   --modal-close-icon-thickness: 2px; /* @boilerplate */
 }
+
+/* static-backdrop "bounce" when clicking outside the entrance modal */
+.modal dialog.modal-static-backdrop.bounce {
+  animation: modal-bounce 0.3s ease-out;
+}
+
+@keyframes modal-bounce {
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+/* entrance interstitial styling */
+.modal dialog.modal-static-backdrop {
+  border-radius: 8px;
+}
+
+.modal dialog.modal-static-backdrop .default-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal dialog.modal-static-backdrop picture {
+  display: block;
+  padding-bottom: 24px;
+  border-bottom: var(--border-width-s) solid var(--brand-primary);
+}
+
+.modal dialog.modal-static-backdrop picture img {
+  width: 154px;
+  height: auto;
+}
+
+.modal dialog.modal-static-backdrop h2 {
+  margin: 0;
+  color: var(--text-color);
+  font-weight: var(--heading-font-weight);
+}
+
+.modal dialog.modal-static-backdrop p:not(.button-wrapper) {
+  margin: 0;
+  font-size: var(--heading-font-size-l);
+  font-weight: 500;
+}
+
+.modal dialog.modal-static-backdrop .button-wrapper {
+  margin: 0;
+}
+
+.modal dialog.modal-static-backdrop .button-wrapper .button {
+  display: block;
+  width: 100%;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  padding: 20px 24px;
+  background-color: var(--brand-primary);
+  color: var(--background-color);
+  font-size: var(--heading-font-size-l);
+  font-weight: var(--heading-font-weight);
+  text-align: center;
+}
+
+.modal dialog.modal-static-backdrop .button-wrapper .button:hover {
+  background-color: var(--brand-primary-dark);
+}
+
+.modal dialog.modal-static-backdrop .button-wrapper .button span {
+  display: block;
+  margin-top: 4px;
+  color: var(--background-color);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
