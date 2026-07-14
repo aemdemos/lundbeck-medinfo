@@ -80,13 +80,11 @@ main > .section:has(.search-product) {
   overflow: visible;
 }
 
-/* open menu panel: white, bordered rows (matches source) */
+/* open menu panel: white, bordered rows (matches source).
+   Mobile default = accordion: the panel sits in normal flow and pushes the
+   fields below it down. Desktop overrides this to an absolute overlay. */
 main .search-product .search-product-select-panel {
-  position: absolute;
-  z-index: 10;
-  top: calc(100% - 1px);
-  left: 0;
-  right: 0;
+  position: static;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -94,7 +92,7 @@ main .search-product .search-product-select-panel {
   overflow-y: auto;
   background: #fff;
   border: 1px solid var(--search-result-border-color, #ccc);
-  box-shadow: 0 6px 16px rgb(0 0 0 / 12%);
+  border-top: 0;
 }
 
 main .search-product .search-product-select-option {
@@ -182,6 +180,17 @@ main .search-product .search-product-confirm {
   main .search-product .search-product-controls {
     flex-flow: row nowrap;
     align-items: flex-start;
+  }
+
+  /* desktop: menu is an absolute overlay dropping over content below */
+  main .search-product .search-product-select-panel {
+    position: absolute;
+    z-index: 10;
+    top: calc(100% - 1px);
+    left: 0;
+    right: 0;
+    border-top: 1px solid var(--search-result-border-color, #ccc);
+    box-shadow: 0 6px 16px rgb(0 0 0 / 12%);
   }
 
   /* three inputs share the row; button column wider so its confirm subtext
