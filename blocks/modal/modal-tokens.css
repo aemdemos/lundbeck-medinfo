@@ -12,7 +12,12 @@
   --modal-close-icon-thickness: 2px; /* @boilerplate */
 }
 
-/* static-backdrop "bounce" when clicking outside the entrance modal */
+/* ==========================================================================
+   Entrance interstitial (static-backdrop gate modal)
+   Matches https://www.lundbeckmedinfo.com/us/en/hcp/home entrance popup.
+   ========================================================================== */
+
+/* "bounce" when clicking outside the gate */
 .modal dialog.modal-static-backdrop.bounce {
   animation: modal-bounce 0.3s ease-out;
 }
@@ -23,37 +28,68 @@
   }
 }
 
-/* entrance interstitial styling */
+/* ---- base: mobile (< 576px) ---------------------------------------------- */
+
+/* dialog sits near the top of the viewport rather than vertically centred */
 .modal dialog.modal-static-backdrop {
+  box-sizing: border-box;
+  width: calc(100vw - 16px);
+  max-width: none;
+  max-height: none;
+  height: max-content;
+  margin: 8px auto 0;
+  overflow: hidden;
+  border: var(--border-width-s) solid rgb(0 0 0 / 17.6%);
   border-radius: 8px;
+  background-color: var(--background-color);
+}
+
+.modal dialog.modal-static-backdrop .modal-content {
+  max-height: none;
+  margin-top: 0;
+  padding: 48px 16px;
 }
 
 .modal dialog.modal-static-backdrop .default-content-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
 }
 
-.modal dialog.modal-static-backdrop picture {
-  display: block;
+/* header: logo + title, stacked & centred on mobile */
+.modal dialog.modal-static-backdrop .entrance-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
   padding-bottom: 24px;
   border-bottom: var(--border-width-s) solid var(--brand-primary);
+  text-align: center;
 }
 
-.modal dialog.modal-static-backdrop picture img {
-  width: 154px;
+.modal dialog.modal-static-backdrop .entrance-header picture {
+  flex-shrink: 0;
+}
+
+.modal dialog.modal-static-backdrop .entrance-header img {
+  display: block;
+  width: 125px;
   height: auto;
 }
 
-.modal dialog.modal-static-backdrop h2 {
-  margin: 0;
+.modal dialog.modal-static-backdrop .entrance-header strong {
   color: var(--text-color);
-  font-weight: var(--heading-font-weight);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.2;
 }
 
-.modal dialog.modal-static-backdrop p:not(.button-wrapper) {
+/* "Select the option that describes you." */
+.modal dialog.modal-static-backdrop p:not(.entrance-header, .button-wrapper) {
   margin: 0;
-  font-size: var(--heading-font-size-l);
+  color: var(--text-color);
+  font-size: 22px;
   font-weight: 500;
 }
 
@@ -64,15 +100,24 @@
 .modal dialog.modal-static-backdrop .button-wrapper .button {
   display: block;
   width: 100%;
+  height: auto;
   margin: 0;
   border: none;
   border-radius: 0;
-  padding: 20px 24px;
+  padding: 16px 15px;
   background-color: var(--brand-primary);
   color: var(--background-color);
-  font-size: var(--heading-font-size-l);
+  font-size: 18px;
   font-weight: var(--heading-font-weight);
+  line-height: 1.25;
   text-align: center;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.modal dialog.modal-static-backdrop .button-wrapper .button::after {
+  content: none;
 }
 
 .modal dialog.modal-static-backdrop .button-wrapper .button:hover {
@@ -82,8 +127,78 @@
 .modal dialog.modal-static-backdrop .button-wrapper .button span {
   display: block;
   margin-top: 4px;
-  color: var(--background-color);
-  font-size: 1rem;
+  color: rgb(231 233 222);
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 22px;
+}
+
+/* ---- >= 576px : dialog widens, stays top-anchored ------------------------ */
+@media (width >= 576px) {
+  .modal dialog.modal-static-backdrop {
+    width: 500px;
+    margin-top: 28px;
+  }
+}
+
+/* ---- >= 768px : header side-by-side, larger type ------------------------- */
+@media (width >= 768px) {
+  .modal dialog.modal-static-backdrop {
+    width: 678px;
+  }
+
+  .modal dialog.modal-static-backdrop .modal-content {
+    padding: 48px 24px;
+  }
+
+  .modal dialog.modal-static-backdrop .entrance-header {
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .modal dialog.modal-static-backdrop .entrance-header img {
+    width: 154px;
+  }
+
+  .modal dialog.modal-static-backdrop .entrance-header strong {
+    font-size: 32px;
+  }
+
+  .modal dialog.modal-static-backdrop p:not(.entrance-header, .button-wrapper) {
+    font-size: 24px;
+  }
+
+  .modal dialog.modal-static-backdrop .button-wrapper .button {
+    padding: 22px 34px;
+    font-size: 28px;
+  }
+}
+
+/* ---- >= 992px : full desktop width & final type sizes -------------------- */
+@media (width >= 992px) {
+  .modal dialog.modal-static-backdrop {
+    width: 930px;
+  }
+
+  .modal dialog.modal-static-backdrop .modal-content {
+    padding: 48px 50px;
+  }
+
+  .modal dialog.modal-static-backdrop .entrance-header img {
+    width: 150px;
+  }
+
+  .modal dialog.modal-static-backdrop .entrance-header strong {
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  .modal dialog.modal-static-backdrop p:not(.entrance-header, .button-wrapper) {
+    font-size: 28px;
+  }
+
+  .modal dialog.modal-static-backdrop .button-wrapper .button {
+    padding: 15px 29px 16px;
+  }
 }

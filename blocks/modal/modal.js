@@ -18,15 +18,18 @@ export async function createModal(contentNodes, { staticBackdrop = false } = {})
   dialogContent.append(...contentNodes);
   dialog.append(dialogContent);
 
-  const closeButton = document.createElement('button');
-  closeButton.classList.add('close-button');
-  closeButton.setAttribute('aria-label', 'Close');
-  closeButton.type = 'button';
-  const closeIcon = document.createElement('span');
-  closeIcon.className = 'icon icon-close';
-  closeButton.appendChild(closeIcon);
-  closeButton.addEventListener('click', () => dialog.close());
-  dialog.prepend(closeButton);
+  // a static-backdrop modal is a gate (e.g. entrance interstitial): no close button
+  if (!staticBackdrop) {
+    const closeButton = document.createElement('button');
+    closeButton.classList.add('close-button');
+    closeButton.setAttribute('aria-label', 'Close');
+    closeButton.type = 'button';
+    const closeIcon = document.createElement('span');
+    closeIcon.className = 'icon icon-close';
+    closeButton.appendChild(closeIcon);
+    closeButton.addEventListener('click', () => dialog.close());
+    dialog.prepend(closeButton);
+  }
 
   const block = buildBlock('modal', '');
   document.querySelector('main').append(block);
@@ -43,7 +46,7 @@ export async function createModal(contentNodes, { staticBackdrop = false } = {})
       if (staticBackdrop) {
         dialog.classList.remove('bounce');
         // force reflow so the animation can retrigger on repeated clicks
-        void dialog.offsetWidth;
+        dialog.getBoundingClientRect();
         dialog.classList.add('bounce');
       } else {
         dialog.close();
