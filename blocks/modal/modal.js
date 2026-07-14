@@ -33,8 +33,8 @@ function gateChoiceFromHref(href) {
 }
 
 function dismissGate(choice) {
-  document.cookie = `${GATE_DISMISS_COOKIE}=1; path=/; SameSite=Lax`;
-  if (choice) document.cookie = `${GATE_CHOICE_COOKIE}=${choice}; path=/; SameSite=Lax`;
+  document.cookie = `${GATE_DISMISS_COOKIE}=1; path=/; SameSite=Lax; Secure`;
+  if (choice) document.cookie = `${GATE_CHOICE_COOKIE}=${choice}; path=/; SameSite=Lax; Secure`;
 }
 
 /*
