@@ -56,12 +56,20 @@
   gap: 24px;
 }
 
-/* header: logo + title, stacked & centred on mobile */
+/* ---- >= 576px : centred, capped at 500px, larger top margin ------------- */
+@media (width >= 576px) {
+  .modal dialog.modal-static-backdrop {
+    width: 500px;
+    margin-top: 28px;
+  }
+}
+
+/* header: logo + title, stacked & centred on mobile (< 768px) */
 .modal dialog.modal-static-backdrop .gate-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 25px;
   margin: 0;
   padding-bottom: 24px;
   border-bottom: var(--border-width-s) solid var(--brand-primary);
@@ -82,7 +90,7 @@
   color: var(--text-color);
   font-size: 22px;
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 26px;
 }
 
 /* "Select the option that describes you." */
@@ -91,6 +99,7 @@
   color: var(--text-color);
   font-size: 22px;
   font-weight: 500;
+  line-height: 26px;
 }
 
 .modal dialog.modal-static-backdrop .button-wrapper {
@@ -104,16 +113,22 @@
   margin: 0;
   border: none;
   border-radius: 0;
-  padding: 16px 15px;
+  padding: 36px 15px;
   background-color: var(--brand-primary);
   color: var(--background-color);
   font-size: 18px;
   font-weight: var(--heading-font-weight);
-  line-height: 1.25;
+  line-height: 18px;
   text-align: center;
   white-space: normal;
   overflow: visible;
   text-overflow: clip;
+}
+
+/* buttons with a sub-text line need less vertical padding to match heights */
+.modal dialog.modal-static-backdrop .button-wrapper .button.has-subtext {
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
 .modal dialog.modal-static-backdrop .button-wrapper .button::after {
@@ -128,17 +143,9 @@
   display: block;
   margin-top: 4px;
   color: rgb(231 233 222);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
-  line-height: 22px;
-}
-
-/* ---- >= 576px : dialog widens, stays top-anchored ------------------------ */
-@media (width >= 576px) {
-  .modal dialog.modal-static-backdrop {
-    width: 500px;
-    margin-top: 28px;
-  }
+  line-height: 18px;
 }
 
 /* ---- >= 768px : header side-by-side, larger type ------------------------- */
@@ -153,7 +160,9 @@
 
   .modal dialog.modal-static-backdrop .gate-header {
     flex-direction: row;
+    align-items: center;
     justify-content: flex-start;
+    gap: 47px;
     text-align: left;
   }
 
@@ -163,15 +172,28 @@
 
   .modal dialog.modal-static-backdrop .gate-header strong {
     font-size: 32px;
+    line-height: 36px;
   }
 
   .modal dialog.modal-static-backdrop p:not(.gate-header, .button-wrapper) {
     font-size: 24px;
+    line-height: 28px;
   }
 
   .modal dialog.modal-static-backdrop .button-wrapper .button {
-    padding: 22px 34px;
+    padding: 34px;
     font-size: 28px;
+    line-height: 28px;
+  }
+
+  .modal dialog.modal-static-backdrop .button-wrapper .button.has-subtext {
+    padding-top: 22px;
+    padding-bottom: 22px;
+  }
+
+  .modal dialog.modal-static-backdrop .button-wrapper .button span {
+    font-size: 16px;
+    line-height: 22px;
   }
 }
 
@@ -185,6 +207,10 @@
     padding: 48px 50px;
   }
 
+  .modal dialog.modal-static-backdrop .gate-header {
+    gap: 48px;
+  }
+
   .modal dialog.modal-static-backdrop .gate-header img {
     width: 150px;
   }
@@ -192,13 +218,21 @@
   .modal dialog.modal-static-backdrop .gate-header strong {
     font-size: 26px;
     font-weight: 700;
+    line-height: 36px;
   }
 
   .modal dialog.modal-static-backdrop p:not(.gate-header, .button-wrapper) {
     font-size: 28px;
+    line-height: 36px;
   }
 
   .modal dialog.modal-static-backdrop .button-wrapper .button {
-    padding: 15px 29px 16px;
+    padding: 29px;
+    font-size: 28px;
+  }
+
+  .modal dialog.modal-static-backdrop .button-wrapper .button.has-subtext {
+    padding-top: 15px;
+    padding-bottom: 16px;
   }
 }

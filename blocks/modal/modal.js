@@ -28,6 +28,7 @@ function decorateGateContent(root) {
       const sub = document.createElement('span');
       sub.textContent = text.slice(label.length);
       link.append(sub);
+      link.classList.add('has-subtext');
     }
   });
 }
