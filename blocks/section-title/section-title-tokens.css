@@ -11,6 +11,12 @@ main .section-title-wrapper .section-title .subtitle {
   margin-bottom: 0;
 }
 
+/* columns-heading title: 18px/700 (l token is 18px on mobile) */
+main .section-title.columns-heading .title {
+  font-size: var(--heading-font-size-l);
+  font-weight: var(--font-weight-bold);
+}
+
 /* columns-heading variant: title acting as the heading above a divider-columns
    block; aligns to the first column's indent and hugs the columns. */
 @media (width >= 992px) {
