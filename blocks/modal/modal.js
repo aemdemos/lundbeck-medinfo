@@ -9,6 +9,29 @@ import {
   Other blocks can also use the createModal() and openModal() functions.
 */
 
+/*
+  Enhances a gate modal (e.g. the entrance interstitial) so its styling does not
+  depend on authored classes/spans, which Document Authoring strips on publish:
+  - tags the paragraph that holds the logo + title so CSS can lay it out as a header
+  - splits each option button into a bold label + lighter sub-text line, using the
+    link's `title` (the short label) to find where the descriptive text begins
+*/
+function decorateGateContent(root) {
+  const header = [...root.querySelectorAll('p')].find((p) => p.querySelector('picture'));
+  if (header) header.classList.add('gate-header');
+
+  root.querySelectorAll('a.button').forEach((link) => {
+    const label = link.getAttribute('title');
+    const text = link.textContent;
+    if (label && text.startsWith(label) && text.length > label.length) {
+      link.textContent = label;
+      const sub = document.createElement('span');
+      sub.textContent = text.slice(label.length);
+      link.append(sub);
+    }
+  });
+}
+
 export async function createModal(contentNodes, { staticBackdrop = false } = {}) {
   await loadCSS(`${window.hlx.codeBasePath}/blocks/modal/modal.css`);
   const dialog = document.createElement('dialog');
@@ -16,6 +39,7 @@ export async function createModal(contentNodes, { staticBackdrop = false } = {})
   const dialogContent = document.createElement('div');
   dialogContent.classList.add('modal-content');
   dialogContent.append(...contentNodes);
+  if (staticBackdrop) decorateGateContent(dialogContent);
   dialog.append(dialogContent);
 
   // a static-backdrop modal is a gate (e.g. entrance interstitial): no close button

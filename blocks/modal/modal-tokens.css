@@ -57,7 +57,7 @@
 }
 
 /* header: logo + title, stacked & centred on mobile */
-.modal dialog.modal-static-backdrop .entrance-header {
+.modal dialog.modal-static-backdrop .gate-header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,17 +68,17 @@
   text-align: center;
 }
 
-.modal dialog.modal-static-backdrop .entrance-header picture {
+.modal dialog.modal-static-backdrop .gate-header picture {
   flex-shrink: 0;
 }
 
-.modal dialog.modal-static-backdrop .entrance-header img {
+.modal dialog.modal-static-backdrop .gate-header img {
   display: block;
   width: 125px;
   height: auto;
 }
 
-.modal dialog.modal-static-backdrop .entrance-header strong {
+.modal dialog.modal-static-backdrop .gate-header strong {
   color: var(--text-color);
   font-size: 22px;
   font-weight: 500;
@@ -86,7 +86,7 @@
 }
 
 /* "Select the option that describes you." */
-.modal dialog.modal-static-backdrop p:not(.entrance-header, .button-wrapper) {
+.modal dialog.modal-static-backdrop p:not(.gate-header, .button-wrapper) {
   margin: 0;
   color: var(--text-color);
   font-size: 22px;
@@ -151,21 +151,21 @@
     padding: 48px 24px;
   }
 
-  .modal dialog.modal-static-backdrop .entrance-header {
+  .modal dialog.modal-static-backdrop .gate-header {
     flex-direction: row;
     justify-content: flex-start;
     text-align: left;
   }
 
-  .modal dialog.modal-static-backdrop .entrance-header img {
+  .modal dialog.modal-static-backdrop .gate-header img {
     width: 154px;
   }
 
-  .modal dialog.modal-static-backdrop .entrance-header strong {
+  .modal dialog.modal-static-backdrop .gate-header strong {
     font-size: 32px;
   }
 
-  .modal dialog.modal-static-backdrop p:not(.entrance-header, .button-wrapper) {
+  .modal dialog.modal-static-backdrop p:not(.gate-header, .button-wrapper) {
     font-size: 24px;
   }
 
@@ -185,16 +185,16 @@
     padding: 48px 50px;
   }
 
-  .modal dialog.modal-static-backdrop .entrance-header img {
+  .modal dialog.modal-static-backdrop .gate-header img {
     width: 150px;
   }
 
-  .modal dialog.modal-static-backdrop .entrance-header strong {
+  .modal dialog.modal-static-backdrop .gate-header strong {
     font-size: 26px;
     font-weight: 700;
   }
 
-  .modal dialog.modal-static-backdrop p:not(.entrance-header, .button-wrapper) {
+  .modal dialog.modal-static-backdrop p:not(.gate-header, .button-wrapper) {
     font-size: 28px;
   }
 
