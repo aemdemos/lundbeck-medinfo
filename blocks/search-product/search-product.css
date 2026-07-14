@@ -110,8 +110,7 @@ main .search-product .search-product-select-option:first-child {
 }
 
 main .search-product .search-product-select-option:hover,
-main .search-product .search-product-select-option:focus,
-main .search-product .search-product-select-option[aria-selected="true"] {
+main .search-product .search-product-select-option:focus-visible {
   background: var(--light-color, #f2f2f2);
   outline: none;
 }
