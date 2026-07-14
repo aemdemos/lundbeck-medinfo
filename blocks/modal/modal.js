@@ -33,7 +33,7 @@ function decorateGateContent(root) {
   });
 }
 
-export async function createModal(contentNodes, { staticBackdrop = false } = {}) {
+export async function createModal(contentNodes, { staticBackdrop = false, gateKey } = {}) {
   await loadCSS(`${window.hlx.codeBasePath}/blocks/modal/modal.css`);
   const dialog = document.createElement('dialog');
   if (staticBackdrop) dialog.classList.add('modal-static-backdrop');
@@ -42,6 +42,18 @@ export async function createModal(contentNodes, { staticBackdrop = false } = {})
   dialogContent.append(...contentNodes);
   if (staticBackdrop) decorateGateContent(dialogContent);
   dialog.append(dialogContent);
+
+  // a gate remembers the visitor's choice so it does not reappear on reload
+  if (staticBackdrop && gateKey) {
+    dialogContent.querySelectorAll('a.button').forEach((link) => {
+      link.addEventListener('click', () => {
+        try {
+          window.localStorage.setItem(gateKey, '1');
+        } catch { /* storage unavailable — gate will show again, acceptable */ }
+        dialog.close();
+      });
+    });
+  }
 
   // a static-backdrop modal is a gate (e.g. entrance interstitial): no close button
   if (!staticBackdrop) {
@@ -108,6 +120,13 @@ export async function openModal(fragmentUrl, options = {}) {
   const path = fragmentUrl.startsWith('http')
     ? new URL(fragmentUrl, window.location).pathname
     : fragmentUrl;
+
+  // a remembered gate choice suppresses the modal on subsequent visits
+  if (options.gateKey) {
+    try {
+      if (window.localStorage.getItem(options.gateKey)) return;
+    } catch { /* storage unavailable — fall through and show the gate */ }
+  }
 
   const fragment = await loadFragment(path);
   const { showModal } = await createModal(fragment.childNodes, options);
