@@ -75,6 +75,8 @@ main .search-product .search-product-keywords::placeholder {
    inherits the boilerplate overflow:hidden that clips bg-images. Undo it here
    so the open dropdown panel can overlay content below the section. */
 main > .section:has(.search-product) {
+  position: relative;
+  z-index: 2;
   overflow: visible;
 }
 
