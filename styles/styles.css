@@ -613,12 +613,13 @@ main > .section.bg-contain > .bg-image img {
   object-position: center;
 }
 
-/* section-title plaque image: centered at a constrained width, not full-bleed */
+/* section-title plaque image: centered behind the heading. Mobile keeps it wide
+   so the notch brackets flank the text; desktop constrains it (see media query). */
 main > .section.section-title-container > .bg-image {
   left: 50%;
   right: auto;
   width: 100%;
-  max-width: var(--section-title-bg-image-width);
+  max-width: var(--section-title-bg-image-width-mobile, 90%);
   transform: translateX(-50%);
 }
 
@@ -894,6 +895,11 @@ main > .section:has(.search-product) > .default-content-wrapper h2 {
 
   main .section.accent > div { /* @libs */
     gap: 30px; /* @libs */
+  }
+
+  /* desktop: plaque narrows to sit snugly around the centered heading */
+  main > .section.section-title-container > .bg-image {
+    max-width: var(--section-title-bg-image-width);
   }
 }
 
