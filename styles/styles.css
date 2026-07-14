@@ -118,7 +118,7 @@
   --hero-h2-max-width: 65%;
 
   /* decorative plaque behind a section-title (e.g. "MORE FROM LUNDBECK") */
-  --section-title-bg-image-width: 50%;
+  --section-title-bg-image-width: 58%;
 
   /* nav heights */
   --nav-height: 200px; /* @libs */
@@ -614,12 +614,14 @@ main > .section.bg-contain > .bg-image img {
 }
 
 /* section-title plaque image: centered behind the heading. Mobile keeps it wide
-   so the notch brackets flank the text; desktop constrains it (see media query). */
+   so the notch brackets flank the text; desktop constrains it (see media query).
+   Pulled up to sit over the section's top border so the border hides behind it. */
 main > .section.section-title-container > .bg-image {
   left: 50%;
   right: auto;
+  top: calc(-1 * var(--section-divider-width));
   width: 100%;
-  max-width: var(--section-title-bg-image-width-mobile, 90%);
+  max-width: var(--section-title-bg-image-width-mobile, 95%);
   transform: translateX(-50%);
 }
 
