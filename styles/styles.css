@@ -82,7 +82,7 @@
   --body-font-family: 'bliss-pro', bliss-pro-fallback, sans-serif;
   --heading-font-family: 'bliss-pro', bliss-pro-fallback, sans-serif;
   --display-font-family: inter, inter-fallback, sans-serif;
-  --body-line-height: 1.5;
+  --body-line-height: 1.125; /* 18px at 16px on mobile; restored to 1.5 at 992px */
   --heading-font-weight: 700;
   --heading-line-height: 1.2; /* @libs */
   --font-weight-medium: 500;
@@ -865,6 +865,10 @@ div[class^="width-"], div[class*=" width-"] {
   }
 
 @media (width >= 992px) { /* @libs */
+  :root {
+    --body-line-height: 1.5; /* restore 24px line-height on desktop */
+  }
+
   body[data-breadcrumbs] { /* @libs */
     --header-height: calc(var(--nav-height) + var(--breadcrumbs-height)); /* @libs */
   }
