@@ -197,6 +197,14 @@ main .search-product .search-product-confirm {
     align-items: flex-start;
   }
 
+  /* desktop: lead/field/option text steps up from 14px to 16px */
+  main .search-product .search-product-intro,
+  main .search-product .search-product-select-trigger,
+  main .search-product .search-product-keywords,
+  main .search-product .search-product-select-option {
+    font-size: var(--body-font-size-s, 16px);
+  }
+
   /* desktop: menu is an absolute overlay dropping over content below */
   main .search-product .search-product-select-panel {
     position: absolute;
