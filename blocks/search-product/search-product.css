@@ -65,7 +65,7 @@ main .search-product .search-product-select-trigger {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect width="40" height="40" rx="3" fill="%23ca411d"/><polyline points="12,16 20,25 28,16" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>');
   background-repeat: no-repeat;
   background-position: right 0.6rem center;
-  background-size: 1.5rem 1.5rem;
+  background-size: 1.1rem 1.1rem;
 }
 
 /* placeholder label is red; a chosen value renders in the normal dark colour */
@@ -189,8 +189,9 @@ main .search-product .search-product-confirm {
   color: var(--text-color-muted, #c8c8c8);
 }
 
-/* tablet+: controls in a row, subtexts under their fields */
-@media (width >= 600px) {
+/* desktop: controls in a row, subtexts under their fields. Mobile+tablet stay
+   in the stacked/accordion arrangement below this point. */
+@media (width >= 992px) {
   main .search-product .search-product-controls {
     flex-flow: row nowrap;
     align-items: flex-start;

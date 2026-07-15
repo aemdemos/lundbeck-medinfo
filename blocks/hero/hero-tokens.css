@@ -170,8 +170,8 @@ main > .section.hero-container:has(.hero.intro) {
   background-color: var(--brand-primary-light);
 }
 
-@media (width >= 768px) {
-  /* desktop: image left, text block right */
+@media (width >= 992px) {
+  /* desktop: image left, text block right (mobile+tablet stay stacked) */
   .hero.intro .hero-intro-inner {
     display: flex;
     align-items: flex-start;
