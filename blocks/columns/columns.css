@@ -31,12 +31,12 @@ main .columns.divider a:not(.button):hover {
   color: var(--columns-link-color);
 }
 
-/* "Go to Form" CTA: fixed source size, centered label, no trailing arrow icon */
+/* "Go to Form" CTA: mobile full-width; centered label, no trailing arrow icon */
 main .columns.divider a.button {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--columns-cta-width, 228px);
+  width: 100%;
   height: var(--columns-cta-height, 53px);
   padding: 0 1rem;
 }
@@ -45,15 +45,16 @@ main .columns.divider a.button::after {
   content: none;
 }
 
-/* divider columns: spaced icon rows, tightly-grouped nested sub-lists */
-main .columns.divider ul {
-  margin: 0;
-  padding-inline-start: 1.5em;
+/* mobile: horizontal divider between the two stacked cells. Skipped when the
+   first cell ends in a button, which already acts as the separator. */
+main .columns.divider.columns-2-cols > div > :nth-child(2) {
+  padding-top: var(--columns-gap);
+  border-top: var(--columns-divider-width) solid var(--columns-divider-color);
 }
 
-main .columns.divider > div > div > ul {
-  padding-inline-start: 0;
-  list-style: none;
+main .columns.divider.columns-2-cols > div:has(> :first-child a.button) > :nth-child(2) {
+  padding-top: 0;
+  border-top: 0;
 }
 
 main .columns.divider > div > div > ul > li {
@@ -65,17 +66,33 @@ main .columns.divider > div > div > ul li p {
   margin: 0;
 }
 
-/* icon-bullet rows: icon in a fixed left gutter, text hangs to one aligned edge */
-main .columns.divider > div > div > ul > li:has(.icon) {
-  position: relative;
-  padding-inline-start: var(--columns-icon-gutter);
+/* narrow variant (HCP home) — mobile: lists centered, no markers/indent */
+main .columns.divider.narrow ul {
+  margin: 0;
+  padding-inline-start: 0;
+  list-style: none;
+  text-align: center;
 }
 
-main .columns.divider > div > div > ul > li > .icon:first-child,
-main .columns.divider > div > div > ul > li > p:first-child > .icon:first-child {
-  position: absolute;
-  inset-inline-start: 0;
-  top: 0;
+/* narrow variant — mobile: icon sits on its own line, centered above its text */
+main .columns.divider.narrow .icon {
+  display: block;
+  margin: 0 auto 0.25rem;
+}
+
+/* narrow variant — mobile: JS icon-bullet rows stack (icon above centered text) */
+main .columns.divider.narrow li.icon-bullet-item {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+main .columns.divider.narrow .icon.icon-bullet {
+  margin-top: 0;
+}
+
+main .columns.divider.narrow .icon-bullet-text {
+  flex: 0 1 auto;
 }
 
 main .columns.divider .icon img {
@@ -85,10 +102,6 @@ main .columns.divider .icon img {
 
 main .columns.divider ul ul {
   margin-top: 0.15em;
-}
-
-main .columns.divider ul ul li {
-  white-space: nowrap;
 }
 
 /* narrow variant typography (HCP home) */
@@ -185,8 +198,9 @@ main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) > p:first
   line-height: 1.3;
 }
 
-/* desktop: columns flip from stacked to side-by-side at 768px (matches source) */
-@media (width >= 768px) {
+/* desktop: columns flip from stacked to side-by-side at 992px (mobile+tablet
+   share the stacked layout; only sizing differs below this point) */
+@media (width >= 992px) {
   .columns > div { /* @boilerplate */
     align-items: center; /* @boilerplate */
     flex-direction: unset; /* @boilerplate */
@@ -196,6 +210,60 @@ main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) > p:first
   .columns > div > div { /* @boilerplate */
     flex: 1; /* @boilerplate */
     order: unset; /* @boilerplate */
+  }
+
+  /* desktop CTA reverts to fixed source size */
+  main .columns.divider a.button {
+    display: inline-flex;
+    width: var(--columns-cta-width, 228px);
+  }
+
+  /* desktop lists: left-aligned, spaced icon rows, tightly-grouped sub-lists */
+  main .columns.divider ul {
+    padding-inline-start: 1.5em;
+    text-align: left;
+  }
+
+  main .columns.divider > div > div > ul {
+    padding-inline-start: 0;
+  }
+
+  /* icon-bullet rows: icon in a fixed left gutter, text hangs to one aligned edge */
+  main .columns.divider > div > div > ul > li:has(.icon) {
+    position: relative;
+    padding-inline-start: var(--columns-icon-gutter);
+  }
+
+  main .columns.divider .icon {
+    display: inline-flex;
+    margin: 0;
+  }
+
+  main .columns.divider > div > div > ul > li > .icon:first-child,
+  main .columns.divider > div > div > ul > li > p:first-child > .icon:first-child {
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0;
+    display: block;
+  }
+
+  main .columns.divider ul ul li {
+    white-space: nowrap;
+  }
+
+  /* desktop: JS-generated icon-bullet rows revert to icon-left / text-right */
+  main .columns.divider li.icon-bullet-item {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  main .columns.divider .icon.icon-bullet {
+    margin-top: 0.15em;
+  }
+
+  main .columns.divider .icon-bullet-text {
+    flex: 1;
   }
 
   .columns.divider.columns-2-cols > div {
@@ -236,10 +304,13 @@ main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) > p:first
     max-width: var(--columns-col2-text-width);
   }
 
-  /* divider line as a centered pseudo-element (can be shorter than full height) */
-  .columns.divider.columns-2-cols > div > :nth-child(2) {
+  /* divider line as a centered pseudo-element (can be shorter than full height);
+     drop the mobile horizontal divider in favour of the vertical one */
+  main .columns.divider.columns-2-cols > div > :nth-child(2) {
     position: relative;
+    padding-block: 0;
     padding-inline: var(--columns-divider-spacing) var(--columns-outer-indent);
+    border-top: 0;
   }
 
   .columns.divider.columns-2-cols > div > :nth-child(2)::before {

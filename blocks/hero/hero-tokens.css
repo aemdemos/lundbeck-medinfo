@@ -118,11 +118,12 @@ main > .section.hero-container:has(.hero.intro) {
   clear: left;
 }
 
-/* H1/H2 match the HCP home hero (brand-red display H1, medium-weight subhead) */
+/* H1/H2 match the HCP home hero (brand-red display H1, medium-weight subhead).
+   xxl token is 20px on mobile, 36px on desktop — mobile-first responsive scale. */
 .hero.intro h1 {
   color: var(--brand-primary);
   font-family: var(--display-font-family);
-  font-size: var(--hero-intro-h1-font-size, 36px);
+  font-size: var(--heading-font-size-xxl);
   font-weight: var(--font-weight-bold);
   line-height: 1.17;
   margin: 0 0 10px;
@@ -169,8 +170,8 @@ main > .section.hero-container:has(.hero.intro) {
   background-color: var(--brand-primary-light);
 }
 
-@media (width >= 768px) {
-  /* desktop: image left, text block right */
+@media (width >= 992px) {
+  /* desktop: image left, text block right (mobile+tablet stay stacked) */
   .hero.intro .hero-intro-inner {
     display: flex;
     align-items: flex-start;

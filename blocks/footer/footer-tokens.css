@@ -2,7 +2,7 @@
 :root {
   --footer-max-width: var(--max-width-site);
   --footer-padding: var(--spacing-xl) var(--spacing-m) var(--spacing-m); /* @boilerplate */
-  --footer-padding-desktop: var(--spacing-xl) var(--spacing-l) var(--spacing-m); /* @boilerplate */
+  --footer-padding-desktop: 12px var(--spacing-l) 12px;
 
   /* brand: medinfo footer is a full-width brand-red band with white text */
   --footer-background-color: var(--brand-primary);

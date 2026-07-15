@@ -109,3 +109,14 @@ main .section[data-background-color] .section-title:not([class*="section-title-c
 main .section:has(> .bg-image) .section-title .title {
   font-size: 20px;
 }
+
+/* give the plaque background vertical room so its notch brackets aren't squished */
+main .section:has(> .bg-image) .section-title {
+  padding-block: var(--spacing-m, 1.5rem);
+}
+
+/* the plaque is a simple bracket frame; let it fill the taller box so the
+   corner brackets gain height instead of staying pinned to the SVG's thin aspect */
+main > .section.section-title-container > .bg-image img {
+  object-fit: fill;
+}
