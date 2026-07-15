@@ -1060,11 +1060,40 @@ async function loadThemeSpreadSheetConfig() {
 */
 
 /**
+ * Reads a cookie value by name.
+ * @param {string} name Cookie name
+ * @returns {string} Decoded value, or '' if not present
+ */
+function getCookie(name) {
+  const entry = document.cookie.split('; ').find((c) => c.startsWith(`${name}=`));
+  return entry ? decodeURIComponent(entry.slice(name.length + 1)) : '';
+}
+
+/**
+ * Locks the visitor to their chosen audience section. Once the entrance gate has
+ * been answered (clickedButton cookie), visiting the other section's equivalent
+ * page redirects to the matching page in the chosen section. Runs before render
+ * to avoid showing the wrong-audience content.
+ */
+function enforceAudienceRedirect() {
+  const choice = getCookie('clickedButton');
+  if (choice !== 'hcp' && choice !== 'patient') return;
+
+  const { pathname } = window.location;
+  const wrong = choice === 'hcp' ? '/us/en/patient/' : '/us/en/hcp/';
+  const right = choice === 'hcp' ? '/us/en/hcp/' : '/us/en/patient/';
+  if (pathname.startsWith(wrong)) {
+    window.location.replace(pathname.replace(wrong, right) + window.location.search + window.location.hash);
+  }
+}
+
+/**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
   document.documentElement.lang = 'en';
+  enforceAudienceRedirect();
   decorateTemplateAndTheme();
   // loadThemeSpreadSheetConfig(); uncomment if using theme spreadsheets
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
@@ -1132,6 +1161,14 @@ async function loadLazy(doc) {
 
   const entranceModal = getMetadata('entrance-modal');
   if (entranceModal) {
+    // if the gate was already answered on a neutral (non-section) page, route the
+    // visitor to their chosen section home instead of re-showing the interstitial
+    const choice = getCookie('clickedButton');
+    const inSection = /\/us\/en\/(hcp|patient)\//.test(window.location.pathname);
+    if ((choice === 'hcp' || choice === 'patient') && !inSection) {
+      window.location.replace(`/us/en/${choice}/home`);
+      return;
+    }
     import(`${window.hlx.codeBasePath}/blocks/modal/modal.js`)
       .then(({ openModal }) => openModal(entranceModal, { staticBackdrop: true, gate: true }));
   }
