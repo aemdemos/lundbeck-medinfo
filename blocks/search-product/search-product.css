@@ -8,13 +8,19 @@ main .search-product .search-product-form {
   border-radius: var(--search-input-border-radius);
   box-shadow: 0 2px 12px rgb(0 0 0 / 15%);
   padding: var(--spacing-m, 1.5rem);
+
+  /* source renders type with antialiased smoothing; without this 400-weight
+     text looks heavier/bolder than the source on WebKit/Blink */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 main .search-product .search-product-intro {
   margin: 0 0 var(--spacing-s, 1rem);
-  font-size: 1rem;
+  font-size: var(--body-font-size-xs, 14px);
   font-weight: 400;
-  text-align: center;
+  line-height: 18px;
+  text-align: left;
 }
 
 main .search-product .search-product-controls {
@@ -43,8 +49,9 @@ main .search-product .search-product-keywords {
   padding: 0.6rem 0.75rem;
   border: 1px solid var(--search-result-border-color, #ccc);
   border-radius: var(--search-input-border-radius);
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: var(--body-font-size-xs, 14px);
+  font-weight: 400;
+  line-height: 18px;
   color: var(--text-color);
   background: #fff;
   box-sizing: border-box;
@@ -64,6 +71,11 @@ main .search-product .search-product-select-trigger {
 /* placeholder label is red; a chosen value renders in the normal dark colour */
 main .search-product .search-product-select-label.is-placeholder {
   color: var(--brand-primary, #ca411d);
+}
+
+/* while the dropdown is open, the placeholder label switches red → dark */
+main .search-product .search-product-select-trigger[aria-expanded="true"] .search-product-select-label.is-placeholder {
+  color: var(--text-color);
 }
 
 main .search-product .search-product-keywords::placeholder {
@@ -97,7 +109,9 @@ main .search-product .search-product-select-panel {
 
 main .search-product .search-product-select-option {
   padding: 0.7rem 0.75rem;
-  font-size: 1rem;
+  font-size: var(--body-font-size-xs, 14px);
+  font-weight: 400;
+  line-height: 18px;
   color: var(--text-color);
   cursor: pointer;
   border-top: 1px solid var(--search-result-border-color, #eee);
@@ -172,7 +186,7 @@ main .search-product .search-product-confirm {
   margin: var(--spacing-xs, 0.5rem) 0 0;
   font-size: 12px;
   font-weight: 400;
-  color: var(--text-color-secondary, #666);
+  color: var(--text-color-muted, #c8c8c8);
 }
 
 /* tablet+: controls in a row, subtexts under their fields */

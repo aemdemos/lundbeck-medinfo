@@ -50,6 +50,7 @@
   --dark-color: var(--brand-primary-dark);
   --text-color: #4a4a4a;
   --text-color-light: #666; /* @libs */
+  --text-color-muted: #c8c8c8;
   --link-color: var(--brand-primary);
   --link-hover-color: var(--brand-primary-light);
   --overlay-background-color: #e1f0f6; /* @libs */
