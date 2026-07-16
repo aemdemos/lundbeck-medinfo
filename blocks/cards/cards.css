@@ -30,7 +30,6 @@
 
 .cards .cards-card-body p {
   font-size: var(--body-font-size-xs);
-  font-weight: 400;
 }
 
 .cards .cards-card-body a {

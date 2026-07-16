@@ -219,6 +219,7 @@ body { /* @libs */
   color: var(--text-color); /* @libs */
   font-family: var(--body-font-family); /* @libs */
   font-size: var(--body-font-size-s); /* @libs */
+  font-weight: 200; /* ExtraLight is the closest lighter face to the source's Regular(400) */
   line-height: var(--body-line-height); /* @libs */
 }
 
