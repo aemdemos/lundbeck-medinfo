@@ -607,6 +607,17 @@ main > .section > .bg-image img { /* @boilerplate */
   object-fit: cover; /* @boilerplate */
 }
 
+/* patient-home hero (first bg-image section, no search fragment): H1 matches the
+   HCP hero scale (20 mobile → 48 desktop); lead paragraph 16/500 → 22/500. */
+main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper h1 {
+  font-size: var(--heading-font-size-xxl);
+}
+
+main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper p {
+  font-size: var(--body-font-size-s);
+  font-weight: var(--font-weight-medium);
+}
+
 /* bg-contain: decorative fixed-shape background (e.g. a ribbon/plaque) sized to fit and
    centered behind content, instead of stretched full-bleed. Author via section style. */
 main > .section.bg-contain > .bg-image img {
@@ -907,6 +918,15 @@ main > .section:has(.search-product) > .default-content-wrapper h2 {
   /* desktop: plaque narrows to sit snugly around the centered heading */
   main > .section.section-title-container > .bg-image {
     max-width: var(--section-title-bg-image-width);
+  }
+
+  /* patient-home hero: H1 steps up to 48px; lead paragraph to 22px (source) */
+  main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper h1 {
+    font-size: var(--hero-h1-font-size);
+  }
+
+  main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper p {
+    font-size: var(--heading-font-size-s);
   }
 }
 

@@ -66,6 +66,11 @@ main .columns.divider > div > div > ul li p {
   margin: 0;
 }
 
+/* plain divider body copy (not the narrow HCP-home variant): source 18px mobile */
+main .columns.divider:not(.narrow) > div > div :is(p, li, a) {
+  font-size: var(--columns-divider-body-font-size);
+}
+
 /* narrow variant (HCP home) — mobile: lists centered, no markers/indent */
 main .columns.divider.narrow ul {
   margin: 0;
@@ -106,10 +111,15 @@ main .columns.divider ul ul {
 
 /* narrow variant typography (HCP home) */
 
-/* block-1 heading — source 28px/800; nearest token is 24px */
+/* block-1 heading — source 18px/800 mobile, 28px/800 desktop */
 main .columns.divider.narrow h5 {
-  font-size: var(--heading-font-size-l);
+  font-size: var(--columns-narrow-h5-font-size);
   font-weight: var(--font-weight-extrabold);
+}
+
+/* block-1 col1 body copy — source 14px mobile, 16px desktop */
+main .columns.divider.narrow > div > div:first-child p {
+  font-size: var(--columns-narrow-col1-body-font-size);
 }
 
 /* block-1 col2 list text — source 18px/700 */
@@ -216,6 +226,20 @@ main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) > p:first
   main .columns.divider a.button {
     display: inline-flex;
     width: var(--columns-cta-width, 228px);
+  }
+
+  /* narrow block-1: H5 steps up to 28px; col1 body back to 16px (source) */
+  main .columns.divider.narrow h5 {
+    font-size: var(--columns-narrow-h5-font-size-desktop);
+  }
+
+  main .columns.divider.narrow > div > div:first-child p {
+    font-size: var(--body-font-size-s);
+  }
+
+  /* plain divider body copy steps up to 20px on desktop (source) */
+  main .columns.divider:not(.narrow) > div > div :is(p, li, a) {
+    font-size: var(--columns-divider-body-font-size-desktop);
   }
 
   /* desktop lists: left-aligned, spaced icon rows, tightly-grouped sub-lists */

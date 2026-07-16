@@ -46,6 +46,15 @@
   --hero-light-body-font-size: 16px;
   --hero-light-body-line-height: 19px;
 
+  /* intro.small variant (thank-you): mobile-first, stepped up at desktop.
+     Source: H1 20/900 mobile → 22 desktop; H2 18/400 mobile → 36 desktop. */
+  --hero-intro-small-h1-font-size: 20px;
+  --hero-intro-small-h1-font-size-desktop: 22px;
+  --hero-intro-small-h1-font-weight: 900;
+  --hero-intro-small-h2-font-size: 18px;
+  --hero-intro-small-h2-font-size-desktop: 36px;
+  --hero-intro-small-h2-font-weight: 400;
+
   /* actor portrayal caption */
   --hero-caption-sub-font-size: 12px;
   --hero-caption-sub-font-size-xl: 16px;
@@ -124,7 +133,7 @@ main > .section.hero-container:has(.hero.intro) {
   color: var(--brand-primary);
   font-family: var(--display-font-family);
   font-size: var(--heading-font-size-xxl);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-extrabold);
   line-height: 1.17;
   margin: 0 0 10px;
 }
@@ -190,5 +199,14 @@ main > .section.hero-container:has(.hero.intro) {
 
   .hero.intro .hero-intro-text h2 {
     clear: none;
+  }
+
+  /* intro.small (thank-you) headings step up on desktop to match source */
+  .hero.intro.small h1 {
+    font-size: var(--hero-intro-small-h1-font-size-desktop);
+  }
+
+  .hero.intro.small h2 {
+    font-size: var(--hero-intro-small-h2-font-size-desktop);
   }
 }

@@ -9,6 +9,13 @@
   --columns-icon-gutter: 2.5rem;
   --columns-col1-text-width: 290px;
   --columns-col2-text-width: 440px;
+  --columns-narrow-h5-font-size: var(--heading-font-size-l); /* 18px mobile */
+  --columns-narrow-h5-font-size-desktop: 28px; /* source desktop */
+  --columns-narrow-col1-body-font-size: var(--body-font-size-xs); /* 14px, matches source mobile */
+
+  /* plain divider columns (medical-inquiry + patient intro): source 18px mobile, 20px desktop */
+  --columns-divider-body-font-size: var(--body-font-size-ms); /* 18px */
+  --columns-divider-body-font-size-desktop: 20px;
   --columns-link-color: var(--text-color);
   --columns-link-decoration: underline;
   --columns-block-padding-vertical: 50px;

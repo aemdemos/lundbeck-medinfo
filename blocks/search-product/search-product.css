@@ -83,6 +83,15 @@ main .search-product .search-product-keywords::placeholder {
   opacity: 1;
 }
 
+/* "START A NEW SEARCH" lead above the fragment (thank-you page). Authored as a
+   plain paragraph; source renders it heading-like at 20px mobile / 22px desktop. */
+main > .section.search-product-container > .default-content-wrapper > p {
+  margin: 0 0 var(--spacing-s, 1rem);
+  font-size: var(--search-product-lead-font-size, 20px);
+  font-weight: 400;
+  text-align: center;
+}
+
 /* the fragment section wraps both the hero bg-image and this widget, so it
    inherits the boilerplate overflow:hidden that clips bg-images. Undo it here
    so the open dropdown panel can overlay content below the section. */
@@ -203,6 +212,11 @@ main .search-product .search-product-confirm {
   main .search-product .search-product-keywords,
   main .search-product .search-product-select-option {
     font-size: var(--body-font-size-s, 16px);
+  }
+
+  /* "START A NEW SEARCH" lead steps up to 22px on desktop (source) */
+  main > .section.search-product-container > .default-content-wrapper > p {
+    font-size: 22px;
   }
 
   /* desktop: menu is an absolute overlay dropping over content below */
