@@ -597,7 +597,7 @@ export function decorateColonIcons(element) {
 
 /**
  * Returns the leading icon in a list item, searching recursively through
- * leading strong/em/a wrappers at any depth (e.g. em > strong > span.icon).
+ * leading p/strong/em/a wrappers at any depth (e.g. p > strong > span.icon).
  * @param {HTMLLIElement} li List item element
  * @returns {HTMLSpanElement|null}
  */
@@ -609,7 +609,7 @@ function getLeadingListIcon(li) {
         if (node.textContent.trim()) return null;
       } else if (node.nodeType === Node.ELEMENT_NODE) {
         if (node.matches('span.icon')) return node;
-        if (node.matches('strong, em, a')) return findIcon(node);
+        if (node.matches('p, strong, em, a')) return findIcon(node);
         return null;
       } else {
         return null;
@@ -628,7 +628,7 @@ function getLeadingListIcon(li) {
  */
 export function iconsToBullets(element) {
   const lists = [...element.querySelectorAll(
-    'ul:has(> li > .icon, > li > :is(strong, em, a) > .icon, > li > :is(strong, em) > :is(strong, em) > .icon)',
+    'ul:has(> li > .icon, > li > p > .icon, > li > :is(strong, em, a) > .icon, > li > :is(strong, em) > :is(strong, em) > .icon)',
   )].slice(0, MAX_ICON_BULLET_LISTS);
 
   lists.forEach((ul) => {

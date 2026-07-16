@@ -23,5 +23,5 @@ Fixes #IssueID
 
 > If applicable, also describe how the PR reviewer can verify your expected changes, including anything that should NOT change.
 
-- Before: https://main--lundbeck-libs--aemdemos.aem.page/
-- After: https://BranchName--lundbeck-libs--aemdemos.aem.page/
+- Before: https://main--lundbeck-medinfo--aemdemos.aem.page/
+- After: https://BranchName--lundbeck-medinfo--aemdemos.aem.page/

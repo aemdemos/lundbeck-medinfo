@@ -528,7 +528,7 @@ main img { /* @libs */
 }
 
 /* icon bullet lists — :has() prevents FOUC before JS adds .icon-bullets */
-main ul:has(> li > .icon, > li > :is(strong, em, a) > .icon) { /* @libs */
+main ul:has(> li > .icon, > li > p > .icon, > li > :is(strong, em, a) > .icon) { /* @libs */
   list-style: none; /* @libs */
   margin: 0; /* @libs */
   padding: 0; /* @libs */
@@ -542,13 +542,23 @@ main li.icon-bullet-item { /* @libs */
   list-style: none; /* @libs */
 }
 
+main ul.icon-bullets ul,
+main ul.icon-bullets li ul li::marker
+ {
+list-style: disc;
+}
+
 main .icon-bullet-text { /* @libs */
   flex: 1; /* @libs */
 }
 
+main .icon-bullet-text p { /* @libs */
+  margin: 0; /* @libs */
+}
+
 main .icon.icon-bullet { /* @libs */
   flex-shrink: 0; /* @libs */
-  margin-top: 0.15em; /* @libs */
+  margin-top: -0.15em; /* @libs */
 }
 
 .center {
