@@ -31,14 +31,14 @@ const MAX_SECTION_CHILDREN = 200;
 const UNSAFE_OBJECT_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
 
 /**
- * Returns true if prop is safe for plain object or dataset assignment.
- * @param {string} prop Property name
+ * Returns true if key is safe for plain object or dataset assignment.
+ * @param {string} key Property name
  * @returns {boolean}
  */
-function isSafeObjectKey(prop) {
-  return typeof prop === 'string' && prop.length > 0
-    && !UNSAFE_OBJECT_KEYS.has(prop)
-    && !prop.startsWith('__');
+function isSafeObjectKey(key) {
+  return typeof key === 'string' && key.length > 0
+    && !UNSAFE_OBJECT_KEYS.has(key)
+    && !key.startsWith('__');
 }
 
 // DOMPurify loaded once for HTML sanitization (mitigates DOM XSS from contentMap/dataset)
@@ -366,16 +366,16 @@ export function decorateSections(main) {
     const sectionMeta = section.querySelector('div.section-metadata');
     if (sectionMeta) {
       const meta = readBlockConfig(sectionMeta);
-      Object.entries(meta).forEach(([metaName, value]) => {
-        if (metaName === 'style') {
+      Object.entries(meta).forEach(([key, value]) => {
+        if (key === 'style') {
           const styleStr = typeof value === 'string' ? value : '';
           const styles = styleStr
             .split(',')
             .filter((style) => style)
             .map((style) => toClassName(style.trim()));
           styles.forEach((style) => section.classList.add(style));
-        } else if (isSafeObjectKey(metaName)) {
-          section.setAttribute(`data-${metaName}`, String(value ?? ''));
+        } else if (isSafeObjectKey(key)) {
+          section.setAttribute(`data-${key}`, String(value ?? ''));
         }
       });
       sectionMeta.parentNode.remove();
@@ -956,6 +956,7 @@ function decorateNestedSections(main) {
  * Decorates the main element.
  * @param {Element} main The main element
  */
+// eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateIconsAndBullets(main);
@@ -1131,7 +1132,6 @@ async function loadLazy(doc) {
 
   const entranceModal = getMetadata('entrance-modal');
   if (entranceModal) {
-    // the modal itself decides whether to show, based on the stored audience choice
     import(`${window.hlx.codeBasePath}/blocks/modal/modal.js`)
       .then(({ openModal }) => openModal(entranceModal, { staticBackdrop: true, gate: true }));
   }
@@ -1142,6 +1142,7 @@ async function loadLazy(doc) {
  * without impacting the user experience.
  */
 function loadDelayed() {
+  // eslint-disable-next-line import/no-cycle
   const importDelayed = () => import('./delayed.js');
 
   if ('requestIdleCallback' in window) {
@@ -1173,6 +1174,7 @@ export async function loadPage() {
 
 // DA UE Editor support before page load
 if (window.location.hostname.includes('ue.da.live')) {
+  // eslint-disable-next-line import/no-unresolved
   await import(`${window.hlx.codeBasePath}/ue/scripts/ue.js`).then(({ default: ue }) => ue());
 }
 loadPage();

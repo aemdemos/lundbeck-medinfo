@@ -76,10 +76,9 @@ export default async function decorate(block) {
   if (!isSingleSlide) {
     initSlider(block);
     slidesWrapper.addEventListener('keydown', (e) => {
-      const pressed = e.key;
-      if (pressed !== 'ArrowLeft' && pressed !== 'ArrowRight') return;
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
       const current = parseInt(block.dataset.activeSlide, 10) || 0;
-      const next = pressed === 'ArrowLeft' ? current - 1 : current + 1;
+      const next = e.key === 'ArrowLeft' ? current - 1 : current + 1;
       e.preventDefault();
       showSlide(block, next, 'smooth');
     });

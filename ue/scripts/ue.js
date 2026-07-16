@@ -21,6 +21,7 @@ import { activateTabPanel, moveInstrumentation } from './ue-utils.js';
  */
 function loadTabsModule() {
   const base = window.hlx?.codeBasePath ?? '';
+  // eslint-disable-next-line import/no-unresolved -- runtime URL from codeBasePath
   return import(`${base}/blocks/tabs/tabs.js`);
 }
 

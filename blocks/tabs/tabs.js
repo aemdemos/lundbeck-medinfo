@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import { moveInstrumentation, getBlockId } from '../../scripts/scripts.js';
 
 /**
