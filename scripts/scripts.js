@@ -31,16 +31,14 @@ const MAX_SECTION_CHILDREN = 200;
 const UNSAFE_OBJECT_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
 
 /**
- * Returns true if key is safe for plain object or dataset assignment.
- * @param {string} key Property name
+ * Returns true if prop is safe for plain object or dataset assignment.
+ * @param {string} prop Property name
  * @returns {boolean}
  */
-function isSafeObjectKey(key) {
-  // key is an object property name, not a secret — plain comparison is correct
-  // eslint-disable-next-line secure-coding/no-insecure-comparison
-  return typeof key === 'string' && key.length > 0
-    && !UNSAFE_OBJECT_KEYS.has(key)
-    && !key.startsWith('__');
+function isSafeObjectKey(prop) {
+  return typeof prop === 'string' && prop.length > 0
+    && !UNSAFE_OBJECT_KEYS.has(prop)
+    && !prop.startsWith('__');
 }
 
 // DOMPurify loaded once for HTML sanitization (mitigates DOM XSS from contentMap/dataset)
@@ -368,18 +366,16 @@ export function decorateSections(main) {
     const sectionMeta = section.querySelector('div.section-metadata');
     if (sectionMeta) {
       const meta = readBlockConfig(sectionMeta);
-      Object.entries(meta).forEach(([key, value]) => {
-        // key is a metadata field name, not a secret — plain comparison is correct
-        // eslint-disable-next-line secure-coding/no-insecure-comparison
-        if (key === 'style') {
+      Object.entries(meta).forEach(([metaName, value]) => {
+        if (metaName === 'style') {
           const styleStr = typeof value === 'string' ? value : '';
           const styles = styleStr
             .split(',')
             .filter((style) => style)
             .map((style) => toClassName(style.trim()));
           styles.forEach((style) => section.classList.add(style));
-        } else if (isSafeObjectKey(key)) {
-          section.setAttribute(`data-${key}`, String(value ?? ''));
+        } else if (isSafeObjectKey(metaName)) {
+          section.setAttribute(`data-${metaName}`, String(value ?? ''));
         }
       });
       sectionMeta.parentNode.remove();
@@ -1063,42 +1059,11 @@ async function loadThemeSpreadSheetConfig() {
 */
 
 /**
- * Reads a cookie value by name.
- * @param {string} name Cookie name
- * @returns {string} Decoded value, or '' if not present
- */
-function getCookie(name) {
-  const entry = document.cookie.split('; ').find((c) => c.startsWith(`${name}=`));
-  return entry ? decodeURIComponent(entry.slice(name.length + 1)) : '';
-}
-
-/**
- * Locks the visitor to their chosen audience section. Once the entrance gate has
- * been answered (clickedButton cookie), visiting the other section's equivalent
- * page redirects to the matching page in the chosen section. Runs before render
- * to avoid showing the wrong-audience content.
- */
-function enforceAudienceRedirect() {
-  const choice = getCookie('clickedButton');
-  if (choice !== 'hcp' && choice !== 'patient') return;
-
-  const { pathname } = window.location;
-  const wrong = choice === 'hcp' ? '/us/en/patient/' : '/us/en/hcp/';
-  const right = choice === 'hcp' ? '/us/en/hcp/' : '/us/en/patient/';
-  if (pathname.startsWith(wrong)) {
-    // same-origin relative redirect; wrong/right are hardcoded literal path segments
-    // eslint-disable-next-line browser-security/no-insecure-redirects
-    window.location.replace(pathname.replace(wrong, right) + window.location.search + window.location.hash);
-  }
-}
-
-/**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
   document.documentElement.lang = 'en';
-  enforceAudienceRedirect();
   decorateTemplateAndTheme();
   // loadThemeSpreadSheetConfig(); uncomment if using theme spreadsheets
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
@@ -1166,16 +1131,7 @@ async function loadLazy(doc) {
 
   const entranceModal = getMetadata('entrance-modal');
   if (entranceModal) {
-    // if the gate was already answered on a neutral (non-section) page, route the
-    // visitor to their chosen section home instead of re-showing the interstitial
-    const choice = getCookie('clickedButton');
-    const inSection = /\/us\/en\/(hcp|patient)\//.test(window.location.pathname);
-    if ((choice === 'hcp' || choice === 'patient') && !inSection) {
-      // same-origin relative redirect; choice is validated to be exactly 'hcp' or 'patient'
-      // eslint-disable-next-line browser-security/no-insecure-redirects
-      window.location.replace(`/us/en/${choice}/home`);
-      return;
-    }
+    // the modal itself decides whether to show, based on the stored audience choice
     import(`${window.hlx.codeBasePath}/blocks/modal/modal.js`)
       .then(({ openModal }) => openModal(entranceModal, { staticBackdrop: true, gate: true }));
   }
