@@ -36,6 +36,8 @@ const UNSAFE_OBJECT_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
  * @returns {boolean}
  */
 function isSafeObjectKey(key) {
+  // key is an object property name, not a secret — plain comparison is correct
+  // eslint-disable-next-line secure-coding/no-insecure-comparison
   return typeof key === 'string' && key.length > 0
     && !UNSAFE_OBJECT_KEYS.has(key)
     && !key.startsWith('__');
@@ -367,6 +369,8 @@ export function decorateSections(main) {
     if (sectionMeta) {
       const meta = readBlockConfig(sectionMeta);
       Object.entries(meta).forEach(([key, value]) => {
+        // key is a metadata field name, not a secret — plain comparison is correct
+        // eslint-disable-next-line secure-coding/no-insecure-comparison
         if (key === 'style') {
           const styleStr = typeof value === 'string' ? value : '';
           const styles = styleStr
@@ -956,7 +960,6 @@ function decorateNestedSections(main) {
  * Decorates the main element.
  * @param {Element} main The main element
  */
-// eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateIconsAndBullets(main);
@@ -1083,6 +1086,8 @@ function enforceAudienceRedirect() {
   const wrong = choice === 'hcp' ? '/us/en/patient/' : '/us/en/hcp/';
   const right = choice === 'hcp' ? '/us/en/hcp/' : '/us/en/patient/';
   if (pathname.startsWith(wrong)) {
+    // same-origin relative redirect; wrong/right are hardcoded literal path segments
+    // eslint-disable-next-line browser-security/no-insecure-redirects
     window.location.replace(pathname.replace(wrong, right) + window.location.search + window.location.hash);
   }
 }
@@ -1166,6 +1171,8 @@ async function loadLazy(doc) {
     const choice = getCookie('clickedButton');
     const inSection = /\/us\/en\/(hcp|patient)\//.test(window.location.pathname);
     if ((choice === 'hcp' || choice === 'patient') && !inSection) {
+      // same-origin relative redirect; choice is validated to be exactly 'hcp' or 'patient'
+      // eslint-disable-next-line browser-security/no-insecure-redirects
       window.location.replace(`/us/en/${choice}/home`);
       return;
     }
@@ -1179,7 +1186,6 @@ async function loadLazy(doc) {
  * without impacting the user experience.
  */
 function loadDelayed() {
-  // eslint-disable-next-line import/no-cycle
   const importDelayed = () => import('./delayed.js');
 
   if ('requestIdleCallback' in window) {
@@ -1211,7 +1217,6 @@ export async function loadPage() {
 
 // DA UE Editor support before page load
 if (window.location.hostname.includes('ue.da.live')) {
-  // eslint-disable-next-line import/no-unresolved
   await import(`${window.hlx.codeBasePath}/ue/scripts/ue.js`).then(({ default: ue }) => ue());
 }
 loadPage();
