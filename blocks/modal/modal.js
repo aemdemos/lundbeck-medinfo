@@ -10,30 +10,41 @@ import {
 */
 
 /*
-  A gate remembers the visitor's choice for the current browser session, matching
-  the source site's cookies (session cookies, cleared when the browser closes):
-  - `showModal=1` marks the gate as answered so it does not reappear this session
-  - `clickedButton=hcp|patient|lundbeck` records which audience was chosen, which
-    downstream pages use to redirect. The value is derived from the option's href
-    (DA strips authored id/class attributes, so we cannot rely on them).
-  Reloads and navigation within the session skip the gate; a new session shows it.
+  The entrance gate records the visitor's audience choice for the current browser
+  session (session cookie, cleared when the browser closes):
+  - `clickedButton=hcp|patient` records which audience was chosen. The value is
+    derived from the option's href (DA strips authored id/class attributes, so we
+    cannot rely on them). The external "global" option leaves the site, so it is
+    not recorded.
+  The gate reappears on a section's page unless the stored choice matches that
+  section: choosing HCP suppresses the gate on /hcp/ pages, but a patient (or no)
+  choice still shows it there — mirroring the source site.
 */
-const GATE_DISMISS_COOKIE = 'showModal';
 const GATE_CHOICE_COOKIE = 'clickedButton';
 
-function isGateDismissed() {
-  return document.cookie.split('; ').some((c) => c === `${GATE_DISMISS_COOKIE}=1`);
+function currentSection() {
+  const match = /\/us\/en\/(hcp|patient)\//.exec(window.location.pathname);
+  return match ? match[1] : '';
+}
+
+function storedChoice() {
+  const entry = document.cookie.split('; ').find((c) => c.startsWith(`${GATE_CHOICE_COOKIE}=`));
+  return entry ? entry.slice(GATE_CHOICE_COOKIE.length + 1) : '';
+}
+
+/* The gate is satisfied only when the visitor's choice matches the page's section. */
+function isGateSatisfied() {
+  const section = currentSection();
+  return !!section && storedChoice() === section;
 }
 
 function gateChoiceFromHref(href) {
   if (/\/patient\//.test(href)) return 'patient';
-  if (/lundbeck\.com/.test(href)) return 'lundbeck';
   if (/\/hcp\//.test(href)) return 'hcp';
   return '';
 }
 
-function dismissGate(choice) {
-  document.cookie = `${GATE_DISMISS_COOKIE}=1; path=/; SameSite=Lax; Secure`;
+function rememberChoice(choice) {
   if (choice) document.cookie = `${GATE_CHOICE_COOKIE}=${choice}; path=/; SameSite=Lax; Secure`;
 }
 
@@ -71,11 +82,11 @@ export async function createModal(contentNodes, { staticBackdrop = false, gate =
   if (staticBackdrop) decorateGateContent(dialogContent);
   dialog.append(dialogContent);
 
-  // remember the visitor's choice for this session so the gate does not reappear
+  // remember the visitor's audience choice for this session
   if (gate) {
     dialogContent.querySelectorAll('a.button').forEach((link) => {
       link.addEventListener('click', () => {
-        dismissGate(gateChoiceFromHref(link.getAttribute('href') || ''));
+        rememberChoice(gateChoiceFromHref(link.getAttribute('href') || ''));
         dialog.close();
       });
     });
@@ -147,8 +158,8 @@ export async function openModal(fragmentUrl, options = {}) {
     ? new URL(fragmentUrl, window.location).pathname
     : fragmentUrl;
 
-  // a remembered gate choice suppresses the modal for the rest of the session
-  if (options.gate && isGateDismissed()) return;
+  // suppress the gate only when the stored choice matches this page's section
+  if (options.gate && isGateSatisfied()) return;
 
   const fragment = await loadFragment(path);
   const { showModal } = await createModal(fragment.childNodes, options);
