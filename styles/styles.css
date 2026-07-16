@@ -117,6 +117,7 @@
   --hero-h1-font-size: 48px;
   --hero-h1-max-width: 60%;
   --hero-h2-max-width: 65%;
+  --hero-band-min-height: 220px; /* mobile; steps up to 290px at 992px */
 
   /* decorative plaque behind a section-title (e.g. "MORE FROM LUNDBECK") */
   --section-title-bg-image-width: 58%;
@@ -584,6 +585,16 @@ main > .section:has(> .bg-image) { /* @boilerplate */
   overflow: hidden; /* @boilerplate */
 }
 
+/* First (hero) bg-image section keeps a min height so short-content pages (e.g.
+   patient/home, which lacks the search fragment) match the source's band height.
+   Taller pages (hcp/home + fragment) already exceed this, so they're unaffected. */
+main > .section:first-child:has(> .bg-image) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: var(--hero-band-min-height, 290px);
+}
+
 main > .section:has(> .bg-image) > div:not(.bg-image) { /* @boilerplate */
   position: relative; /* @boilerplate */
   z-index: 1; /* @boilerplate */
@@ -867,6 +878,7 @@ div[class^="width-"], div[class*=" width-"] {
 @media (width >= 992px) { /* @libs */
   :root {
     --body-line-height: 1.5; /* restore 24px line-height on desktop */
+    --hero-band-min-height: 290px; /* taller hero band on desktop */
   }
 
   body[data-breadcrumbs] { /* @libs */
