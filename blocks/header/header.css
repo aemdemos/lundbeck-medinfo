@@ -562,7 +562,7 @@ header nav.nav-mobile-open .nav-dropdown-menu a:hover {
   }
 
   header .nav-hamburger {
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
     gap: 4px;
@@ -573,6 +573,10 @@ header nav.nav-mobile-open .nav-dropdown-menu a:hover {
     padding: 13px 0 8px 8px;
     min-width: 30px;
     overflow: visible;
+  }
+
+  .hide-nav header .nav-hamburger {
+    display: none;
   }
 
   header .nav-hamburger-icon {
