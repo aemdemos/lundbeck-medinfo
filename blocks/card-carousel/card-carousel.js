@@ -59,9 +59,10 @@ export default function decorate(block) {
       nextSelector: '.slide-next',
     });
     slidesWrapper.addEventListener('keydown', (e) => {
-      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      const pressed = e.key;
+      if (pressed !== 'ArrowLeft' && pressed !== 'ArrowRight') return;
       const current = parseInt(block.dataset.activeSlide, 10) || 0;
-      const next = e.key === 'ArrowLeft' ? current - 1 : current + 1;
+      const next = pressed === 'ArrowLeft' ? current - 1 : current + 1;
       e.preventDefault();
       showSlide(block, next, 'smooth', {
         slidesContainer: '.card-carousel-slides',
