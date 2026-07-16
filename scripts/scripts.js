@@ -148,7 +148,7 @@ function autolinkModals(doc) {
 
 /**
  * Autoblocks injected during loadLazy (non-critical, not authored in DA).
- */
+ 
 async function buildLazyAutoBlocks() {
   if (!document.querySelector('.back-to-top')) {
     const block = buildBlock('back-to-top', '');
@@ -157,6 +157,7 @@ async function buildLazyAutoBlocks() {
     await loadBlock(block);
   }
 }
+  */
 
 /**
  * Builds all synthetic blocks in a container element.
