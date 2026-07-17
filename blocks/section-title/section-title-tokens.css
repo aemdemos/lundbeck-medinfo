@@ -11,8 +11,7 @@ main .section-title-wrapper .section-title .subtitle {
   margin-bottom: 0;
 }
 
-/* columns-heading title: source 18px/24 mobile / 16px/22 desktop, 700.
-   Uses non-scaling body tokens so it doesn't grow to 24px on desktop. */
+/* columns-heading title: 16px mobile / 20px desktop, 700 */
 main .section-title.columns-heading .title {
   font-size: var(--body-font-size-s); /* 16px mobile */
   font-weight: var(--font-weight-bold);
