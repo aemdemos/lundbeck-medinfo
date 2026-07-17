@@ -292,8 +292,10 @@ main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) > p:first
     white-space: nowrap;
   }
 
-  /* desktop: JS-generated icon-bullet rows revert to icon-left / text-right */
-  main .columns.divider li.icon-bullet-item {
+  /* desktop: JS-generated icon-bullet rows revert to icon-left / text-right.
+     .narrow selector mirrors the mobile rule's specificity so this reset wins */
+  main .columns.divider li.icon-bullet-item,
+  main .columns.divider.narrow li.icon-bullet-item {
     flex-direction: row;
     align-items: flex-start;
     text-align: left;
