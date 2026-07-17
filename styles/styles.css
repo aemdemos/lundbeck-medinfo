@@ -1002,6 +1002,13 @@ main > .section > div:not(.bg-image) {
   padding: 0 32px; /* @libs */
 }
 
+/* product sections span the site width on desktop, not the 780px body default */
+main:has(.section[id="northera"]) > .section > div:not(.bg-image) {
+  max-width: var(--max-width-site);
+  margin-inline: auto;
+  box-sizing: border-box;
+}
+
 main .section.stats-callout > div:not(.bg-image) {
   max-width: 960px;
 }
