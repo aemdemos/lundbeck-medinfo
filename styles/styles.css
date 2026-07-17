@@ -831,7 +831,7 @@ main:has(.section[id="northera"]) .section.center:not(.section-title-container) 
 main:has(.section[id="northera"]) .section.center:not(.section-title-container) h3 {
   margin: 0 0 8px;
   font-size: var(--body-font-size-xs);
-  font-weight: 400;
+  font-weight: 200;
   line-height: 1.28;
   color: var(--text-color);
 }
@@ -839,7 +839,7 @@ main:has(.section[id="northera"]) .section.center:not(.section-title-container) 
 main:has(.section[id="northera"]) .section.center h3 a {
   color: var(--brand-primary);
   text-decoration: underline;
-  font-weight: 400;
+  font-weight: 200;
 }
 
 /* two document links on one line: source gap is wider than our whitespace */
@@ -861,7 +861,7 @@ main:has(.section[id="northera"]) .section.center h3 a[href^="tel:"] {
 main:has(.section[id="northera"]) .section.center:not(.section-title-container) h4 {
   margin: 8px 0 0;
   font-size: var(--heading-font-size-xs);
-  font-weight: 400;
+  font-weight: 200;
   line-height: 1.33;
   color: var(--text-color);
 }
