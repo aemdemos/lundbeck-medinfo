@@ -13,6 +13,18 @@ header .nav-wrapper.nav-hidden {
   transform: translateY(-100%);
 }
 
+/* divider under the header when the first content section has no hero/bg-image
+   (e.g. thank-you and error pages). Source uses a soft drop shadow, not a border.
+   Applied by default, then removed on pages that open on a bg-image hero —
+   :has() can't be nested inside :has(). */
+header .nav-wrapper {
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+}
+
+body:has(main > .section:first-child > .bg-image) header .nav-wrapper {
+  box-shadow: none;
+}
+
 header nav {
   font-family: var(--body-font-family);
 }
