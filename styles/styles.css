@@ -899,6 +899,21 @@ main:has(.section[id="northera"]) > .section.section-title-container + .section 
   padding-top: 0;
 }
 
+/* Medical-inquiry #inquiry section: tighter title padding, full-bleed columns */
+main .section[id="inquiry"] .section-title-wrapper .section-title {
+  padding: 56px 0 24px;
+}
+
+@media (width >= 992px) {
+  main .section[id="inquiry"] .columns.divider.columns-2-cols > div > :first-child {
+    padding-inline: 0 var(--columns-divider-spacing);
+  }
+
+  main .section[id="inquiry"] .columns.divider.columns-2-cols > div > :nth-child(2) {
+    padding-inline: var(--columns-divider-spacing) 0;
+  }
+}
+
 @media (width >= 768px) {
   :root {
     /* heading sizes scale up on desktop — live medinfo desktop values */
