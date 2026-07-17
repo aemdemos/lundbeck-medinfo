@@ -819,6 +819,12 @@ main:has(.section[id="northera"]) .section.center:not(.section-title-container) 
   padding-bottom: 0;
 }
 
+/* last product section needs bottom breathing room above the footer
+   (it is the final .center section — no product/band section follows it) */
+main:has(.section[id="northera"]) > .section.center:not(.section-title-container):not(:has(~ .section.center)) {
+  padding-bottom: 56px;
+}
+
 main:has(.section[id="northera"]) .section.center:not(.section-title-container) h2 {
   margin: 0 0 16px;
   font-family: var(--heading-font-family);
