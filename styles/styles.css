@@ -921,7 +921,6 @@ main:has(.section[id="northera"]) > .section:not(.center):not(.search-product-co
   }
 
   main:has(.section[id="northera"]) .section.center:not(.section-title-container) h4 {
-    margin-bottom: 16px;
     line-height: 1.6;
   }
 
