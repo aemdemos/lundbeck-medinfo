@@ -905,6 +905,10 @@ main .section[id="inquiry"] .section-title-wrapper .section-title {
 }
 
 @media (width >= 992px) {
+  main .section[id="inquiry"] .section-title.columns-heading .title {
+    margin-inline-start: 0;
+  }
+
   main .section[id="inquiry"] .columns.divider.columns-2-cols > div > :first-child {
     padding-inline: 0 var(--columns-divider-spacing);
   }
