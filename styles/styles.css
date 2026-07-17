@@ -883,6 +883,16 @@ main:has(.section[id="northera"]) > .section:not(.center):not(.search-product-co
   text-decoration: none;
 }
 
+/* disorder bands (NEUROLOGICAL/PSYCHIATRIC) get breathing room; the next
+   product section's top padding is absorbed so spacing doesn't double up */
+main:has(.section[id="northera"]) > .section.section-title-container {
+  margin-block: 40px;
+}
+
+main:has(.section[id="northera"]) > .section.section-title-container + .section {
+  padding-top: 0;
+}
+
 @media (width >= 768px) {
   :root {
     /* heading sizes scale up on desktop — live medinfo desktop values */
@@ -930,6 +940,14 @@ main:has(.section[id="northera"]) > .section:not(.center):not(.search-product-co
     font-size: 26px;
     font-weight: 700;
     line-height: 1;
+  }
+
+  main:has(.section[id="northera"]) > .section.section-title-container {
+    margin-block: 60px;
+  }
+
+  main:has(.section[id="northera"]) > .section.section-title-container + .section.center:not(.section-title-container) {
+    padding-top: 0;
   }
 
 
