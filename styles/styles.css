@@ -616,6 +616,15 @@ main > .section > .bg-image img { /* @boilerplate */
   object-fit: cover; /* @boilerplate */
 }
 
+/* patient-home hero (first bg-image section, no search fragment): give it a
+   min-height so the background image is visible (source hero ≈ 290px). */
+main > .section:first-child:has(> .bg-image):not(.search-product-container):not(.hero-container) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 290px;
+}
+
 /* patient-home hero (first bg-image section, no search fragment): H1 matches the
    HCP hero scale (20 mobile → 48 desktop); lead paragraph 16/500 → 22/500. */
 main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper h1 {
@@ -812,20 +821,20 @@ main .section.stats-callout h4 {
   }
 }
 
-/* Product Information page — product name h2, links h3, trademark h4;
-   scoped via a product section id so tag styling can't leak elsewhere. */
-main:has(.section[id="northera"]) .section.center:not(.section-title-container) {
+/* Product-list pages (products, patient home) — product name h2, links h3,
+   trademark h4. Scoped to the `product-list` template class on <body>. */
+body.product-list main .section.center:not(.section-title-container) {
   padding-top: 36px;
   padding-bottom: 0;
 }
 
 /* last product section needs bottom breathing room above the footer
    (it is the final .center section — no product/band section follows it) */
-main:has(.section[id="northera"]) > .section.center:not(.section-title-container):not(:has(~ .section.center)) {
+body.product-list main > .section.center:not(.section-title-container):not(:has(~ .section.center)) {
   padding-bottom: 56px;
 }
 
-main:has(.section[id="northera"]) .section.center:not(.section-title-container) h2 {
+body.product-list main .section.center:not(.section-title-container) h2 {
   margin: 0 0 16px;
   font-family: var(--heading-font-family);
   font-size: var(--heading-font-size-xl);
@@ -834,7 +843,7 @@ main:has(.section[id="northera"]) .section.center:not(.section-title-container) 
   color: var(--text-color);
 }
 
-main:has(.section[id="northera"]) .section.center:not(.section-title-container) h3 {
+body.product-list main .section.center:not(.section-title-container) h3 {
   margin: 0 0 8px;
   font-size: var(--body-font-size-xs);
   font-weight: 200;
@@ -842,29 +851,29 @@ main:has(.section[id="northera"]) .section.center:not(.section-title-container) 
   color: var(--text-color);
 }
 
-main:has(.section[id="northera"]) .section.center h3 a {
+body.product-list main .section.center h3 a {
   color: var(--brand-primary);
   text-decoration: underline;
   font-weight: 200;
 }
 
 /* two document links on one line: source gap is wider than our whitespace */
-main:has(.section[id="northera"]) .section.center h3 a + a {
+body.product-list main .section.center h3 a + a {
   margin-inline-start: 26px;
 }
 
 /* inline phone inquiry line (e.g. "For Medical Information Inquiries: …") */
-main:has(.section[id="northera"]) .section.center h3:has(a[href^="tel:"]) {
+body.product-list main .section.center h3:has(a[href^="tel:"]) {
   font-size: var(--body-font-size-s);
 }
 
-main:has(.section[id="northera"]) .section.center h3 a[href^="tel:"] {
+body.product-list main .section.center h3 a[href^="tel:"] {
   color: var(--text-color);
   text-decoration: none;
   font-weight: var(--font-weight-medium);
 }
 
-main:has(.section[id="northera"]) .section.center:not(.section-title-container) h4 {
+body.product-list main .section.center:not(.section-title-container) h4 {
   margin: 8px 0 0;
   font-size: var(--heading-font-size-xs);
   font-weight: 200;
@@ -873,7 +882,7 @@ main:has(.section[id="northera"]) .section.center:not(.section-title-container) 
 }
 
 /* "For All Inquiries …" lead (its own uncentered section) with red underline */
-main:has(.section[id="northera"]) > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 {
+body.product-list main > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 {
   margin: 0 auto 25px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--brand-primary);
@@ -884,18 +893,19 @@ main:has(.section[id="northera"]) > .section:not(.center):not(.search-product-co
   color: var(--text-color);
 }
 
-main:has(.section[id="northera"]) > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 a[href^="tel:"] {
+body.product-list main > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 a[href^="tel:"] {
   color: var(--text-color);
   text-decoration: none;
 }
 
 /* disorder bands (NEUROLOGICAL/PSYCHIATRIC) get breathing room; the next
-   product section's top padding is absorbed so spacing doesn't double up */
-main:has(.section[id="northera"]) > .section.section-title-container {
+   product section's top padding is absorbed so spacing doesn't double up.
+   Excludes columns-heading bands (e.g. patient "Report an Adverse Event"). */
+body.product-list main > .section.section-title-container:not(.columns-container):not(:has(+ .columns-container)) {
   margin-block: 40px;
 }
 
-main:has(.section[id="northera"]) > .section.section-title-container + .section {
+body.product-list main > .section.section-title-container:not(.columns-container):not(:has(+ .columns-container)) + .section {
   padding-top: 0;
 }
 
@@ -942,24 +952,24 @@ main .section[id="inquiry"] .section-title-wrapper .section-title {
     }
 
   /* Product Information page — desktop type scale (source values) */
-  main:has(.section[id="northera"]) .section.center:not(.section-title-container) {
+  body.product-list main .section.center:not(.section-title-container) {
     padding-top: 48px;
   }
 
-  main:has(.section[id="northera"]) .section.center:not(.section-title-container) h3 {
+  body.product-list main .section.center:not(.section-title-container) h3 {
     font-size: 24px;
     line-height: 1.2;
   }
 
-  main:has(.section[id="northera"]) .section.center h3:has(a[href^="tel:"]) {
+  body.product-list main .section.center h3:has(a[href^="tel:"]) {
     font-size: 24px;
   }
 
-  main:has(.section[id="northera"]) .section.center:not(.section-title-container) h4 {
+  body.product-list main .section.center:not(.section-title-container) h4 {
     line-height: 1.6;
   }
 
-  main:has(.section[id="northera"]) > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 {
+  body.product-list main > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 {
     margin-bottom: 48px;
     padding-bottom: 18px;
     font-size: 26px;
@@ -967,11 +977,11 @@ main .section[id="inquiry"] .section-title-wrapper .section-title {
     line-height: 1;
   }
 
-  main:has(.section[id="northera"]) > .section.section-title-container {
+  body.product-list main > .section.section-title-container:not(.columns-container):not(:has(+ .columns-container)) {
     margin-block: 60px;
   }
 
-  main:has(.section[id="northera"]) > .section.section-title-container + .section.center:not(.section-title-container) {
+  body.product-list main > .section.section-title-container:not(.columns-container):not(:has(+ .columns-container)) + .section.center:not(.section-title-container) {
     padding-top: 0;
   }
 
@@ -1045,7 +1055,7 @@ main > .section > div:not(.bg-image) {
 }
 
 /* product sections span the site width on desktop, not the 780px body default */
-main:has(.section[id="northera"]) > .section > div:not(.bg-image) {
+body.product-list main > .section > div:not(.bg-image) {
   max-width: var(--max-width-site);
   margin-inline: auto;
   box-sizing: border-box;
