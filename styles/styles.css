@@ -821,6 +821,7 @@ main:has(.section[id="northera"]) .section.center:not(.section-title-container) 
 
 main:has(.section[id="northera"]) .section.center:not(.section-title-container) h2 {
   margin: 0 0 16px;
+  font-family: var(--heading-font-family);
   font-size: var(--heading-font-size-xl);
   font-weight: var(--font-weight-bold);
   line-height: 1;

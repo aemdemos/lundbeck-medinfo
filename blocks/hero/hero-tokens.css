@@ -132,7 +132,7 @@ main > .section.hero-container:has(.hero.intro) {
    xxl token is 20px on mobile, 36px on desktop — mobile-first responsive scale. */
 .hero.intro h1 {
   color: var(--brand-primary);
-  font-family: var(--display-font-family);
+  font-family: var(--heading-font-family);
   font-size: var(--heading-font-size-xxl);
   font-weight: var(--font-weight-extrabold);
   line-height: 1; /* source: H1 LH = font-size (20 mobile / 36 desktop) */
@@ -141,7 +141,7 @@ main > .section.hero-container:has(.hero.intro) {
 
 .hero.intro h2 {
   color: var(--text-color);
-  font-family: var(--display-font-family);
+  font-family: var(--heading-font-family);
   font-size: var(--heading-font-size-s);
   font-weight: var(--font-weight-medium);
   line-height: 1.27;
