@@ -131,10 +131,17 @@ main .columns.divider.narrow > div > div:nth-child(2) ul {
   line-height: var(--body-line-height-ms);
 }
 
-/* block-2 contact headings — source 18px/500 */
+/* block-2 contact headings — source 18px/500, tight margins (mt 0 / mb 8px) */
 main .columns.divider.narrow h4 {
   font-size: var(--body-font-size-ms);
   font-weight: var(--font-weight-medium);
+  margin-top: 0;
+  margin-bottom: var(--spacing-xs, 8px);
+}
+
+/* block-2 contact paragraphs (cells with an h4) — source has no inter-line spacing */
+main .columns.divider.narrow > div > div:has(h4) p {
+  margin: 0;
 }
 
 /* block-2 phone link — source 18px/700 */
@@ -249,6 +256,12 @@ main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) > p:first
   /* desktop lists: left-aligned, spaced icon rows, tightly-grouped sub-lists */
   main .columns.divider ul {
     padding-inline-start: 1.5em;
+    text-align: left;
+  }
+
+  /* narrow variant: undo the mobile centering on desktop (its base rule outranks
+     the general .divider ul reset above due to the extra .narrow class) */
+  main .columns.divider.narrow ul {
     text-align: left;
   }
 
