@@ -147,6 +147,7 @@ main > .section.hero-container:has(.hero.intro) {
   line-height: 1.27;
   margin: 0;
   clear: left;
+  max-width: 60%; /* source caps the subhead so long copy wraps earlier */
 }
 
 /* "small" variant (thank-you hero): compact heading, larger lighter subhead */
