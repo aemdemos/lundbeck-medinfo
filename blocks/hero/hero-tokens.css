@@ -135,7 +135,7 @@ main > .section.hero-container:has(.hero.intro) {
   font-family: var(--display-font-family);
   font-size: var(--heading-font-size-xxl);
   font-weight: var(--font-weight-extrabold);
-  line-height: 1.17;
+  line-height: 1; /* source: H1 LH = font-size (20 mobile / 36 desktop) */
   margin: 0 0 10px;
 }
 
@@ -159,6 +159,7 @@ main > .section.hero-container:has(.hero.intro) {
 .hero.intro.small h2 {
   font-size: var(--hero-intro-small-h2-font-size, 36px);
   font-weight: var(--hero-intro-small-h2-font-weight, 400);
+  line-height: 24px; /* source mobile (18px text); desktop steps to 36 (=font-size) */
 }
 
 /* Red square CTA button */
@@ -209,5 +210,6 @@ main > .section.hero-container:has(.hero.intro) {
 
   .hero.intro.small h2 {
     font-size: var(--hero-intro-small-h2-font-size-desktop);
+    line-height: 1; /* source desktop: LH = font-size (36px) */
   }
 }

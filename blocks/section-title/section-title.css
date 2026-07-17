@@ -105,9 +105,11 @@ main .section[data-background-color] .section-title:not([class*="section-title-c
   color: var(--background-color);
 }
 
-/* plaque background image (e.g. "MORE FROM LUNDBECK"): smaller 20px title */
+/* plaque background image (e.g. "MORE FROM LUNDBECK"): smaller 20px title,
+   tight line-height (source LH = 16, below font-size) */
 main .section:has(> .bg-image) .section-title .title {
   font-size: 20px;
+  line-height: 16px;
 }
 
 /* give the plaque background vertical room so its notch brackets aren't squished */

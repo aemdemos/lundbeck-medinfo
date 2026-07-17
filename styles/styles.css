@@ -98,6 +98,14 @@
   --body-font-size-s: 16px; /* @libs */
   --body-font-size-xs: 14px; /* @libs */
 
+  /* per-role line-heights matched to source (px). Source LH tracks font-size and
+     is breakpoint-stable, except -s which stays 18 on mobile (kept tighter by choice)
+     and steps to 20 on desktop (see 992px block). */
+  --body-line-height-xs: 18px; /* 14px text */
+  --body-line-height-s: 18px;  /* 16px text — mobile; 20px desktop */
+  --body-line-height-ms: 22px; /* 18px text */
+  --body-line-height-m: 24px;  /* 20–24px text */
+
   /* heading sizes (mobile-first) — mapped to live medinfo sizes per role, not strict h-order */
   --heading-font-size-xxl: 20px; /* h1 */
   --heading-font-size-xl: 18px; /* h4 product name */
@@ -617,6 +625,7 @@ main > .section:first-child:has(> .bg-image):not(.search-product-container) > .d
 main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper p {
   font-size: var(--body-font-size-s);
   font-weight: var(--font-weight-medium);
+  line-height: var(--body-line-height-ms); /* 22px, matches source lead */
 }
 
 /* bg-contain: decorative fixed-shape background (e.g. a ribbon/plaque) sized to fit and
@@ -879,6 +888,7 @@ div[class^="width-"], div[class*=" width-"] {
 @media (width >= 992px) { /* @libs */
   :root {
     --body-line-height: 1.5; /* restore 24px line-height on desktop */
+    --body-line-height-s: 20px; /* 16px body text steps to 20px LH on desktop (source) */
   }
 
   body[data-breadcrumbs] { /* @libs */
@@ -928,6 +938,7 @@ main > .section:has(.search-product) > .default-content-wrapper h2 {
 
   main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper p {
     font-size: var(--heading-font-size-s);
+    line-height: 28px; /* source desktop lead (22px text) */
   }
 }
 

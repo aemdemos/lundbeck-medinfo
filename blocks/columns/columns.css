@@ -66,9 +66,10 @@ main .columns.divider > div > div > ul li p {
   margin: 0;
 }
 
-/* plain divider body copy (not the narrow HCP-home variant): source 18px mobile */
+/* plain divider body copy (not the narrow HCP-home variant): source 18px/22 mobile */
 main .columns.divider:not(.narrow) > div > div :is(p, li, a) {
   font-size: var(--columns-divider-body-font-size);
+  line-height: var(--body-line-height-ms);
 }
 
 /* narrow variant (HCP home) — mobile: lists centered, no markers/indent */
@@ -117,15 +118,17 @@ main .columns.divider.narrow h5 {
   font-weight: var(--font-weight-extrabold);
 }
 
-/* block-1 col1 body copy — source 14px mobile, 16px desktop */
+/* block-1 col1 body copy — source 14px/18 mobile, 16px/20 desktop */
 main .columns.divider.narrow > div > div:first-child p {
   font-size: var(--columns-narrow-col1-body-font-size);
+  line-height: var(--body-line-height-s);
 }
 
-/* block-1 col2 list text — source 18px/700 */
+/* block-1 col2 list text — source 18px/700/22 */
 main .columns.divider.narrow > div > div:nth-child(2) ul {
   font-size: var(--body-font-size-ms);
   font-weight: var(--font-weight-bold);
+  line-height: var(--body-line-height-ms);
 }
 
 /* block-2 contact headings — source 18px/500 */
@@ -237,9 +240,10 @@ main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) > p:first
     font-size: var(--body-font-size-s);
   }
 
-  /* plain divider body copy steps up to 20px on desktop (source) */
+  /* plain divider body copy steps up to 20px/24 on desktop (source) */
   main .columns.divider:not(.narrow) > div > div :is(p, li, a) {
     font-size: var(--columns-divider-body-font-size-desktop);
+    line-height: var(--body-line-height-m);
   }
 
   /* desktop lists: left-aligned, spaced icon rows, tightly-grouped sub-lists */
