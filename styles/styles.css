@@ -898,15 +898,16 @@ body.product-list main > .section:not(.center):not(.search-product-container):no
   text-decoration: none;
 }
 
-/* disorder bands (NEUROLOGICAL/PSYCHIATRIC) get breathing room; the next
-   product section's top padding is absorbed so spacing doesn't double up.
-   Excludes columns-heading bands (e.g. patient "Report an Adverse Event"). */
-body.product-list main > .section.section-title-container:not(.columns-container):not(:has(+ .columns-container)) {
-  margin-block: 40px;
+/* disorder bands (NEUROLOGICAL/PSYCHIATRIC) are zero-margin colored strips; the
+   flanking product/content sections own the surrounding space so nothing stacks
+   (e.g. against the hero). A disorder band is a section-title band followed by a
+   non-columns section — this excludes the patient "Report an Adverse Event" band. */
+body.product-list main > .section.section-title-container:not(.columns-container) + .section:not(.columns-container) {
+  padding-top: 40px;
 }
 
-body.product-list main > .section.section-title-container:not(.columns-container):not(:has(+ .columns-container)) + .section {
-  padding-top: 0;
+body.product-list main > .section.center:has(+ .section.section-title-container:not(.columns-container)) {
+  padding-bottom: 40px;
 }
 
 /* Medical-inquiry #inquiry section: tighter title padding, full-bleed columns */
@@ -977,12 +978,12 @@ main .section[id="inquiry"] .section-title-wrapper .section-title {
     line-height: 1;
   }
 
-  body.product-list main > .section.section-title-container:not(.columns-container):not(:has(+ .columns-container)) {
-    margin-block: 60px;
+  body.product-list main > .section.section-title-container:not(.columns-container) + .section:not(.columns-container) {
+    padding-top: 60px;
   }
 
-  body.product-list main > .section.section-title-container:not(.columns-container):not(:has(+ .columns-container)) + .section.center:not(.section-title-container) {
-    padding-top: 0;
+  body.product-list main > .section.center:has(+ .section.section-title-container:not(.columns-container)) {
+    padding-bottom: 60px;
   }
 
 
