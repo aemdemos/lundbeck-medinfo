@@ -45,3 +45,7 @@
   width: var(--cards-icon-size);
   height: var(--cards-icon-size);
 }
+
+main .cards .cards-card-body p {
+  margin-bottom: 12px;
+}
