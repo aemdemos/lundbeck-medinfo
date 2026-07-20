@@ -575,6 +575,10 @@ header nav.nav-mobile-open .nav-dropdown-menu a:hover {
     overflow: visible;
   }
 
+  .hide-nav header .nav-hamburger {
+    display: none;
+  }
+
   header .nav-hamburger-icon {
     display: block;
     width: 29px;
