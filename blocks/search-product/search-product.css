@@ -18,8 +18,7 @@ main .search-product .search-product-form {
 main .search-product .search-product-intro {
   margin: 0 0 var(--spacing-s, 1rem);
   font-size: var(--body-font-size-xs, 14px);
-  font-weight: 400;
-  line-height: 18px;
+  line-height: var(--body-line-height-s);
   text-align: left;
 }
 
@@ -83,6 +82,15 @@ main .search-product .search-product-keywords::placeholder {
   opacity: 1;
 }
 
+/* "START A NEW SEARCH" lead above the fragment (thank-you page). Authored as a
+   plain paragraph; source renders it heading-like at 20px mobile / 22px desktop. */
+main > .section.search-product-container > .default-content-wrapper > p {
+  margin: 0 0 var(--spacing-s, 1rem);
+  font-size: var(--search-product-lead-font-size, 20px);
+  line-height: 1; /* source: LH = font-size (20px mobile / 22px desktop) */
+  text-align: center;
+}
+
 /* the fragment section wraps both the hero bg-image and this widget, so it
    inherits the boilerplate overflow:hidden that clips bg-images. Undo it here
    so the open dropdown panel can overlay content below the section. */
@@ -136,7 +144,6 @@ main .search-product .search-product-keywords.search-product-error {
 main .search-product .search-product-error-message {
   margin: var(--spacing-xs, 0.5rem) 0 0;
   font-size: 12px;
-  font-weight: 400;
   color: var(--brand-primary, #ca411d);
 }
 
@@ -185,7 +192,7 @@ main .search-product .search-product-help,
 main .search-product .search-product-confirm {
   margin: var(--spacing-xs, 0.5rem) 0 0;
   font-size: 12px;
-  font-weight: 400;
+  line-height: 14px; /* source subtext LH (12px text) */
   color: var(--text-color-muted, #c8c8c8);
 }
 
@@ -203,6 +210,11 @@ main .search-product .search-product-confirm {
   main .search-product .search-product-keywords,
   main .search-product .search-product-select-option {
     font-size: var(--body-font-size-s, 16px);
+  }
+
+  /* "START A NEW SEARCH" lead steps up to 22px on desktop (source) */
+  main > .section.search-product-container > .default-content-wrapper > p {
+    font-size: 22px;
   }
 
   /* desktop: menu is an absolute overlay dropping over content below */

@@ -66,6 +66,12 @@ main .columns.divider > div > div > ul li p {
   margin: 0;
 }
 
+/* plain divider body copy (not the narrow HCP-home variant): source 18px/22 mobile */
+main .columns.divider:not(.narrow) > div > div :is(p, li, a) {
+  font-size: var(--columns-divider-body-font-size);
+  line-height: var(--body-line-height-ms);
+}
+
 /* narrow variant (HCP home) — mobile: lists centered, no markers/indent */
 main .columns.divider.narrow ul {
   margin: 0;
@@ -106,22 +112,36 @@ main .columns.divider ul ul {
 
 /* narrow variant typography (HCP home) */
 
-/* block-1 heading — source 28px/800; nearest token is 24px */
+/* block-1 heading — source 18px/800 mobile, 28px/800 desktop */
 main .columns.divider.narrow h5 {
-  font-size: var(--heading-font-size-l);
+  font-size: var(--columns-narrow-h5-font-size);
   font-weight: var(--font-weight-extrabold);
 }
 
-/* block-1 col2 list text — source 18px/700 */
+/* block-1 col1 body copy — source 14px/18 mobile, 16px/20 desktop */
+main .columns.divider.narrow > div > div:first-child p {
+  font-size: var(--columns-narrow-col1-body-font-size);
+  line-height: var(--body-line-height-s);
+}
+
+/* block-1 col2 list text — source 18px/700/22 */
 main .columns.divider.narrow > div > div:nth-child(2) ul {
   font-size: var(--body-font-size-ms);
   font-weight: var(--font-weight-bold);
+  line-height: var(--body-line-height-ms);
 }
 
-/* block-2 contact headings — source 18px/500 */
+/* block-2 contact headings — source 18px/500, tight margins (mt 0 / mb 8px) */
 main .columns.divider.narrow h4 {
   font-size: var(--body-font-size-ms);
   font-weight: var(--font-weight-medium);
+  margin-top: 0;
+  margin-bottom: var(--spacing-xs, 8px);
+}
+
+/* block-2 contact paragraphs (cells with an h4) — source has no inter-line spacing */
+main .columns.divider.narrow > div > div:has(h4) p {
+  margin: 0;
 }
 
 /* block-2 phone link — source 18px/700 */
@@ -218,9 +238,30 @@ main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) > p:first
     width: var(--columns-cta-width, 228px);
   }
 
+  /* narrow block-1: H5 steps up to 28px; col1 body back to 16px (source) */
+  main .columns.divider.narrow h5 {
+    font-size: var(--columns-narrow-h5-font-size-desktop);
+  }
+
+  main .columns.divider.narrow > div > div:first-child p {
+    font-size: var(--body-font-size-s);
+  }
+
+  /* plain divider body copy steps up to 20px/24 on desktop (source) */
+  main .columns.divider:not(.narrow) > div > div :is(p, li, a) {
+    font-size: var(--columns-divider-body-font-size-desktop);
+    line-height: var(--body-line-height-m);
+  }
+
   /* desktop lists: left-aligned, spaced icon rows, tightly-grouped sub-lists */
   main .columns.divider ul {
     padding-inline-start: 1.5em;
+    text-align: left;
+  }
+
+  /* narrow variant: undo the mobile centering on desktop (its base rule outranks
+     the general .divider ul reset above due to the extra .narrow class) */
+  main .columns.divider.narrow ul {
     text-align: left;
   }
 
@@ -251,8 +292,10 @@ main .columns.stats-callout:has(img) > div > div:not(.columns-img-col) > p:first
     white-space: nowrap;
   }
 
-  /* desktop: JS-generated icon-bullet rows revert to icon-left / text-right */
-  main .columns.divider li.icon-bullet-item {
+  /* desktop: JS-generated icon-bullet rows revert to icon-left / text-right.
+     .narrow selector mirrors the mobile rule's specificity so this reset wins */
+  main .columns.divider li.icon-bullet-item,
+  main .columns.divider.narrow li.icon-bullet-item {
     flex-direction: row;
     align-items: flex-start;
     text-align: left;

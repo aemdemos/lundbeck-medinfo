@@ -11,8 +11,9 @@ footer .footer > div { /* @boilerplate */
   padding: var(--footer-padding); /* @boilerplate */
 }
 
-footer .footer p { /* @boilerplate */
-  margin: 0; /* @boilerplate */
+footer .footer p {
+  margin: 0;
+  font-weight: var(--font-weight-medium); /* source footer text is 500, not the 200 body default */
 }
 
 /* mobile: links as a 2-col grid, copyright stacked below */

@@ -99,6 +99,14 @@
   --body-font-size-s: 16px; /* @libs */
   --body-font-size-xs: 14px; /* @libs */
 
+  /* per-role line-heights matched to source (px). Source LH tracks font-size and
+     is breakpoint-stable, except -s which stays 18 on mobile (kept tighter by choice)
+     and steps to 20 on desktop (see 992px block). */
+  --body-line-height-xs: 18px; /* 14px text */
+  --body-line-height-s: 18px;  /* 16px text — mobile; 20px desktop */
+  --body-line-height-ms: 22px; /* 18px text */
+  --body-line-height-m: 24px;  /* 20–24px text */
+
   /* heading sizes (mobile-first) — mapped to live medinfo sizes per role, not strict h-order */
   --heading-font-size-xxl: 20px; /* h1 */
   --heading-font-size-xl: 18px; /* h4 product name */
@@ -221,6 +229,7 @@ body { /* @libs */
   color: var(--text-color); /* @libs */
   font-family: var(--body-font-family); /* @libs */
   font-size: var(--body-font-size-s); /* @libs */
+  font-weight: 200; /* ExtraLight is the closest lighter face to the source's Regular(400) */
   line-height: var(--body-line-height); /* @libs */
 }
 
@@ -633,6 +642,27 @@ main > .section > .bg-image img { /* @boilerplate */
   object-fit: cover; /* @boilerplate */
 }
 
+/* patient-home hero (first bg-image section, no search fragment): give it a
+   min-height so the background image is visible (source hero ≈ 290px). */
+main > .section:first-child:has(> .bg-image):not(.search-product-container):not(.hero-container) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 290px;
+}
+
+/* patient-home hero (first bg-image section, no search fragment): H1 matches the
+   HCP hero scale (20 mobile → 48 desktop); lead paragraph 16/500 → 22/500. */
+main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper h1 {
+  font-size: var(--heading-font-size-xxl);
+}
+
+main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper p {
+  font-size: var(--body-font-size-s);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--body-line-height-ms); /* 22px, matches source lead */
+}
+
 /* bg-contain: decorative fixed-shape background (e.g. a ribbon/plaque) sized to fit and
    centered behind content, instead of stretched full-bleed. Author via section style. */
 main > .section.bg-contain > .bg-image img {
@@ -817,6 +847,114 @@ main .section.stats-callout h4 {
   }
 }
 
+/* Product-list pages (products, patient home) — product name h2, links h3,
+   trademark h4. Scoped to the `product-list` template class on <body>. */
+body.product-list main .section.center:not(.section-title-container) {
+  padding-top: 36px;
+  padding-bottom: 0;
+}
+
+/* last product section needs bottom breathing room above the footer
+   (it is the final .center section — no product/band section follows it) */
+body.product-list main > .section.center:not(.section-title-container):not(:has(~ .section.center)) {
+  padding-bottom: 56px;
+}
+
+body.product-list main .section.center:not(.section-title-container) h2 {
+  margin: 0 0 16px;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  color: var(--text-color);
+}
+
+body.product-list main .section.center:not(.section-title-container) h3 {
+  margin: 0 0 8px;
+  font-size: var(--body-font-size-xs);
+  font-weight: 200;
+  line-height: 1.28;
+  color: var(--text-color);
+}
+
+body.product-list main .section.center h3 a {
+  color: var(--brand-primary);
+  text-decoration: underline;
+  font-weight: 200;
+}
+
+/* two document links on one line: source gap is wider than our whitespace */
+body.product-list main .section.center h3 a + a {
+  margin-inline-start: 26px;
+}
+
+/* inline phone inquiry line (e.g. "For Medical Information Inquiries: …") */
+body.product-list main .section.center h3:has(a[href^="tel:"]) {
+  font-size: var(--body-font-size-s);
+}
+
+body.product-list main .section.center h3 a[href^="tel:"] {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}
+
+body.product-list main .section.center:not(.section-title-container) h4 {
+  margin: 8px 0 0;
+  font-size: var(--heading-font-size-xs);
+  font-weight: 200;
+  line-height: 1.33;
+  color: var(--text-color);
+}
+
+/* "For All Inquiries …" lead (its own uncentered section) with red underline */
+body.product-list main > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 {
+  margin: 0 auto 25px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--brand-primary);
+  font-size: var(--body-font-size-ms);
+  font-weight: 400;
+  line-height: 1.33;
+  text-align: center;
+  color: var(--text-color);
+}
+
+body.product-list main > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 a[href^="tel:"] {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+/* disorder bands (NEUROLOGICAL/PSYCHIATRIC) are zero-margin colored strips; the
+   flanking product/content sections own the surrounding space so nothing stacks
+   (e.g. against the hero). A disorder band is a section-title band followed by a
+   non-columns section — this excludes the patient "Report an Adverse Event" band. */
+body.product-list main > .section.section-title-container:not(.columns-container) + .section:not(.columns-container) {
+  padding-top: 40px;
+}
+
+body.product-list main > .section.center:has(+ .section.section-title-container:not(.columns-container)) {
+  padding-bottom: 40px;
+}
+
+/* Medical-inquiry #inquiry section: tighter title padding, full-bleed columns */
+main .section[id="inquiry"] .section-title-wrapper .section-title {
+  padding: 56px 0 24px;
+}
+
+@media (width >= 992px) {
+  main .section[id="inquiry"] .section-title.columns-heading .title {
+    margin-inline-start: 0;
+  }
+
+  main .section[id="inquiry"] .columns.divider.columns-2-cols > div > :first-child {
+    padding-inline: 0 var(--columns-divider-spacing);
+  }
+
+  main .section[id="inquiry"] .columns.divider.columns-2-cols > div > :nth-child(2) {
+    padding-inline: var(--columns-divider-spacing) 0;
+  }
+}
+
 @media (width >= 768px) {
   :root {
     /* heading sizes scale up on desktop — live medinfo desktop values */
@@ -835,10 +973,44 @@ main .section.stats-callout h4 {
     .hide-desktop {
       display: none;
     }
-  
+
     .hide-mobile {
       display: revert;
     }
+
+  /* Product Information page — desktop type scale (source values) */
+  body.product-list main .section.center:not(.section-title-container) {
+    padding-top: 48px;
+  }
+
+  body.product-list main .section.center:not(.section-title-container) h3 {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  body.product-list main .section.center h3:has(a[href^="tel:"]) {
+    font-size: 24px;
+  }
+
+  body.product-list main .section.center:not(.section-title-container) h4 {
+    line-height: 1.6;
+  }
+
+  body.product-list main > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 {
+    margin-bottom: 48px;
+    padding-bottom: 18px;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  body.product-list main > .section.section-title-container:not(.columns-container) + .section:not(.columns-container) {
+    padding-top: 60px;
+  }
+
+  body.product-list main > .section.center:has(+ .section.section-title-container:not(.columns-container)) {
+    padding-bottom: 60px;
+  }
 
 
     /* ==== Start widths ==== */
@@ -893,6 +1065,7 @@ div[class^="width-"], div[class*=" width-"] {
 @media (width >= 992px) { /* @libs */
   :root {
     --body-line-height: 1.5; /* restore 24px line-height on desktop */
+    --body-line-height-s: 20px; /* 16px body text steps to 20px LH on desktop (source) */
     --hero-band-min-height: 290px; /* taller hero band on desktop */
   }
 
@@ -907,6 +1080,13 @@ div[class^="width-"], div[class*=" width-"] {
 main > .section > div:not(.bg-image) {
   max-width: var(--content-max-width);
   padding: 0 32px; /* @libs */
+}
+
+/* product sections span the site width on desktop, not the 780px body default */
+body.product-list main > .section > div:not(.bg-image) {
+  max-width: var(--max-width-site);
+  margin-inline: auto;
+  box-sizing: border-box;
 }
 
 main .section.stats-callout > div:not(.bg-image) {
@@ -944,6 +1124,16 @@ main > .section:has(.search-product) > .default-content-wrapper h2 {
   /* desktop: plaque narrows to sit snugly around the centered heading */
   main > .section.section-title-container > .bg-image {
     max-width: var(--section-title-bg-image-width);
+  }
+
+  /* patient-home hero: H1 steps up to 48px; lead paragraph to 22px (source) */
+  main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper h1 {
+    font-size: var(--hero-h1-font-size);
+  }
+
+  main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper p {
+    font-size: var(--heading-font-size-s);
+    line-height: 28px; /* source desktop lead (22px text) */
   }
 }
 

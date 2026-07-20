@@ -46,6 +46,15 @@
   --hero-light-body-font-size: 16px;
   --hero-light-body-line-height: 19px;
 
+  /* intro.small variant (thank-you): mobile-first, stepped up at desktop.
+     Source: H1 20/900 mobile → 22 desktop; H2 18/400 mobile → 36 desktop. */
+  --hero-intro-small-h1-font-size: 20px;
+  --hero-intro-small-h1-font-size-desktop: 22px;
+  --hero-intro-small-h1-font-weight: 900;
+  --hero-intro-small-h2-font-size: 18px;
+  --hero-intro-small-h2-font-size-desktop: 36px;
+  --hero-intro-small-h2-font-weight: 200;
+
   /* actor portrayal caption */
   --hero-caption-sub-font-size: 12px;
   --hero-caption-sub-font-size-xl: 16px;
@@ -87,6 +96,7 @@
 
 main > .section.hero-container:has(.hero.intro) {
   padding-bottom: var(--section-padding-vertical);
+  min-height: unset;
 }
 
 .hero.intro {
@@ -122,21 +132,22 @@ main > .section.hero-container:has(.hero.intro) {
    xxl token is 20px on mobile, 36px on desktop — mobile-first responsive scale. */
 .hero.intro h1 {
   color: var(--brand-primary);
-  font-family: var(--display-font-family);
+  font-family: var(--heading-font-family);
   font-size: var(--heading-font-size-xxl);
-  font-weight: var(--font-weight-bold);
-  line-height: 1.17;
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1; /* source: H1 LH = font-size (20 mobile / 36 desktop) */
   margin: 0 0 10px;
 }
 
 .hero.intro h2 {
   color: var(--text-color);
-  font-family: var(--display-font-family);
+  font-family: var(--heading-font-family);
   font-size: var(--heading-font-size-s);
   font-weight: var(--font-weight-medium);
   line-height: 1.27;
   margin: 0;
   clear: left;
+  max-width: 60%; /* source caps the subhead so long copy wraps earlier */
 }
 
 /* "small" variant (thank-you hero): compact heading, larger lighter subhead */
@@ -149,6 +160,7 @@ main > .section.hero-container:has(.hero.intro) {
 .hero.intro.small h2 {
   font-size: var(--hero-intro-small-h2-font-size, 36px);
   font-weight: var(--hero-intro-small-h2-font-weight, 400);
+  line-height: 24px; /* source mobile (18px text); desktop steps to 36 (=font-size) */
 }
 
 /* Red square CTA button */
@@ -190,5 +202,15 @@ main > .section.hero-container:has(.hero.intro) {
 
   .hero.intro .hero-intro-text h2 {
     clear: none;
+  }
+
+  /* intro.small (thank-you) headings step up on desktop to match source */
+  .hero.intro.small h1 {
+    font-size: var(--hero-intro-small-h1-font-size-desktop);
+  }
+
+  .hero.intro.small h2 {
+    font-size: var(--hero-intro-small-h2-font-size-desktop);
+    line-height: 1; /* source desktop: LH = font-size (36px) */
   }
 }

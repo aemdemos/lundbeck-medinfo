@@ -11,10 +11,19 @@ main .section-title-wrapper .section-title .subtitle {
   margin-bottom: 0;
 }
 
-/* columns-heading title: 18px/700 (l token is 18px on mobile) */
+/* columns-heading title: 16px mobile / 20px desktop, 700 */
 main .section-title.columns-heading .title {
+  font-size: var(--body-font-size-s); /* 16px mobile */
+  font-weight: var(--font-weight-bold);
+  line-height: 24px; /* source mobile */
+}
+
+/* band headings authored as section-title H2 (patient/home product bands):
+   source 18px/700 mobile → 24px/700 desktop; LH = font-size (l token scales 18→24). */
+main .section-title h2.title {
   font-size: var(--heading-font-size-l);
   font-weight: var(--font-weight-bold);
+  line-height: 1;
 }
 
 /* columns-heading variant: title acting as the heading above a divider-columns
@@ -27,6 +36,8 @@ main .section-title.columns-heading .title {
   main .section-title.columns-heading .title {
     margin-inline-start: var(--columns-outer-indent);
     margin-bottom: 0;
+    font-size: var(--heading-font-size-xs); /* 20px on desktop */
+    line-height: 22px; /* source desktop */
   }
 
   main > .section:has(.section-title.columns-heading) .columns {
