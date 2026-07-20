@@ -7,20 +7,11 @@ header .nav-wrapper {
   top: 0;
   background-color: var(--background-color);
   transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
 }
 
 header .nav-wrapper.nav-hidden {
   transform: translateY(-100%);
-}
-
-/* soft divider shadow on pages whose first section has no bg-image hero
-   (thank-you, error); removed below on hero pages — :has() can't nest in :has() */
-header .nav-wrapper {
-  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
-}
-
-body:has(main > .section:first-child > .bg-image) header .nav-wrapper {
-  box-shadow: none;
 }
 
 header nav {

@@ -228,9 +228,9 @@ body { /* @libs */
   background-color: var(--background-color); /* @libs */
   color: var(--text-color); /* @libs */
   font-family: var(--body-font-family); /* @libs */
-  font-size: var(--body-font-size-s); /* @libs */
+  font-size: var(--body-font-size-xs); /* @libs */
   font-weight: 200; /* ExtraLight is the closest lighter face to the source's Regular(400) */
-  line-height: var(--body-line-height); /* @libs */
+  line-height: var(--body-line-height-s);
 }
 
 body.appear { /* @libs */
@@ -296,6 +296,10 @@ h1 {
   margin-top: 0;
   margin-bottom: 10px;
   max-width: var(--h1-max-width);
+}
+
+h1 > strong {
+  text-shadow: 0 4px 4px rgb(0 0 0 / 15%);
 }
 
 h2 {
@@ -547,7 +551,7 @@ main ul.icon-bullets > li,
 main li.icon-bullet-item { /* @libs */
   display: flex; /* @libs */
   align-items: flex-start; /* @libs */
-  gap: 12px; /* @libs */
+  gap: 24px; /* @libs */
   list-style: none; /* @libs */
 }
 
@@ -678,7 +682,7 @@ main > .section.section-title-container > .bg-image {
   right: auto;
   top: calc(-1 * var(--section-divider-width));
   width: 100%;
-  max-width: var(--section-title-bg-image-width-mobile, 95%);
+  max-width: 95%;
   transform: translateX(-50%);
 }
 
@@ -689,7 +693,7 @@ main > .section.section-title-container > .bg-image img {
 
 /* hcp-home hero: space text/fragment so bg image shows */
 main > .section.search-product-container > .default-content-wrapper {
-  padding-top: var(--spacing-xl);
+  padding-top: var(--spacing-l);
 }
 
 main > .section.search-product-container > .fragment-wrapper {
@@ -706,6 +710,15 @@ main > .section.divider > div:last-child { /* @libs */
    Set on the section itself so it works with or without a .bg-image. */
 main > .section.divider-top {
   border-top: var(--section-divider-width) solid var(--section-divider-top-color);
+  overflow: visible;
+
+  > .bg-image {
+    margin-top: -6px;
+  }
+
+  .section-title {
+    margin-top: -6px;
+  }
 }
 
 main > .section > div:not(.bg-image) { /* @libs */
@@ -907,7 +920,19 @@ body.product-list main .section.center:not(.section-title-container) h4 {
   color: var(--text-color);
 }
 
-/* "For All Inquiries …" lead (its own uncentered section) with red underline */
+/* disorder bands (NEUROLOGICAL/PSYCHIATRIC) are zero-margin colored strips; the
+   flanking product/content sections own the surrounding space so nothing stacks
+   (e.g. against the hero). A disorder band is a section-title band followed by a
+   non-columns section — this excludes the patient "Report an Adverse Event" band. */
+body.product-list main > .section.section-title-container:not(.columns-container) + .section:not(.columns-container) {
+  padding-top: 40px;
+}
+
+body.product-list main > .section.center:has(+ .section.section-title-container:not(.columns-container)) {
+  padding-bottom: 40px;
+}
+
+/* "For All Inquiries …" lead (its own uncentered section) with red underline 
 body.product-list main > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 {
   margin: 0 auto 25px;
   padding-bottom: 16px;
@@ -923,36 +948,11 @@ body.product-list main > .section:not(.center):not(.search-product-container):no
   color: var(--text-color);
   text-decoration: none;
 }
-
-/* disorder bands (NEUROLOGICAL/PSYCHIATRIC) are zero-margin colored strips; the
-   flanking product/content sections own the surrounding space so nothing stacks
-   (e.g. against the hero). A disorder band is a section-title band followed by a
-   non-columns section — this excludes the patient "Report an Adverse Event" band. */
-body.product-list main > .section.section-title-container:not(.columns-container) + .section:not(.columns-container) {
-  padding-top: 40px;
-}
-
-body.product-list main > .section.center:has(+ .section.section-title-container:not(.columns-container)) {
-  padding-bottom: 40px;
-}
+  */
 
 /* Medical-inquiry #inquiry section: tighter title padding, full-bleed columns */
 main .section[id="inquiry"] .section-title-wrapper .section-title {
   padding: 56px 0 24px;
-}
-
-@media (width >= 992px) {
-  main .section[id="inquiry"] .section-title.columns-heading .title {
-    margin-inline-start: 0;
-  }
-
-  main .section[id="inquiry"] .columns.divider.columns-2-cols > div > :first-child {
-    padding-inline: 0 var(--columns-divider-spacing);
-  }
-
-  main .section[id="inquiry"] .columns.divider.columns-2-cols > div > :nth-child(2) {
-    padding-inline: var(--columns-divider-spacing) 0;
-  }
 }
 
 @media (width >= 768px) {
@@ -1011,6 +1011,11 @@ main .section[id="inquiry"] .section-title-wrapper .section-title {
   body.product-list main > .section.center:has(+ .section.section-title-container:not(.columns-container)) {
     padding-bottom: 60px;
   }
+
+  main ul.icon-bullets > li,
+  main li.icon-bullet-item { /* @libs */
+  gap: 12px; /* @libs */
+}
 
 
     /* ==== Start widths ==== */
@@ -1134,6 +1139,18 @@ main > .section:has(.search-product) > .default-content-wrapper h2 {
   main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper p {
     font-size: var(--heading-font-size-s);
     line-height: 28px; /* source desktop lead (22px text) */
+  }
+
+  main .section[id="inquiry"] .section-title.columns-heading .title {
+    margin-inline-start: 0;
+  }
+
+  main .section[id="inquiry"] .columns.divider.columns-2-cols > div > :first-child {
+    padding-inline: 0 var(--columns-divider-spacing);
+  }
+
+  main .section[id="inquiry"] .columns.divider.columns-2-cols > div > :nth-child(2) {
+    padding-inline: var(--columns-divider-spacing) 0;
   }
 }
 

@@ -6,7 +6,7 @@
 main .search-product .search-product-form {
   background: var(--background-color, #fff);
   border-radius: var(--search-input-border-radius);
-  box-shadow: 0 2px 12px rgb(0 0 0 / 15%);
+  border: 1px solid #d9d9d9;
   padding: var(--spacing-m, 1.5rem);
 
   /* source renders type with antialiased smoothing; without this 400-weight
