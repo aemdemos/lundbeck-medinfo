@@ -449,7 +449,7 @@ header .nav-dropdown-menu a {
   }
 
   header .nav-brand img {
-    width: 105px;
+    width: 100px;
     height: auto;
     margin-left: 0;
     transition: .5s ease-in;
@@ -687,6 +687,15 @@ header .nav-dropdown-menu a {
   header .nav-utility-dropdown {
     width: auto;
   }
+
+ /* taller brand row + larger logo at tablet width (matches source) */
+ header .nav-brand-container {
+  height: var(--nav-brand-row-height-tablet);
+ }
+
+ header .nav-brand img {
+  width: 138px;
+ }
   }
 
 @media (width >= 992px) {
@@ -712,6 +721,7 @@ header .nav-dropdown-menu a {
 
   header .nav-brand-container {
     max-width: var(--header-nav-max-width-desktop);
+    height: auto;
   }
 
   header .nav-links-list {
