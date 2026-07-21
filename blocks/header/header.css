@@ -270,10 +270,6 @@ header .nav-dropdown-menu a {
   transition: background-color 0.15s, color 0.15s;
 }
 
-header nav.nav-mobile-open .nav-dropdown-menu a:hover {
-  color: var(--brand-primary);
-}
-
 /* Desktop visibility resets are defined in desktop media queries. */
 
 /* ===== Mobile-first: inline dropdown menu (matches reference) ===== */
@@ -382,7 +378,7 @@ header nav.nav-mobile-open .nav-dropdown-menu a:hover {
     box-shadow: none;
     min-width: 0;
     width: 100%;
-    padding: 8px 15px 0;
+    padding: 8px 0 0;
     box-sizing: border-box;
     background: #fff;
     border: 0;
@@ -402,15 +398,23 @@ header nav.nav-mobile-open .nav-dropdown-menu a:hover {
 
   header nav.nav-mobile-open .nav-dropdown-menu a {
     display: block;
+    margin: 0 15px;
     padding: 10px 0;
-    margin: 0;
     border-bottom: 1px solid #f4f4f4;
     font-size: var(--header-font-size-s);
-    font-weight: var(--header-font-weight-xs);
+    font-weight: 400;
     color: rgb(74 74 74);
     line-height: var(--header-line-height-s);
     text-transform: none;
     white-space: normal;
+  }
+
+  /* hover: gray fills the full row width; text stays at the 15px inset */
+  header nav.nav-mobile-open .nav-dropdown-menu a:hover {
+    margin: 0;
+    padding: 10px 15px;
+    background: rgb(233 236 239);
+    color: rgb(74 74 74);
   }
 
   /* reference mobile menu has no search, tool pills, or social footer */
