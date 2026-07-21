@@ -437,11 +437,13 @@ header .nav-dropdown-menu a {
     justify-content: space-between;
     height: var(--nav-brand-row-height-mobile);
     padding-left: var(--header-padding-container);
-    padding-right: var(--header-padding-container);
+    padding-right: 25px;
     flex-flow: row nowrap;
-     max-width: var(--header-nav-max-width-mobile);
-     margin-right: auto;
-    margin-left: auto;
+
+    /* full-bleed so logo/hamburger keep fixed insets at every width (matches source);
+       max-width/centering only applies to the desktop layout (>=992px) */
+    max-width: none;
+    margin: 0;
 }
 
   header .nav-brand {
@@ -687,12 +689,8 @@ header .nav-dropdown-menu a {
   }
 
   header .nav-utility-dropdown {
-    width: auto;  
+    width: auto;
   }
-
- header .nav-brand-container {
-  max-width: var(--header-nav-max-width-tablet);
- }
   }
 
 @media (width >= 992px) {
