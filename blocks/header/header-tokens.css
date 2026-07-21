@@ -27,21 +27,18 @@
 
 /* medinfo brand header overrides (header.css @imports this file) */
 
-/* mobile header is the collapsed brand row; full nav height only applies at desktop */
+/* mobile header is the collapsed brand row; full nav height only applies at desktop.
+   min-height (not height) so the inline dropdown menu can expand the header. */
 @media (width < 992px) {
   header {
-    height: var(--nav-brand-row-height-mobile);
+    height: auto;
+    min-height: var(--nav-brand-row-height-mobile);
   }
 }
 
 /* hide search (header.js builds it unconditionally) */
 header .nav-search,
 header .nav-mobile-search {
-  display: none;
-}
-
-/* hide hardcoded VYEPTI tagline */
-header nav .nav-brand .nav-brand-tagline {
   display: none;
 }
 

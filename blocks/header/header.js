@@ -210,12 +210,6 @@ function decorateBrandRow(brandSection, toolsSection) {
     clone.className = 'nav-brand-link';
     logoWrapper.append(clone);
   }
-  // Brand tagline (visible on mobile next to logo)
-  const brandTagline = document.createElement('span');
-  brandTagline.className = 'nav-brand-tagline';
-  brandTagline.textContent = 'For the preventive treatment of migraine in adults.';
-  logoWrapper.append(brandTagline);
-
   container.append(logoWrapper);
 
   // Hamburger menu button (mobile)
@@ -225,10 +219,7 @@ function decorateBrandRow(brandSection, toolsSection) {
   hamburger.setAttribute('aria-expanded', 'false');
   const hamburgerIcon = document.createElement('span');
   hamburgerIcon.className = 'nav-hamburger-icon';
-  const hamburgerText = document.createElement('span');
-  hamburgerText.className = 'nav-hamburger-text';
-  hamburgerText.textContent = 'Menu';
-  hamburger.append(hamburgerIcon, hamburgerText);
+  hamburger.append(hamburgerIcon);
   hamburger.addEventListener('click', () => {
     const expanded = hamburger.getAttribute('aria-expanded') === 'true';
     hamburger.setAttribute('aria-expanded', expanded ? 'false' : 'true');
@@ -427,6 +418,10 @@ export default async function decorate(block) {
   const sections = [...fragment.children];
 
   const [brandSection, sectionsEl, toolsSection, utilitySection] = sections;
+
+  // No hamburger/menu when the nav fragment has no authored links (e.g. nav-patient)
+  const hasNavLinks = !!sectionsEl && !!sectionsEl.querySelector('ul li a');
+  if (!hasNavLinks) nav.classList.add('nav-no-links');
 
   // Build 3-row header: utility (top), brand+tools (middle), nav links (bottom)
   if (utilitySection) nav.append(decorateUtilityBar(utilitySection));
