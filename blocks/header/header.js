@@ -323,7 +323,7 @@ function decorateNavLinks(sectionsEl) {
     const navList = ul.cloneNode(true);
     navList.className = 'nav-links-list';
 
-    const isDesktop = () => window.matchMedia('(min-width: 900px)').matches;
+    const isDesktop = () => window.matchMedia('(min-width: 992px)').matches;
 
     // Add dropdown behavior to items with sub-menus
     navList.querySelectorAll(':scope > li').forEach((li) => {
