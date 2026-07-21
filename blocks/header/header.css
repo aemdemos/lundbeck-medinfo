@@ -413,6 +413,41 @@ header .nav-dropdown-menu a {
     color: rgb(74 74 74);
   }
 
+  /* CONTACT submenu: red headings + dark-gray stacked links (uses <p> blocks,
+     unlike the product submenu which is bare <li><a>) */
+  header nav.nav-mobile-open .nav-dropdown-menu p {
+    margin: 0 15px;
+    padding: 18px 0;
+    border-bottom: 1px solid #f4f4f4;
+    color: rgb(202 65 29);
+    font-size: var(--header-font-size-m);
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  header nav.nav-mobile-open .nav-dropdown-menu p strong {
+    font-weight: 500;
+  }
+
+  header nav.nav-mobile-open .nav-dropdown-menu p a {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: rgb(74 74 74);
+    font-size: var(--header-font-size-s);
+    font-weight: 500;
+    line-height: 18px;
+    text-transform: none;
+  }
+
+  header nav.nav-mobile-open .nav-dropdown-menu p a:hover {
+    margin: 0;
+    padding: 0;
+    background: none;
+    color: var(--brand-primary);
+  }
+
   /* reference mobile menu has no search, tool pills, or social footer */
   header .nav-mobile-header,
   header .nav-mobile-tools,
