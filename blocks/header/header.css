@@ -316,7 +316,7 @@ header .nav-dropdown-menu a {
     margin: 0;
     padding: 10px 15px;
     color: #fff;
-    line-height: var(--header-line-height-m);
+    line-height: 19px; /* 40px stripe height (10 + 19 + 10 + 1px border) — matches source */
     text-decoration: none;
     text-transform: capitalize;
   }
