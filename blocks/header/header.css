@@ -498,11 +498,11 @@ header nav.nav-mobile-open .nav-dropdown-menu a:hover {
   }
 
   header .nav-hamburger-icon::before {
-    top: -7px;
+    top: -10px;
   }
 
   header .nav-hamburger-icon::after {
-    top: 7px;
+    top: 10px;
   }
 
   /* morph to an X when the mobile menu is open */
