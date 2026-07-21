@@ -415,6 +415,12 @@ header .nav-dropdown-menu a {
 
   /* CONTACT submenu: red headings + dark-gray stacked links (uses <p> blocks,
      unlike the product submenu which is bare <li><a>) */
+
+  /* trailing space below the last contact block (source has an extra empty row) */
+  header nav.nav-mobile-open .nav-dropdown-menu:has(p) {
+    padding-bottom: 37px;
+  }
+
   header nav.nav-mobile-open .nav-dropdown-menu p {
     margin: 0 15px;
     padding: 18px 0;
