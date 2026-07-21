@@ -402,7 +402,7 @@ header .nav-dropdown-menu a {
     padding: 10px 0;
     border-bottom: 1px solid #f4f4f4;
     font-size: var(--header-font-size-s);
-    font-weight: 400;
+    font-weight: 200; /* ExtraLight — matches the source site's submenu items */
     color: rgb(74 74 74);
     line-height: var(--header-line-height-s);
     text-transform: none;
@@ -663,15 +663,6 @@ header .nav-dropdown-menu a {
  header .nav-utility-container{
   max-width: var(--header-nav-max-width-mobile);
  }
-
- header .nav-links-container {
-  padding: 0 15px;
- }
-
- header nav.nav-mobile-open .nav-links-row {
-  padding-right: var(--header-padding-container);
-  padding-left: var(--header-padding-container);
- }
   }
 
 @media (width >= 768px) {
@@ -684,12 +675,9 @@ header .nav-dropdown-menu a {
   max-width: var(--header-nav-max-width-tablet);
  }
 
- header nav.nav-mobile-open .nav-mobile-tools {
-    max-width: var(--header-nav-max-width-tablet);
- }
-
- header nav.nav-mobile-open .nav-mobile-header {
-  max-width: var(--header-nav-max-width-tablet);
+ /* keep the open mobile menu full-bleed (matches source) */
+ header nav.nav-mobile-open .nav-links-container {
+  max-width: none;
  }
 
  header .nav-utility-links {
