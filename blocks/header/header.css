@@ -441,6 +441,11 @@ header .nav-dropdown-menu a {
     text-transform: none;
   }
 
+  /* email links render one size smaller than phone links (matches source) */
+  header nav.nav-mobile-open .nav-dropdown-menu p a[href^='mailto:'] {
+    font-size: var(--header-font-size-xs);
+  }
+
   header nav.nav-mobile-open .nav-dropdown-menu p a:hover {
     margin: 0;
     padding: 0;
