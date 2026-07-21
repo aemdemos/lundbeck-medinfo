@@ -346,18 +346,19 @@ header .nav-dropdown-menu a {
     display: inline-block;
   }
 
-  /* chevron stays pointing down when open (matches source — no flip) */
+  /* chevron stays pointing down when open (matches source — no flip);
+     thin 1px stroke to match the source's bi-chevron-down SVG */
   header nav.nav-mobile-open .nav-links-list > li.nav-drop > p::after,
   header nav.nav-mobile-open .nav-links-list > li.nav-drop > a::after {
     content: '';
     display: inline-block;
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
     margin-left: 10px;
     vertical-align: middle;
     border: 0;
-    border-right: 2px solid #fff;
-    border-bottom: 2px solid #fff;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
     transform: translateY(-2px) rotate(45deg);
   }
 
