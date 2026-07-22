@@ -811,8 +811,8 @@ header .nav-dropdown-menu a {
     top: 50%;
     width: 7px;
     height: 7px;
-    border-right: 1px solid var(--brand-primary);
-    border-bottom: 1px solid var(--brand-primary);
+    border-right: 1px solid rgb(74 74 74);
+    border-bottom: 1px solid rgb(74 74 74);
     transform: translateY(-60%) rotate(45deg);
   }
 
@@ -820,8 +820,9 @@ header .nav-dropdown-menu a {
     background-color: transparent;
   }
 
+  /* chevron keeps its downward direction when open (matches source — no flip) */
   header .nav-links-list > li.nav-drop[aria-expanded='true']::after {
-    transform: translateY(-30%) rotate(-135deg);
+    transform: translateY(-60%) rotate(45deg);
     top: 50%;
   }
 
