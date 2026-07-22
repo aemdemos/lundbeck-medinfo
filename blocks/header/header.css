@@ -841,12 +841,18 @@ header .nav-dropdown-menu a {
     display: block;
     margin: 0 25px;
     padding: 10px 0;
+    border-bottom: 1px solid #f4f4f4;
     font-size: var(--header-font-size-s);
     font-weight: 200; /* ExtraLight — matches the source site's dropdown items */
     color: #212529;
     line-height: var(--header-line-height-s);
     white-space: nowrap;
     text-transform: none;
+  }
+
+  /* no separator under the last item (matches source) */
+  header .nav-dropdown-menu li:last-child a {
+    border-bottom: 0;
   }
 
   /* hover: gray fills full row width, text stays at the 25px inset (matches source) */
