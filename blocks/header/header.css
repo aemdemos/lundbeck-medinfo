@@ -838,11 +838,13 @@ header .nav-dropdown-menu a {
     left: 0;
   }
 
-  header .nav-dropdown-menu a {
+  /* link box is always full-width with a 25px text inset via padding, so hover
+     only changes the background — no reflow, no fill flicker when moving between items */
+  header .nav-dropdown-menu li > a {
+    position: relative;
     display: block;
-    margin: 0 25px;
-    padding: 10px 0;
-    border-bottom: 1px solid #f4f4f4;
+    margin: 0;
+    padding: 10px 25px;
     font-size: var(--header-font-size-s);
     font-weight: 200; /* ExtraLight — matches the source site's dropdown items */
     color: #212529;
@@ -851,15 +853,18 @@ header .nav-dropdown-menu a {
     text-transform: none;
   }
 
-  /* no separator under the last item (matches source) */
-  header .nav-dropdown-menu li:last-child a {
-    border-bottom: 0;
+  /* separator drawn as an inset pseudo-element so it doesn't affect the box on hover */
+  header .nav-dropdown-menu li:not(:last-child) > a::after {
+    content: '';
+    position: absolute;
+    right: 25px;
+    bottom: 0;
+    left: 25px;
+    border-bottom: 1px solid #f4f4f4;
   }
 
-  /* hover: gray fills full row width, text stays at the 25px inset (matches source) */
-  header .nav-dropdown-menu a:hover {
-    margin: 0;
-    padding: 10px 25px;
+  /* hover: gray fills the full row width; text stays at the 25px inset (matches source) */
+  header .nav-dropdown-menu li > a:hover {
     background: rgb(233 236 239);
     color: rgb(74 74 74);
   }
