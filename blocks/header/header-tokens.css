@@ -90,10 +90,11 @@ header nav .nav-links-list > li > p a {
   color: var(--text-color);
 }
 
+/* top-level nav items do not change color on hover (matches source) */
 header nav .nav-links-list > li:hover,
 header nav .nav-links-list > li > p a:hover,
 header nav .nav-links-list > li > a:hover {
-  color: var(--brand-primary);
+  color: var(--text-color);
 }
 
 /* no active-page underline indicator */
