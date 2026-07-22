@@ -27,13 +27,12 @@
 
 /* medinfo brand header overrides (header.css @imports this file) */
 
-/* mobile header is the collapsed brand row; full nav height only applies at desktop.
-   min-height (not height) so the inline dropdown menu can expand the header. */
-@media (width < 992px) {
-  header {
-    height: auto;
-    min-height: var(--nav-brand-row-height-mobile);
-  }
+/* mobile-first: header is the collapsed brand row; full nav height only applies at
+   desktop (see >=992px block below). min-height (not height) so the inline dropdown
+   menu can expand the header. */
+header {
+  height: auto;
+  min-height: var(--nav-brand-row-height-mobile);
 }
 
 /* hide search (header.js builds it unconditionally) */
