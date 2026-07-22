@@ -392,11 +392,13 @@ header .nav-dropdown-menu a {
     background: none;
   }
 
-  header nav.nav-mobile-open .nav-dropdown-menu a {
+  /* link box is always full-width with a 15px text inset via padding, so hover
+     only changes the background — no reflow, no fill flicker between items */
+  header nav.nav-mobile-open .nav-dropdown-menu li > a {
+    position: relative;
     display: block;
-    margin: 0 15px;
-    padding: 10px 0;
-    border-bottom: 1px solid #f4f4f4;
+    margin: 0;
+    padding: 10px 15px;
     font-size: var(--header-font-size-s);
     font-weight: 200; /* ExtraLight — matches the source site's submenu items */
     color: rgb(74 74 74);
@@ -405,10 +407,18 @@ header .nav-dropdown-menu a {
     white-space: normal;
   }
 
+  /* separator drawn as an inset pseudo-element so it doesn't affect the box on hover */
+  header nav.nav-mobile-open .nav-dropdown-menu li:not(:last-child) > a::after {
+    content: '';
+    position: absolute;
+    right: 15px;
+    bottom: 0;
+    left: 15px;
+    border-bottom: 1px solid #f4f4f4;
+  }
+
   /* hover: gray fills the full row width; text stays at the 15px inset */
-  header nav.nav-mobile-open .nav-dropdown-menu a:hover {
-    margin: 0;
-    padding: 10px 15px;
+  header nav.nav-mobile-open .nav-dropdown-menu li > a:hover {
     background: rgb(233 236 239);
     color: rgb(74 74 74);
   }
