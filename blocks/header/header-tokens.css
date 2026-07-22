@@ -86,12 +86,12 @@ header .nav-mobile-search {
 header nav .nav-links-list > li,
 header nav .nav-links-list > li > a,
 header nav .nav-links-list > li > p,
-header nav .nav-links-list > li p a {
+header nav .nav-links-list > li > p a {
   color: var(--text-color);
 }
 
 header nav .nav-links-list > li:hover,
-header nav .nav-links-list > li p a:hover,
+header nav .nav-links-list > li > p a:hover,
 header nav .nav-links-list > li > a:hover {
   color: var(--brand-primary);
 }
