@@ -133,7 +133,8 @@
 
   /* nav heights */
   --nav-height: 200px; /* @libs */
-  --nav-brand-row-height-mobile: 97px; /* @libs */
+  --nav-brand-row-height-mobile: 91px; /* @libs */
+  --nav-brand-row-height-tablet: 122px;
   --breadcrumbs-height: 34px; /* @libs */
   --header-height: var(--nav-height); /* @libs */
 
