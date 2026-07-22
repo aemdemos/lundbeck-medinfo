@@ -645,7 +645,7 @@ main > .section > .bg-image img { /* @boilerplate */
 
 /* patient-home hero (first bg-image section, no search fragment): give it a
    min-height so the background image is visible (source hero ≈ 290px). */
-main > .section:first-child:has(> .bg-image):not(.search-product-container, .hero-container) {
+main > .section:first-child:has(> .bg-image):not(.search-product-container):not(.hero-container) {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -857,7 +857,7 @@ body.product-list main .section.center:not(.section-title-container) {
 
 /* last product section needs bottom breathing room above the footer
    (it is the final .center section — no product/band section follows it) */
-body.product-list main > .section.center:not(.section-title-container, :has(~ .section.center)) {
+body.product-list main > .section.center:not(.section-title-container):not(:has(~ .section.center)) {
   padding-bottom: 56px;
 }
 
@@ -909,7 +909,7 @@ body.product-list main .section.center:not(.section-title-container) h4 {
 }
 
 /* "For All Inquiries …" lead (its own uncentered section) with red underline */
-body.product-list main > .section:not(.center, .search-product-container, .section-title-container) h3 {
+body.product-list main > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 {
   margin: 0 auto 25px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--brand-primary);
@@ -920,7 +920,7 @@ body.product-list main > .section:not(.center, .search-product-container, .secti
   color: var(--text-color);
 }
 
-body.product-list main > .section:not(.center, .search-product-container, .section-title-container) h3 a[href^="tel:"] {
+body.product-list main > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 a[href^="tel:"] {
   color: var(--text-color);
   text-decoration: none;
 }
@@ -997,7 +997,7 @@ main .section[id="inquiry"] .section-title-wrapper .section-title {
     line-height: 1.6;
   }
 
-  body.product-list main > .section:not(.center, .search-product-container, .section-title-container) h3 {
+  body.product-list main > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 {
     margin-bottom: 48px;
     padding-bottom: 18px;
     font-size: 26px;
