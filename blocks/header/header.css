@@ -842,7 +842,7 @@ header .nav-dropdown-menu a {
     margin: 0 25px;
     padding: 10px 0;
     font-size: var(--header-font-size-s);
-    font-weight: 400;
+    font-weight: 200; /* ExtraLight — matches the source site's dropdown items */
     color: #212529;
     line-height: var(--header-line-height-s);
     white-space: nowrap;
