@@ -1,8 +1,11 @@
 /* section-title brand overrides (section-title.css @imports this file) */
+main .section-title.center-mobile {
+  text-align: center;
+}
 
 /* symmetric band padding + neutralized heading margins */
 main .section-title-wrapper .section-title {
-  padding: 14px 0;
+  padding: 16px 0;
 }
 
 main .section-title-wrapper .section-title .title,
@@ -13,8 +16,7 @@ main .section-title-wrapper .section-title .subtitle {
 
 /* columns-heading title: 16px mobile / 20px desktop, 700 */
 main .section-title.columns-heading .title {
-  font-size: var(--body-font-size-s); /* 16px mobile */
-  font-weight: var(--font-weight-bold);
+  font-size: var(--body-font-size-ms); /* 16px mobile */
   line-height: 24px; /* source mobile */
 }
 
@@ -24,6 +26,7 @@ main .section-title h2.title {
   font-size: var(--heading-font-size-l);
   font-weight: var(--font-weight-bold);
   line-height: 1;
+  font-family: var( --body-font-family);
 }
 
 /* on a coloured-background section, title/subtitle default to white (unless a
@@ -51,6 +54,17 @@ main > .section.section-title-container > .bg-image img {
   object-fit: fill;
 }
 
+@media (width >= 768px) {
+  main .section-title.center-mobile {
+    text-align: unset;
+  }
+
+  main .section-title p.title {
+    font-size: 20px;
+    line-height: 26px;
+  }
+}
+
 
 /* columns-heading variant: title acting as the heading above a divider-columns
    block; aligns to the first column's indent and hugs the columns. */
@@ -70,3 +84,5 @@ main > .section.section-title-container > .bg-image img {
     padding-top: 0;
   }
 }
+
+

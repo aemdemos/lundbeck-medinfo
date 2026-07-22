@@ -124,9 +124,9 @@
 
   /* hcp-home hero (section-level, not block-scoped) */
   --hero-h1-font-size: 48px;
-  --hero-h1-max-width: 60%;
-  --hero-h2-max-width: 65%;
-  --hero-band-min-height: 220px; /* mobile; steps up to 290px at 992px */
+  --hero-h1-max-width: 75%;
+  --hero-h2-max-width: 75%;
+  --hero-band-min-height: 200px; /* mobile; steps up to 290px at 992px */
 
   /* decorative plaque behind a section-title (e.g. "MORE FROM LUNDBECK") */
   --section-title-bg-image-width: 58%;
@@ -385,6 +385,12 @@ a:hover { /* @libs */
   text-decoration: none; /* @libs */
 }
 
+a > u {
+  margin-bottom: 5px;
+  border-bottom: 1px solid var(--text-color);
+  text-decoration: none;
+}
+
 /* buttons — shared structure */
 a.button,
 button { /* @libs */
@@ -555,8 +561,8 @@ main li.icon-bullet-item { /* @libs */
   list-style: none; /* @libs */
 }
 
-main ul.icon-bullets ul,
-main ul.icon-bullets li ul li::marker
+main ul ul,
+main ul li ul li::marker
  {
 list-style: disc;
 }
@@ -616,11 +622,17 @@ main > .section:has(> .bg-image) { /* @boilerplate */
 /* First (hero) bg-image section keeps a min height so short-content pages (e.g.
    patient/home, which lacks the search fragment) match the source's band height.
    Taller pages (hcp/home + fragment) already exceed this, so they're unaffected. */
-main > .section:first-child:has(> .bg-image) {
+main > .section.hero-banner {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: var(--hero-band-min-height, 290px);
+  min-height: var(--hero-band-min-height);
+
+  p {
+    font-size: 16px;
+    line-height: 1.3;
+    text-shadow: 0 4px 4px rgb(255 255 255 / 15%);
+  }
 }
 
 main > .section:has(> .bg-image) > div:not(.bg-image) { /* @boilerplate */
@@ -646,26 +658,24 @@ main > .section > .bg-image img { /* @boilerplate */
   object-fit: cover; /* @boilerplate */
 }
 
-/* patient-home hero (first bg-image section, no search fragment): give it a
-   min-height so the background image is visible (source hero ≈ 290px). */
-main > .section:first-child:has(> .bg-image):not(.search-product-container):not(.hero-container) {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 290px;
-}
-
 /* patient-home hero (first bg-image section, no search fragment): H1 matches the
-   HCP hero scale (20 mobile → 48 desktop); lead paragraph 16/500 → 22/500. */
+   HCP hero scale (20 mobile → 48 desktop); lead paragraph 16/500 → 22/500. 
 main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper h1 {
   font-size: var(--heading-font-size-xxl);
 }
 
+
 main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper p {
   font-size: var(--body-font-size-s);
   font-weight: var(--font-weight-medium);
-  line-height: var(--body-line-height-ms); /* 22px, matches source lead */
+  line-height: var(--body-line-height-ms); 
 }
+*/
+
+
+
+
+
 
 /* bg-contain: decorative fixed-shape background (e.g. a ribbon/plaque) sized to fit and
    centered behind content, instead of stretched full-bleed. Author via section style. */
@@ -718,6 +728,25 @@ main > .section.divider-top {
 
   .section-title {
     margin-top: -6px;
+  }
+}
+
+main > .section.tall.hero-container { /* medical inquiry page */
+  min-height: 260px;
+  display: inline-flex;
+
+  .bg-image {
+  object-fit: cover;
+  object-position: bottom;
+  }
+
+  .hero-wrapper {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .hero-intro-text h1{
+    max-width: 95%;
   }
 }
 
@@ -861,17 +890,23 @@ main .section.stats-callout h4 {
 }
 
 /* Product-list pages (products, patient home) — product name h2, links h3,
-   trademark h4. Scoped to the `product-list` template class on <body>. */
+   trademark h4. Scoped to the `product-list` template class on <body>. 
 body.product-list main .section.center:not(.section-title-container) {
   padding-top: 36px;
   padding-bottom: 0;
 }
+  */
+
+  body.product-list .section.center:not(.section-title-container)  {
+    margin: 24px auto;
+  }
 
 /* last product section needs bottom breathing room above the footer
-   (it is the final .center section — no product/band section follows it) */
+   (it is the final .center section — no product/band section follows it) 
 body.product-list main > .section.center:not(.section-title-container):not(:has(~ .section.center)) {
   padding-bottom: 56px;
 }
+  */
 
 body.product-list main .section.center:not(.section-title-container) h2 {
   margin: 0 0 16px;
@@ -913,7 +948,7 @@ body.product-list main .section.center h3 a[href^="tel:"] {
 }
 
 body.product-list main .section.center:not(.section-title-container) h4 {
-  margin: 8px 0 0;
+  margin: 10px 0 0;
   font-size: var(--heading-font-size-xs);
   font-weight: 200;
   line-height: 1.33;
@@ -923,7 +958,7 @@ body.product-list main .section.center:not(.section-title-container) h4 {
 /* disorder bands (NEUROLOGICAL/PSYCHIATRIC) are zero-margin colored strips; the
    flanking product/content sections own the surrounding space so nothing stacks
    (e.g. against the hero). A disorder band is a section-title band followed by a
-   non-columns section — this excludes the patient "Report an Adverse Event" band. */
+   non-columns section — this excludes the patient "Report an Adverse Event" band. 
 body.product-list main > .section.section-title-container:not(.columns-container) + .section:not(.columns-container) {
   padding-top: 40px;
 }
@@ -931,6 +966,7 @@ body.product-list main > .section.section-title-container:not(.columns-container
 body.product-list main > .section.center:has(+ .section.section-title-container:not(.columns-container)) {
   padding-bottom: 40px;
 }
+  */
 
 /* "For All Inquiries …" lead (its own uncentered section) with red underline 
 body.product-list main > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 {
@@ -950,9 +986,17 @@ body.product-list main > .section:not(.center):not(.search-product-container):no
 }
   */
 
-/* Medical-inquiry #inquiry section: tighter title padding, full-bleed columns */
-main .section[id="inquiry"] .section-title-wrapper .section-title {
-  padding: 56px 0 24px;
+.section.hero-banner h1 {
+  margin-bottom: 30px;
+}
+
+body.patient .section.report {
+  padding: 12px 0;
+}
+
+main .section#inquiry .columns.divider a {
+text-decoration: underline;
+font-weight: unset;
 }
 
 @media (width >= 768px) {
@@ -996,27 +1040,35 @@ main .section[id="inquiry"] .section-title-wrapper .section-title {
     line-height: 1.6;
   }
 
-  body.product-list main > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 {
-    margin-bottom: 48px;
-    padding-bottom: 18px;
-    font-size: 26px;
-    font-weight: 700;
-    line-height: 1;
-  }
-
-  body.product-list main > .section.section-title-container:not(.columns-container) + .section:not(.columns-container) {
-    padding-top: 60px;
-  }
-
   body.product-list main > .section.center:has(+ .section.section-title-container:not(.columns-container)) {
     padding-bottom: 60px;
   }
 
   main ul.icon-bullets > li,
   main li.icon-bullet-item { /* @libs */
-  gap: 12px; /* @libs */
+  gap: 30px; /* @libs */
 }
 
+body.hcp .section.report {
+  padding: 80px 0;
+}
+
+body.patient .section.report {
+  padding: 36px 0;
+}
+
+.section.hero-banner {
+  h1 {
+    margin-top: 30px;
+    margin-bottom: 24px;
+  }
+
+  p {
+  font-size: 20px;
+  line-height: 26px;
+  margin-bottom: 24px;
+}
+}
 
     /* ==== Start widths ==== */
 
@@ -1072,6 +1124,7 @@ div[class^="width-"], div[class*=" width-"] {
     --body-line-height: 1.5; /* restore 24px line-height on desktop */
     --body-line-height-s: 20px; /* 16px body text steps to 20px LH on desktop (source) */
     --hero-band-min-height: 290px; /* taller hero band on desktop */
+    --max-width-site: 960px;
   }
 
   body[data-breadcrumbs] { /* @libs */
@@ -1132,14 +1185,17 @@ main > .section:has(.search-product) > .default-content-wrapper h2 {
   }
 
   /* patient-home hero: H1 steps up to 48px; lead paragraph to 22px (source) */
-  main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper h1 {
+  .section.hero-banner {
+    h1 {
     font-size: var(--hero-h1-font-size);
   }
 
-  main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper p {
+  p {
     font-size: var(--heading-font-size-s);
     line-height: 28px; /* source desktop lead (22px text) */
+    width: var(--hero-h2-max-width);
   }
+}
 
   main .section[id="inquiry"] .section-title.columns-heading .title {
     margin-inline-start: 0;
@@ -1155,6 +1211,10 @@ main > .section:has(.search-product) > .default-content-wrapper h2 {
 }
 
 @media (width >= 1200px) {
+  :root {
+    --max-width-site: 1140px;
+  }
+  
   header { /* @libs */
     height: var(--nav-height); /* @libs */
   }
