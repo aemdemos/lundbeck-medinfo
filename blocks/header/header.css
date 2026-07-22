@@ -827,25 +827,83 @@ header .nav-dropdown-menu a {
 
   header .nav-dropdown-menu {
     position: absolute;
-    box-shadow: none;
     min-width: 160px;
-    padding: 8px 0;
+    padding: 8px 0 0;
     background-color: #fff;
-    border: 1px solid rgb(0 0 0 / 15%);
-    border-bottom: 5px solid #c02c57;
-    border-radius: 0 0 4px 4px;
+    border: 0;
+    border-radius: 0;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
     margin: 0;
-    left: -26px;
+    left: 0;
   }
 
   header .nav-dropdown-menu a {
-    padding: 6px 20px;
-    margin: 0;
-    font-size: 12.8px;
-    font-weight: 600;
-    color: var(--header-text-color);
+    display: block;
+    margin: 0 25px;
+    padding: 10px 0;
+    font-size: var(--header-font-size-s);
+    font-weight: 400;
+    color: #212529;
     line-height: var(--header-line-height-s);
     white-space: nowrap;
+    text-transform: none;
+  }
+
+  /* hover: gray fills full row width, text stays at the 25px inset (matches source) */
+  header .nav-dropdown-menu a:hover {
+    margin: 0;
+    padding: 10px 15px;
+    background: rgb(233 236 239);
+    color: rgb(74 74 74);
+  }
+
+  /* CONTACT (last nav item) opens right-aligned so it doesn't overflow the viewport */
+  header .nav-links-list > li.nav-drop:last-child > .nav-dropdown-menu {
+    left: auto;
+    right: 0;
+  }
+
+  /* desktop CONTACT submenu: red headings + dark-gray stacked contact links */
+  header .nav-dropdown-menu:has(p) {
+    width: 270px;
+    padding-bottom: 8px;
+  }
+
+  header .nav-dropdown-menu p {
+    margin: 0 15px;
+    padding: 18px 0;
+    border-bottom: 1px solid #f4f4f4;
+    color: rgb(202 65 29);
+    font-size: var(--header-font-size-m);
+    font-weight: 500;
+    line-height: 20px;
+    white-space: normal;
+  }
+
+  header .nav-dropdown-menu p strong {
+    font-weight: 500;
+  }
+
+  header .nav-dropdown-menu p a {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    color: rgb(74 74 74);
+    font-size: var(--header-font-size-s);
+    font-weight: 500;
+    line-height: 18px;
+    white-space: normal;
+  }
+
+  header .nav-dropdown-menu p a[href^='mailto:'] {
+    font-size: var(--header-font-size-xs);
+  }
+
+  header .nav-dropdown-menu p a:hover {
+    margin: 0;
+    padding: 0;
+    background: none;
+    color: var(--brand-primary);
   }
 
   header .nav-mobile-header,
