@@ -120,13 +120,13 @@
   --content-max-width: 780px;
   --section-padding-vertical: 40px; /* @libs */
   --icon-size: 24px; /* @libs */
-  --h1-max-width: 14em; /* @libs */
+  --h1-max-width: 95%; /* @libs */
 
   /* hcp-home hero (section-level, not block-scoped) */
   --hero-h1-font-size: 48px;
-  --hero-h1-max-width: 60%;
-  --hero-h2-max-width: 65%;
-  --hero-band-min-height: 220px; /* mobile; steps up to 290px at 992px */
+  --hero-h1-max-width: 75%;
+  --hero-h2-max-width: 75%;
+  --hero-band-min-height: 200px; /* mobile; steps up to 290px at 992px */
 
   /* decorative plaque behind a section-title (e.g. "MORE FROM LUNDBECK") */
   --section-title-bg-image-width: 58%;
@@ -229,9 +229,9 @@ body { /* @libs */
   background-color: var(--background-color); /* @libs */
   color: var(--text-color); /* @libs */
   font-family: var(--body-font-family); /* @libs */
-  font-size: var(--body-font-size-s); /* @libs */
+  font-size: var(--body-font-size-xs); /* @libs */
   font-weight: 200; /* ExtraLight is the closest lighter face to the source's Regular(400) */
-  line-height: var(--body-line-height); /* @libs */
+  line-height: var(--body-line-height-s);
 }
 
 body.appear { /* @libs */
@@ -299,6 +299,10 @@ h1 {
   max-width: var(--h1-max-width);
 }
 
+h1 > strong {
+  text-shadow: 0 4px 4px rgb(0 0 0 / 15%);
+}
+
 h2 {
   font-family: var(--display-font-family);
   font-size: var(--heading-font-size-s);
@@ -318,7 +322,7 @@ h3 {
 h4 {
   font-size: var(--heading-font-size-xl);
   font-weight: var(--font-weight-bold);
-  line-height: 1.05;
+  line-height: 1.25;
   margin-bottom: 16px;
 }
 
@@ -380,6 +384,12 @@ a {
 a:hover { /* @libs */
   color: var(--link-hover-color); /* @libs */
   text-decoration: none; /* @libs */
+}
+
+a > u {
+  margin-bottom: 5px;
+  border-bottom: 1px solid var(--text-color);
+  text-decoration: none;
 }
 
 /* buttons — shared structure */
@@ -548,12 +558,12 @@ main ul.icon-bullets > li,
 main li.icon-bullet-item { /* @libs */
   display: flex; /* @libs */
   align-items: flex-start; /* @libs */
-  gap: 12px; /* @libs */
+  gap: 24px; /* @libs */
   list-style: none; /* @libs */
 }
 
-main ul.icon-bullets ul,
-main ul.icon-bullets li ul li::marker
+main ul ul,
+main ul li ul li::marker
  {
 list-style: disc;
 }
@@ -613,11 +623,17 @@ main > .section:has(> .bg-image) { /* @boilerplate */
 /* First (hero) bg-image section keeps a min height so short-content pages (e.g.
    patient/home, which lacks the search fragment) match the source's band height.
    Taller pages (hcp/home + fragment) already exceed this, so they're unaffected. */
-main > .section:first-child:has(> .bg-image) {
+main > .section.hero-banner {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: var(--hero-band-min-height, 290px);
+  min-height: var(--hero-band-min-height);
+
+  p {
+    font-size: 16px;
+    line-height: 1.3;
+    text-shadow: 0 4px 4px rgb(255 255 255 / 15%);
+  }
 }
 
 main > .section:has(> .bg-image) > div:not(.bg-image) { /* @boilerplate */
@@ -643,27 +659,6 @@ main > .section > .bg-image img { /* @boilerplate */
   object-fit: cover; /* @boilerplate */
 }
 
-/* patient-home hero (first bg-image section, no search fragment): give it a
-   min-height so the background image is visible (source hero ≈ 290px). */
-main > .section:first-child:has(> .bg-image):not(.search-product-container):not(.hero-container) {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 290px;
-}
-
-/* patient-home hero (first bg-image section, no search fragment): H1 matches the
-   HCP hero scale (20 mobile → 48 desktop); lead paragraph 16/500 → 22/500. */
-main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper h1 {
-  font-size: var(--heading-font-size-xxl);
-}
-
-main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper p {
-  font-size: var(--body-font-size-s);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--body-line-height-ms); /* 22px, matches source lead */
-}
-
 /* bg-contain: decorative fixed-shape background (e.g. a ribbon/plaque) sized to fit and
    centered behind content, instead of stretched full-bleed. Author via section style. */
 main > .section.bg-contain > .bg-image img {
@@ -679,7 +674,7 @@ main > .section.section-title-container > .bg-image {
   right: auto;
   top: calc(-1 * var(--section-divider-width));
   width: 100%;
-  max-width: var(--section-title-bg-image-width-mobile, 95%);
+  max-width: 95%;
   transform: translateX(-50%);
 }
 
@@ -689,13 +684,12 @@ main > .section.section-title-container > .bg-image img {
 }
 
 /* hcp-home hero: space text/fragment so bg image shows */
-main > .section.search-product-container > .default-content-wrapper {
-  padding-top: var(--spacing-xl);
-}
+main > .section.search-product-container {
+  min-height: 700px;
 
-main > .section.search-product-container > .fragment-wrapper {
+ > .default-content-wrapper {
   padding-top: var(--spacing-l);
-  padding-bottom: var(--spacing-xl);
+}
 }
 
 main > .section.divider > div:last-child { /* @libs */
@@ -707,10 +701,32 @@ main > .section.divider > div:last-child { /* @libs */
    Set on the section itself so it works with or without a .bg-image. */
 main > .section.divider-top {
   border-top: var(--section-divider-width) solid var(--section-divider-top-color);
+  overflow: visible;
+
+  > .bg-image {
+    margin-top: -6px;
+  }
+
+  .section-title {
+    margin-top: -6px;
+  }
+}
+
+main > .section.tall.hero-container { /* medical inquiry page */
+  min-height: 290px;
+  display: inline-flex;
+
+  .hero-wrapper {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .hero-intro-text h1{
+    max-width: 95%;
+  }
 }
 
 main > .section > div:not(.bg-image) { /* @libs */
-  max-width: 540px; /* @libs */
   margin: auto; /* @libs */
   padding: 0 15px; /* @libs */
 }
@@ -842,24 +858,13 @@ main .section.stats-callout h4 {
   color: var(--brand-primary);
 }
 
-@media (width >= 576px) {
-  main .section.stats-callout > div:not(.bg-image) {
-    max-width: 540px;
-  }
-}
+    main .section:not(.section-title-container, .hero-banner, .report, .search-product-container)  {
+      margin: 24px auto;
+    }
 
-/* Product-list pages (products, patient home) — product name h2, links h3,
-   trademark h4. Scoped to the `product-list` template class on <body>. */
-body.product-list main .section.center:not(.section-title-container) {
-  padding-top: 36px;
-  padding-bottom: 0;
-}
-
-/* last product section needs bottom breathing room above the footer
-   (it is the final .center section — no product/band section follows it) */
-body.product-list main > .section.center:not(.section-title-container):not(:has(~ .section.center)) {
-  padding-bottom: 56px;
-}
+    main .section:has(.default-content-wrapper > .section) {
+      margin: 0;
+    }
 
 body.product-list main .section.center:not(.section-title-container) h2 {
   margin: 0 0 16px;
@@ -886,7 +891,7 @@ body.product-list main .section.center h3 a {
 
 /* two document links on one line: source gap is wider than our whitespace */
 body.product-list main .section.center h3 a + a {
-  margin-inline-start: 26px;
+  margin-inline-start: 50px;
 }
 
 /* inline phone inquiry line (e.g. "For Medical Information Inquiries: …") */
@@ -901,59 +906,24 @@ body.product-list main .section.center h3 a[href^="tel:"] {
 }
 
 body.product-list main .section.center:not(.section-title-container) h4 {
-  margin: 8px 0 0;
+  margin: 10px 0 0;
   font-size: var(--heading-font-size-xs);
   font-weight: 200;
   line-height: 1.33;
   color: var(--text-color);
 }
 
-/* "For All Inquiries …" lead (its own uncentered section) with red underline */
-body.product-list main > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 {
-  margin: 0 auto 25px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--brand-primary);
-  font-size: var(--body-font-size-ms);
-  font-weight: 400;
-  line-height: 1.33;
-  text-align: center;
-  color: var(--text-color);
+.section.hero-banner h1 {
+  margin-bottom: 30px;
 }
 
-body.product-list main > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 a[href^="tel:"] {
-  color: var(--text-color);
-  text-decoration: none;
+body.patient .section.report {
+  padding: 12px 0;
 }
 
-/* disorder bands (NEUROLOGICAL/PSYCHIATRIC) are zero-margin colored strips; the
-   flanking product/content sections own the surrounding space so nothing stacks
-   (e.g. against the hero). A disorder band is a section-title band followed by a
-   non-columns section — this excludes the patient "Report an Adverse Event" band. */
-body.product-list main > .section.section-title-container:not(.columns-container) + .section:not(.columns-container) {
-  padding-top: 40px;
-}
-
-body.product-list main > .section.center:has(+ .section.section-title-container:not(.columns-container)) {
-  padding-bottom: 40px;
-}
-
-/* Medical-inquiry #inquiry section: tighter title padding, full-bleed columns */
-main .section[id="inquiry"] .section-title-wrapper .section-title {
-  padding: 56px 0 24px;
-}
-
-@media (width >= 992px) {
-  main .section[id="inquiry"] .section-title.columns-heading .title {
-    margin-inline-start: 0;
-  }
-
-  main .section[id="inquiry"] .columns.divider.columns-2-cols > div > :first-child {
-    padding-inline: 0 var(--columns-divider-spacing);
-  }
-
-  main .section[id="inquiry"] .columns.divider.columns-2-cols > div > :nth-child(2) {
-    padding-inline: var(--columns-divider-spacing) 0;
-  }
+main .section#inquiry .columns.divider a {
+text-decoration: underline;
+font-weight: unset;
 }
 
 @media (width >= 768px) {
@@ -967,9 +937,23 @@ main .section[id="inquiry"] .section-title-wrapper .section-title {
     --heading-font-size-xl: 32px; /* h4 product name */
     --heading-font-size-l: 24px; /* h3 band */
     --heading-font-size-m: 22px; /* h5 card head */
-    --heading-font-size-s: 22px; /* h2 subhead */
+    --heading-font-size-s: 20px; /* h2 subhead */
     --heading-font-size-xs: 20px; /* h6 trademark */
+    --hero-band-min-height: 242px;
   }
+
+  main .section#inquiry  {
+    margin: 24px auto;
+
+    .columns.divider.columns-2-cols > div > :nth-child(1) {
+      margin-right: 40px;
+    }
+
+    .columns.divider.columns-2-cols > div > :nth-child(2) {
+        border-inline-start: var(--columns-divider-width) solid var(--text-color);
+        padding-inline-start: 20px;
+    }
+    }
 
     .hide-desktop {
       display: none;
@@ -979,10 +963,9 @@ main .section[id="inquiry"] .section-title-wrapper .section-title {
       display: revert;
     }
 
-  /* Product Information page — desktop type scale (source values) */
-  body.product-list main .section.center:not(.section-title-container) {
-    padding-top: 48px;
-  }
+    main > .section.search-product-container {
+      min-height: unset;
+    }    
 
   body.product-list main .section.center:not(.section-title-container) h3 {
     font-size: 24px;
@@ -997,22 +980,43 @@ main .section[id="inquiry"] .section-title-wrapper .section-title {
     line-height: 1.6;
   }
 
-  body.product-list main > .section:not(.center):not(.search-product-container):not(.section-title-container) h3 {
-    margin-bottom: 48px;
-    padding-bottom: 18px;
-    font-size: 26px;
-    font-weight: 700;
-    line-height: 1;
-  }
-
-  body.product-list main > .section.section-title-container:not(.columns-container) + .section:not(.columns-container) {
-    padding-top: 60px;
-  }
-
   body.product-list main > .section.center:has(+ .section.section-title-container:not(.columns-container)) {
     padding-bottom: 60px;
   }
 
+  main ul.icon-bullets > li,
+  main li.icon-bullet-item { /* @libs */
+  gap: 30px; /* @libs */
+}
+
+body.hcp .section.report {
+  padding: 80px 0;
+}
+
+body.patient .section.report {
+  padding: 36px 0;
+}
+
+main > .section.hero-banner {
+  h1 {
+    margin-top: 30px;
+    margin-bottom: 16px;
+  }
+
+  p {
+  font-size: 20px;
+  line-height: 26px;
+  margin-bottom: 24px;
+}
+}
+
+main .section:not(.section-title-container, .hero-banner, .report, .search-product-container) {
+    margin: 36px auto;
+}
+
+main > .section.tall.hero-container {
+  min-height: 300px;
+}
 
     /* ==== Start widths ==== */
 
@@ -1055,11 +1059,11 @@ div[class^="width-"], div[class*=" width-"] {
     }
 
     main > .section > div:not(.bg-image) { /* @libs */
-      max-width: 720px; /* @libs */
+      max-width: 700px; /* @libs */
     }
-  
-    main .section.stats-callout > div:not(.bg-image) {
-      max-width: 720px;
+
+    main > .section.cards-container {
+      margin-bottom: 80px;
     }
   }
 
@@ -1068,6 +1072,10 @@ div[class^="width-"], div[class*=" width-"] {
     --body-line-height: 1.5; /* restore 24px line-height on desktop */
     --body-line-height-s: 20px; /* 16px body text steps to 20px LH on desktop (source) */
     --hero-band-min-height: 290px; /* taller hero band on desktop */
+    --max-width-site: 960px;
+    --hero-h1-max-width: 70%;
+    --hero-h1-font-size: 45px;
+    --content-max-width: 960px;
   }
 
   body[data-breadcrumbs] { /* @libs */
@@ -1088,10 +1096,11 @@ body.product-list main > .section > div:not(.bg-image) {
   max-width: var(--max-width-site);
   margin-inline: auto;
   box-sizing: border-box;
+  padding: 0;
 }
 
-main .section.stats-callout > div:not(.bg-image) {
-  max-width: 960px;
+main > .section.tall.hero-container {
+  min-height: 220px;
 }
 
 /* HCP home hero: full-width headline column; H1/H2 wrap within the left ~60% */
@@ -1106,6 +1115,12 @@ main > .section:has(.search-product) > .default-content-wrapper h1 {
 
 main > .section:has(.search-product) > .default-content-wrapper h2 {
   max-width: var(--hero-h2-max-width);
+}
+
+main > .section.divider-top {
+  .section-title {
+      margin-top: -8px;
+  }
 }
 
   main .section.accent > div { /* @libs */
@@ -1128,17 +1143,45 @@ main > .section:has(.search-product) > .default-content-wrapper h2 {
   }
 
   /* patient-home hero: H1 steps up to 48px; lead paragraph to 22px (source) */
-  main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper h1 {
+  .section.hero-banner {
+    h1 {
     font-size: var(--hero-h1-font-size);
+    width: var(--hero-h1-max-width);
   }
 
-  main > .section:first-child:has(> .bg-image):not(.search-product-container) > .default-content-wrapper p {
+  p {
     font-size: var(--heading-font-size-s);
     line-height: 28px; /* source desktop lead (22px text) */
+    width: var(--hero-h2-max-width);
   }
 }
 
+main .section#inquiry {
+  p.title {
+    margin-inline-start: 0;
+    padding-bottom: 12px;
+  }
+
+  p, a, li {
+    font-size: 16px;
+    line-height: 1.25;
+  }
+
+  .columns.divider.columns-2-cols > div > :nth-child(2) {
+   padding-inline-start: 60px;
+}
+
+> div:last-child {
+  border-bottom: 2px solid #eee;
+}
+}
+}
+
 @media (width >= 1200px) {
+  :root {
+    --max-width-site: 1140px;
+  }
+  
   header { /* @libs */
     height: var(--nav-height); /* @libs */
   }

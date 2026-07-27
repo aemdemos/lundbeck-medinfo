@@ -114,17 +114,22 @@ function buildDropdown(options, placeholder, errorMessage) {
   panel.addEventListener('keydown', (e) => {
     const items = [...panel.children];
     const idx = items.indexOf(document.activeElement);
+    // eslint-disable-next-line secure-coding/no-insecure-comparison -- e.key is the KeyboardEvent key name (e.g. 'ArrowDown'), not a secret; the rule's keyword matcher only flags it because "key" is a substring
     if (e.key === 'ArrowDown') {
       e.preventDefault();
+      // eslint-disable-next-line secure-coding/detect-object-injection -- idx is a numeric array index from items.indexOf(), not a string key; no prototype-pollution risk
       (items[idx + 1] || items[0]).focus();
+      // eslint-disable-next-line secure-coding/no-insecure-comparison -- e.key is the KeyboardEvent key name, not a secret
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       (items[idx - 1] || items[items.length - 1]).focus();
+      // eslint-disable-next-line secure-coding/no-insecure-comparison -- e.key is the KeyboardEvent key name, not a secret
     } else if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       if (document.activeElement.classList.contains('search-product-select-option')) {
         select(document.activeElement);
       }
+      // eslint-disable-next-line secure-coding/no-insecure-comparison -- e.key is the KeyboardEvent key name, not a secret
     } else if (e.key === 'Escape') {
       e.preventDefault();
       close();

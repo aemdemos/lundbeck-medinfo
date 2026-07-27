@@ -1,6 +1,6 @@
 /* cards design tokens — Tier 2: reference global semantics; @boilerplate marks unresolved literals */
 :root { /* @boilerplate */
-  --cards-grid-min-width: 257px; /* @boilerplate */
+  --cards-grid-min-width: 336px; /* @boilerplate */
   --cards-grid-gap: var(--spacing-m, 24px); /* @boilerplate */
   --cards-card-border-width: 0;
   --cards-card-border-color: var(--border-color);
@@ -10,7 +10,7 @@
   --cards-image-object-fit: cover; /* @boilerplate */
   --cards-icon-size: 48px;
   --cards-icon-gap: var(--spacing-m);
-  --cards-block-padding-vertical: 50px;
+  --cards-block-padding-vertical: 16px;
 }
 
 /* icon beside text: lay the card out as an icon column + text column */
@@ -44,4 +44,30 @@
 .cards > ul > li > .cards-card-body:first-child .icon img {
   width: var(--cards-icon-size);
   height: var(--cards-icon-size);
+}
+
+main .cards .cards-card-body p {
+  margin-bottom: 12px;
+}
+
+@media (width >= 768px) {
+  .cards > ul > li {
+    flex-direction: column;
+    gap: 8px;
+}
+}
+
+@media (width >= 992px) {
+  :root {
+  --cards-grid-gap: 48px;
+  }
+
+  .cards > ul > li {
+    flex-direction: row;
+    gap: 20px;
+}
+
+  .cards > ul > li > .cards-card-body:last-child {
+    margin-right: 86px;
+}
 }
