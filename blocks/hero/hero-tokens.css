@@ -95,11 +95,15 @@
    ═══════════════════════════════════════════════════ */
 
 main > .section.hero-container:has(.hero.intro) {
-  padding-bottom: var(--section-padding-vertical);
-
   .bg-image img {
     object-position: top;
   }
+}
+
+main > .section.tall.hero-container:has(.hero.intro) {
+  .bg-image img {
+    object-position: bottom;
+    }
 }
 
 .hero.intro {
@@ -109,7 +113,7 @@ main > .section.hero-container:has(.hero.intro) {
 
 .hero.intro .hero-intro-inner {
   max-width: 80%;
-  padding: 32px 15px;
+  padding: 32px 15px 0;
   box-sizing: border-box;
 }
 
@@ -133,10 +137,9 @@ main > .section.hero-container:has(.hero.intro) {
   color: var(--brand-primary);
   font-family: var(--display-font-family);
   font-size: var(--heading-font-size-xxl);
-  font-weight: var(--font-weight-extrabold);
+  font-weight: var(--font-weight-bold);
   line-height: 1; /* source: H1 LH = font-size (20 mobile / 36 desktop) */
   margin: 0 0 10px;
-  width: 8cqmin;
 }
 
 .hero.intro h2 {
@@ -181,18 +184,38 @@ main > .section.hero-container:has(.hero.intro) {
   background-color: var(--brand-primary-light);
 }
 
+@media (width >= 768px) {
+  .hero.intro .hero-intro-image {
+    float: left;
+    height: 72px;
+    width: 85px;
+    margin: 0 20px 10px 0;
+}
+
+.hero.intro .hero-intro-inner {
+    max-width: 90%;
+}
+}
+
 @media (width >= 992px) {
   /* desktop: image left, text block right (mobile+tablet stay stacked) */
   .hero.intro .hero-intro-inner {
     display: flex;
     align-items: flex-start;
+    max-width: 67%;
+    padding: 48px 0 0;
+  }
+
+  .section.tall .hero.intro .hero-intro-inner {
+    max-width: 75%;
+    padding-top: 0;
   }
 
   .hero.intro .hero-intro-image {
     float: none;
     flex: 0 0 auto;
-    width: 126px;
-    margin: 0 64px 0 0;
+    width: 106px;
+    margin: 0 40px 0 0;
   }
 
   .hero.intro .hero-intro-text {
@@ -200,7 +223,9 @@ main > .section.hero-container:has(.hero.intro) {
   }
 
   .hero.intro .hero-intro-text h2 {
+    font-size: 22px;
     clear: none;
+    margin-top: 24px;
   }
 
   /* intro.small (thank-you) headings step up on desktop to match source */

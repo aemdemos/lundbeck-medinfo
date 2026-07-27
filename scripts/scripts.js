@@ -482,6 +482,8 @@ export function decorateSections(main) {
     if (sectionMeta) {
       const meta = readBlockConfig(sectionMeta);
       Object.entries(meta).forEach(([key, value]) => {
+        
+        // eslint-disable-next-line secure-coding/no-insecure-comparison
         if (key === 'style') {
           const styleStr = typeof value === 'string' ? value : '';
           const styles = styleStr

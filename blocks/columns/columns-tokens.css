@@ -22,14 +22,23 @@
   --columns-cta-height: 53px;
 }
 
+.columns.questions {
+  p {
+    font-size: 16px;
+  }
+}
+
+
 .columns.red-underline {
   border-bottom: 1px solid var(--brand-primary);
   padding-bottom: 16px;
+  margin: 0 40px;
 
   h3 {
   font-size: 18px;
   line-height: 24px;
   font-weight: 300;
+  margin-top: 0;
   }
 
   a {
@@ -141,12 +150,6 @@ main .columns.divider ul ul {
   }
 }
 
-/* block-1 heading — source 18px/800 mobile, 28px/800 desktop */
-main .columns.divider.narrow h5 {
-  font-size: var(--columns-narrow-h5-font-size);
-  font-weight: var(--font-weight-extrabold);
-}
-
 main .columns.divider.narrow .button-wrapper {
   margin-bottom: 10px;
 }
@@ -176,14 +179,50 @@ main .columns.divider.narrow a[href^="tel:"] {
 main .columns.divider.narrow a[href^="mailto:"] {
   font-size: var(--body-font-size-s);
   font-weight: 300;
+  text-decoration: underline;
 }
 
 @media (width >=768px) {
+  :root {
+    --columns-divider-spacing: 45px;
+    --columns-divider-body-font-size: 16px;
+  }
+
+  .columns.red-underline {
+    margin: 0 60px;
+    padding-bottom: 24px;
+}
+
+  .columns.divider.questions.columns-2-cols > div > :nth-child(1) {
+    margin-right: 12px;
+
+    * {
+      margin-left: 20px;
+    }
+  }
+
+  .columns.divider.questions.columns-2-cols > div > :nth-child(2) {
+    padding-inline-start: 16px;
+    width: 245px;
+  }
+
+  .columns.divider.questions > div > div {
+  width: 240px;
+
+  h4, p {
+    font-size: 16px;
+  }
+  }
+
+  main .columns.divider.narrow a[href^="mailto:"] {
+    font-size: 14px;
+}
+
 .columns.red-underline h3 {
   font-size: 26px;
   font-weight: 700;
   line-height: 1;
-  margin-top: 40px;
+  margin-top: 15px;
 }
 
   body.patient .section.report .columns > div {
@@ -216,8 +255,9 @@ main .columns.divider.narrow a[href^="mailto:"] {
     }
   }
 
-  main .columns.divider > div > div > ul {
-    padding-inline-start: 0;
+  body.hcp main .columns.divider > div > :nth-child(2) {
+    padding-top: unset;
+    border-top: 0;
   }
 
   main .columns.divider .icon {
@@ -262,22 +302,51 @@ body.hcp .section.report {
     font-size: 16px;
  }
 
+ a.button.primary {
+  font-size: 16px;
+}
+
  .columns.divider.columns-2-cols > div > :nth-child(2) {
   border-inline-start: 1px solid #cacaca;
+  width: 320px;
+ }
+
+ .columns.divider.narrow.columns-2-cols > div > :first-child {
+  margin-left: 100px;
+  width: 200px;
+  margin-right: var(--columns-divider-spacing);
  }
 
  .columns.divider.columns-2-cols > div {
   align-items: center;
 }
 
-.columns.divider.narrow.columns-2-cols > div > :first-child {
-  margin-left: 100px;
-  margin-right: 40px;
- }
+h3 {
+  font-size: 22px;
+  margin-bottom: 8px;
+  margin-top: 0;
 }
 }
 
+}
+
 @media (width >=992px) {
+  :root {
+    --columns-divider-spacing: 62px;
+  }
+
+  body.hcp .section.report {
+    padding: 60px 0;
+
+    h3 {
+      font-size: 28px;
+    }
+
+    .columns.divider.narrow ul.icon-bullets {
+      font-size: 18px;
+  }
+  }
+
   body.patient .section.report .columns > div {
     flex-direction: unset;
   }
@@ -288,22 +357,28 @@ body.hcp .section.report {
     width: var(--columns-cta-width, 228px);
   }
 
-  /* narrow block-1: H5 steps up to 28px; col1 body back to 16px (source) */
-  main .columns.divider.narrow h5 {
-    font-size: var(--columns-narrow-h5-font-size-desktop);
-  }
-
-  main .columns.divider.narrow > div > div:first-child p {
-    font-size: var(--body-font-size-s);
-  }
-
   /* plain divider body copy steps up to 20px/24 on desktop (source) */
   main .columns.divider:not(.narrow) > div > div :is(p, li, a) {
     font-size: var(--columns-divider-body-font-size-desktop);
     line-height: var(--body-line-height-m);
   }
 
+  .columns.divider.questions.columns-2-cols > div > :nth-child(1) {
+    margin-right: 24px;
 
+    * {
+      margin-left: 18px;
+    }
+  }
+
+  main .columns.divider.narrow a[href^="mailto:"] {
+    font-size: 16px;
+}
+
+  .columns.divider.questions.columns-2-cols > div > :nth-child(2) {
+    padding-inline-start: 32px;
+    width: 276px;
+  }
 
 
   .columns.divider.columns-2-cols > div {
@@ -327,7 +402,7 @@ body.hcp .section.report {
 
   /* keep the capped text left-aligned within the divider-pushed block */
   body.hcp .columns.divider.narrow.columns-2-cols > div > :first-child > * {
-    width: 100%;
+    width: 240px;
     max-width: var(--columns-col1-text-width);
   }
 

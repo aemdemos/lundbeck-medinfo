@@ -63,6 +63,11 @@ main > .section.section-title-container > .bg-image img {
     font-size: 20px;
     line-height: 26px;
   }
+
+  main .section:has(> .bg-image) .section-title .title {
+    font-size: 18px;
+    line-height: 10px;
+}
 }
 
 
