@@ -57,7 +57,16 @@ function rememberChoice(choice) {
 */
 function decorateGateContent(root) {
   const header = [...root.querySelectorAll('p')].find((p) => p.querySelector('picture'));
-  if (header) header.classList.add('gate-header');
+  if (header) {
+    header.classList.add('gate-header');
+    // reserve the logo's aspect ratio so it does not re-center the gate on decode (mobile CLS)
+    const logo = header.querySelector('img');
+    if (logo) {
+      logo.setAttribute('width', '528');
+      logo.setAttribute('height', '222');
+      logo.loading = 'eager';
+    }
+  }
 
   root.querySelectorAll('a.button').forEach((link) => {
     const label = link.getAttribute('title');
