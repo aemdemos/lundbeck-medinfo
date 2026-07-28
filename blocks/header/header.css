@@ -3,6 +3,11 @@
 /* header layout — soft divider shadow (box-shadow) applies on pages whose first
    section has no bg-image hero (thank-you, error); removed below on hero pages
    — :has() can't nest in :has() */
+
+header:has(.nav-mobile-open) {
+  height: min-content;
+}
+
 header .nav-wrapper {
   width: 100%;
   z-index: 10;
@@ -281,6 +286,7 @@ header .nav-dropdown-menu a {
 
   header nav.nav-mobile-open .nav-links-row {
     display: block;
+    transition: transform 0.3s ease;
   }
 
   /* full-bleed gray bars: neutralize container inset while menu is open */
@@ -481,13 +487,13 @@ header .nav-dropdown-menu a {
 
   header .nav-brand-row {
     align-content: center;
+    height: var(--nav-height);
   }
 
   header .nav-brand-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: var(--nav-brand-row-height-mobile);
     padding-left: var(--header-padding-container);
     padding-right: 25px;
     flex-flow: row nowrap;
@@ -505,11 +511,9 @@ header .nav-dropdown-menu a {
   }
 
   header .nav-brand img {
-    width: 100px;
-    height: auto;
+    width: auto;
+    height: 42px;
     margin-left: 0;
-    transition: .5s ease-in;
-    scroll-behavior: smooth;
   }
 
   header .nav-hamburger {
@@ -750,11 +754,15 @@ header .nav-dropdown-menu a {
  }
 
  header .nav-brand img {
-  width: 138px;
+  height: 58px;
  }
   }
 
 @media (width >= 992px) {
+  :root {
+    --nav-height: 140px;
+  }
+  
   header .nav-links-row {
     display: block;
     position: static;
@@ -1057,10 +1065,6 @@ header .nav-dropdown-menu a {
     display: block;
     gap: 0;
     padding: 20px 13px 13px 0;
-  }
-
-  header .nav-brand img {
-    width: 112px;
   }
 
   header .nav-tools {
