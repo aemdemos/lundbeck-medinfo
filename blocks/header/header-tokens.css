@@ -1,6 +1,5 @@
 /* header design tokens (layout only; colors/typography use global tokens) */
 :root { /* @boilerplate */
-  --nav-height: 200px;
   --header-nav-max-width-mobile: 510px;
   --header-nav-max-width-tablet: 690px;
   --header-nav-max-width-desktop: 930px;
@@ -27,14 +26,6 @@
 
 /* medinfo brand header overrides (header.css @imports this file) */
 
-/* mobile-first: header is the collapsed brand row; full nav height only applies at
-   desktop (see >=992px block below). min-height (not height) so the inline dropdown
-   menu can expand the header. */
-header {
-  height: auto;
-  min-height: var(--nav-brand-row-height-mobile);
-}
-
 /* hide search (header.js builds it unconditionally) */
 header .nav-search,
 header .nav-mobile-search {
@@ -45,11 +36,6 @@ header .nav-mobile-search {
 @media (width >= 992px) {
   header .nav-links-list {
     justify-content: flex-end;
-  }
-
-  /* header fits its content, removing the fixed --nav-height gap */
-  header {
-    height: auto;
   }
 
   /* single-row header: logo left, links right, capped to the site content width */

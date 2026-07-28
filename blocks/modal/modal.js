@@ -115,7 +115,7 @@ export async function createModal(contentNodes, { staticBackdrop = false, gate =
   }
 
   const block = buildBlock('modal', '');
-  document.querySelector('main').append(block);
+  document.body.append(block);
   decorateBlock(block);
   await loadBlock(block);
 
