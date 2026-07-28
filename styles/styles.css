@@ -1082,10 +1082,6 @@ div[class^="width-"], div[class*=" width-"] {
   body[data-breadcrumbs] { /* @libs */
     --header-height: calc(var(--nav-height) + var(--breadcrumbs-height)); /* @libs */
   }
-  
-  header { /* @libs */
-    height: calc(var(--nav-height) + 23px); /* @libs */
-}
 
 main > .section > div:not(.bg-image) {
   max-width: var(--content-max-width);
@@ -1181,10 +1177,6 @@ main .section#inquiry {
 @media (width >= 1200px) {
   :root {
     --max-width-site: 1140px;
-  }
-  
-  header { /* @libs */
-    height: var(--nav-height); /* @libs */
   }
 
   main .section.stats-callout > div:not(.bg-image) {

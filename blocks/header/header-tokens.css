@@ -38,11 +38,6 @@ header .nav-mobile-search {
     justify-content: flex-end;
   }
 
-  /* header fits its content, removing the fixed --nav-height gap */
-  header {
-    height: auto;
-  }
-
   /* single-row header: logo left, links right, capped to the site content width */
   header nav {
     display: flex;
