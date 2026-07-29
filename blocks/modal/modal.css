@@ -101,8 +101,8 @@ body.modal-open { /* @boilerplate */
 
 .modal.exit dialog h2,
 .modal.exit dialog h3 {
-  font-size: 32px;
-  line-height: 36px;
+  font-size: var(--modal-exit-heading-font-size);
+  line-height: var(--modal-exit-heading-line-height);
   padding: var(--modal-exit-heading-padding);
   border-bottom: 1px solid #ca411d;
 }
@@ -119,7 +119,8 @@ body.modal-open { /* @boilerplate */
 }
 
 .modal.exit dialog .modal-actions a {
-  font-size: 28px;
+  font-size: var(--modal-exit-button-font-size);
+  line-height: var(--modal-exit-button-line-height);
   width: 100%;
   padding: 29px 0;
 }
