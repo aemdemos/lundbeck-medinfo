@@ -82,8 +82,8 @@ body.modal-open { /* @boilerplate */
 }
 
 .modal.exit dialog p {
-  font-size: 28px;
-  line-height: 36px;
+  font-size: var(--modal-exit-paragraph-font-size);
+  line-height: var(--model-exit-paragraph-line-height);
   padding: var(--modal-exit-paragraph-padding);
   margin-block: 0;
 }
@@ -109,14 +109,12 @@ body.modal-open { /* @boilerplate */
 
 .modal.exit dialog .modal-actions {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-flow: column;
   gap: var(--modal-exit-button-gap);
 }
 
 .modal.exit dialog .modal-actions .button-wrapper {
   margin: 0;
-  width: 42%;
   padding: 0;
 }
 
@@ -154,5 +152,24 @@ body.modal-open { /* @boilerplate */
     max-height: calc(100dvh - (2 * var(--header-height)) - 64px); /* @boilerplate */
     padding: var(--modal-content-padding-desktop); /* @boilerplate */
     padding-top: 0; /* @boilerplate */
+  }
+
+  .modal.exit dialog .modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--modal-exit-button-gap);
+  }
+
+  .modal.exit dialog .modal-actions .button-wrapper {
+    margin: 0;
+    width: 42%;
+    padding: 0;
+  }
+
+  .modal.exit dialog .modal-actions a {
+    font-size: 28px;
+    width: 100%;
+    padding: 29px 0;
   }
 }
