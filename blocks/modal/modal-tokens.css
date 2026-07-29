@@ -15,8 +15,8 @@
   --modal-exit-max-width: 480px;
   --modal-exit-logo-max-width: 120px;
   --modal-exit-logo-margin-bottom: var(--spacing-m);
-  --modal-exit-heading-padding: 0 0 0 24px;
-  --modal-exit-paragraph-margin-bottom: 46px;
+  --modal-exit-heading-padding: 0 0 24px;
+  --modal-exit-paragraph-padding: 24px 0 46px;
   --modal-exit-button-gap: var(--spacing-s);
 }
 

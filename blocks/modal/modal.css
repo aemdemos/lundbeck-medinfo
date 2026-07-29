@@ -84,7 +84,7 @@ body.modal-open { /* @boilerplate */
 .modal.exit dialog p {
   font-size: 28px;
   line-height: 36px;
-  margin-bottom: var(--modal-exit-paragraph-margin-bottom);
+  padding: var(--modal-exit-paragraph-padding);
 }
 
 .modal.exit dialog picture {
@@ -100,7 +100,9 @@ body.modal-open { /* @boilerplate */
 
 .modal.exit dialog h2,
 .modal.exit dialog h3 {
-  padding: 0 0 var(--modal-exit-heading-padding);
+  font-size: 18px;
+  line-height: 24px;
+  padding: var(--modal-exit-heading-padding);
   border-bottom: 1px solid #ca411d;
 }
 
@@ -120,6 +122,11 @@ body.modal-open { /* @boilerplate */
 .modal.exit dialog .modal-actions a {
   font-size: 28px;
   width: 100%;
+}
+
+/* remove hover color change */
+.modal.exit dialog .modal-actions a:hover{
+  background-color: var(--button-primary-background);
 }
 
 /* no trailing arrow icon on the interstitial's Continue/Cancel actions */
