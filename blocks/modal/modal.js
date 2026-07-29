@@ -190,7 +190,7 @@ export async function openModal(fragmentUrl, options = {}) {
     const actionWrappers = [];
     block.querySelectorAll('.modal-content a').forEach((a) => {
       const label = (a.title || a.textContent).trim().toLowerCase();
-      if (label === 'continue') {
+      if (label === 'Click here to proceed') {
         a.classList.add('ok');
         a.href = options.targetUrl;
         a.target = '_blank';
