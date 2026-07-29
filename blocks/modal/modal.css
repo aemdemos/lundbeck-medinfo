@@ -100,8 +100,8 @@ body.modal-open { /* @boilerplate */
 
 .modal.exit dialog h2,
 .modal.exit dialog h3 {
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 32px;
+  line-height: 36px;
   padding: var(--modal-exit-heading-padding);
   border-bottom: 1px solid #ca411d;
 }
@@ -111,12 +111,12 @@ body.modal-open { /* @boilerplate */
   flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--modal-exit-button-gap);
-  margin-top: var(--spacing-m);
 }
 
 .modal.exit dialog .modal-actions .button-wrapper {
   margin: 0;
-  width: 42%
+  width: 42%;
+  padding: 0;
 }
 
 .modal.exit dialog .modal-actions a {
