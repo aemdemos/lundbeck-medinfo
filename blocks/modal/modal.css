@@ -81,8 +81,8 @@ body.modal-open { /* @boilerplate */
   max-width: var(--modal-exit-max-width);
 }
 
-.modal.exit dialog .modal-content {
-  text-align: center;
+.modal.exit dialog p {
+  font-size: 28px;
 }
 
 .modal.exit dialog picture {
