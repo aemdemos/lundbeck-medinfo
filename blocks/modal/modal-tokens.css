@@ -206,6 +206,10 @@
 
 /* ---- >= 992px : full desktop width & final type sizes -------------------- */
 @media (width >= 992px) {
+  :root {
+    --modal-exit-max-width: 980px;
+  }
+  
   .modal dialog.modal-static-backdrop {
     width: 930px;
   }
