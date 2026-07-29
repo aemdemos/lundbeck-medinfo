@@ -5,7 +5,7 @@
   --modal-width-desktop: calc(100vw - 64px); /* @boilerplate */
   --modal-max-width: 900px; /* @boilerplate */
   --modal-content-padding: var(--spacing-m); /* @boilerplate */
-  --modal-content-padding-desktop: var(--spacing-l); /* @boilerplate */
+  --modal-content-padding-desktop: 48px 49px 48px 50px; /* copied from source */
   --modal-content-margin-top: 44px; /* @boilerplate */
   --modal-close-button-size: 44px; /* @boilerplate */
   --modal-close-icon-size: var(--icon-size); /* @boilerplate */
@@ -207,9 +207,9 @@
 /* ---- >= 992px : full desktop width & final type sizes -------------------- */
 @media (width >= 992px) {
   :root {
-    --modal-exit-max-width: 980px;
+    --modal-exit-max-width: 900px;
   }
-  
+
   .modal dialog.modal-static-backdrop {
     width: 930px;
   }

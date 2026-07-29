@@ -83,6 +83,7 @@ body.modal-open { /* @boilerplate */
 
 .modal.exit dialog p {
   font-size: 28px;
+  line-height: 36px;
 }
 
 .modal.exit dialog picture {
@@ -111,6 +112,12 @@ body.modal-open { /* @boilerplate */
 
 .modal.exit dialog .modal-actions .button-wrapper {
   margin: 0;
+  width: 42%
+}
+
+.modal.exit dialog .modal-actions a {
+  font-size: 28px;
+  width: 100%;
 }
 
 /* no trailing arrow icon on the interstitial's Continue/Cancel actions */
