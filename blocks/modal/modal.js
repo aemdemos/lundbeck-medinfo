@@ -22,6 +22,16 @@ import {
 */
 const GATE_CHOICE_COOKIE = 'clickedButton';
 
+/*
+  The exit interstitial ("you are leaving this site") is authored as a fragment
+  at /modals/exit. autolinkModals() in scripts.js opens it via
+  openModal('/modals/exit', { targetUrl }) whenever a visitor clicks a link to
+  another domain. Content contract: two links in the fragment, one titled
+  "Continue" (rewired below to the outgoing targetUrl) and one titled "Cancel"
+  (closes the dialog without navigating). Any other authored content (logo,
+  heading, disclaimer copy) passes through untouched.
+*/
+
 function currentSection() {
   const match = /\/us\/en\/(hcp|patient)\//.exec(window.location.pathname);
   return match ? match[1] : '';
@@ -171,6 +181,40 @@ export async function openModal(fragmentUrl, options = {}) {
   if (options.gate && isGateSatisfied()) return;
 
   const fragment = await loadFragment(path);
-  const { showModal } = await createModal(fragment.childNodes, options);
+  const { block, showModal } = await createModal(fragment.childNodes, options);
+
+  // exit interstitial: wire the Continue/Cancel actions to the outgoing link
+  if (options.targetUrl) {
+    block.classList.add('exit');
+    const dialog = block.querySelector('dialog');
+    const actionWrappers = [];
+    block.querySelectorAll('.modal-content a').forEach((a) => {
+      const label = (a.title || a.textContent).trim().toLowerCase();
+      if (label === 'continue') {
+        a.classList.add('ok');
+        a.href = options.targetUrl;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.addEventListener('click', () => dialog.close());
+        actionWrappers.push(a.closest('.button-wrapper') || a);
+      } else if (label === 'cancel') {
+        a.classList.add('cancel');
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          dialog.close();
+        });
+        actionWrappers.push(a.closest('.button-wrapper') || a);
+      }
+    });
+
+    // group Continue/Cancel into a centered action row
+    if (actionWrappers.length) {
+      const actions = document.createElement('div');
+      actions.className = 'modal-actions';
+      actionWrappers[0].before(actions);
+      actions.append(...actionWrappers);
+    }
+  }
+
   showModal();
 }

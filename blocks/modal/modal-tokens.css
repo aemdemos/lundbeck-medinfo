@@ -10,6 +10,13 @@
   --modal-close-button-size: 44px; /* @boilerplate */
   --modal-close-icon-size: var(--icon-size); /* @boilerplate */
   --modal-close-icon-thickness: 2px; /* @boilerplate */
+
+  /* exit interstitial ("you are leaving this site") */
+  --modal-exit-max-width: 480px;
+  --modal-exit-logo-max-width: 120px;
+  --modal-exit-logo-margin-bottom: var(--spacing-m);
+  --modal-exit-heading-margin-bottom: var(--spacing-m);
+  --modal-exit-button-gap: var(--spacing-s);
 }
 
 /* ==========================================================================

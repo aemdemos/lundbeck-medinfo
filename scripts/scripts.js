@@ -132,14 +132,52 @@ async function loadFonts() {
   if (!window.location.hostname.includes('localhost')) sessionStorage.setItem('fonts-loaded', 'true');
 }
 
+/**
+ * Hosts considered "local" — links to these open in the same tab.
+ * Everything else (plus any PDF) opens in a new tab.
+ */
+const LOCAL_HOSTS = new Set(['localhost']);
+const LOCAL_HOST_SUFFIXES = ['.page', '.live'];
+
+/**
+ * @param {URL} url
+ * @returns {boolean} true when the URL points at a first-party/local host
+ */
+function isLocalUrl(url) {
+  const host = url.hostname.toLowerCase();
+  if (host === window.location.hostname.toLowerCase()) return true;
+  if (LOCAL_HOSTS.has(host)) return true;
+  return LOCAL_HOST_SUFFIXES.some((suffix) => host.endsWith(suffix));
+}
+
 function autolinkModals(doc) {
   doc.addEventListener('click', async (e) => {
     const origin = e.target.closest('a');
-    if (origin && origin.href && origin.href.includes('/modals/')) {
+    if (!origin || !origin.href) return;
+
+    if (origin.href.includes('/modals/')) {
       e.preventDefault();
       const { openModal } = await import(`${window.hlx.codeBasePath}/blocks/modal/modal.js`);
       openModal(origin.href);
+      return;
     }
+
+    // external links (any other domain) show a "leaving this site" confirmation
+    // before navigating away; links inside a modal are exempt to avoid re-gating
+    // the interstitial's own actions
+    if (origin.closest('.modal')) return;
+    let url;
+    try {
+      url = new URL(origin.href, window.location.href);
+    } catch {
+      return;
+    }
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
+    if (isLocalUrl(url)) return;
+
+    e.preventDefault();
+    const { openModal } = await import(`${window.hlx.codeBasePath}/blocks/modal/modal.js`);
+    openModal('/modals/exit', { targetUrl: origin.href });
   });
 }
 
@@ -185,24 +223,6 @@ function buildAutoBlocks(main) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
   }
-}
-
-/**
- * Hosts considered "local" — links to these open in the same tab.
- * Everything else (plus any PDF) opens in a new tab.
- */
-const LOCAL_HOSTS = new Set(['localhost']);
-const LOCAL_HOST_SUFFIXES = ['.page', '.live'];
-
-/**
- * @param {URL} url
- * @returns {boolean} true when the URL points at a first-party/local host
- */
-function isLocalUrl(url) {
-  const host = url.hostname.toLowerCase();
-  if (host === window.location.hostname.toLowerCase()) return true;
-  if (LOCAL_HOSTS.has(host)) return true;
-  return LOCAL_HOST_SUFFIXES.some((suffix) => host.endsWith(suffix));
 }
 
 /**

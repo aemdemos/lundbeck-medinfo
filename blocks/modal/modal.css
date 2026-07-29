@@ -73,6 +73,60 @@ body.modal-open { /* @boilerplate */
   padding: 0; /* @boilerplate */
 }
 
+/* ==========================================================================
+   Exit interstitial ("you are leaving this site" confirmation)
+   ========================================================================== */
+
+.modal.exit dialog {
+  max-width: var(--modal-exit-max-width);
+}
+
+.modal.exit dialog .modal-content {
+  text-align: center;
+}
+
+.modal.exit dialog picture {
+  display: inline-block;
+  max-width: var(--modal-exit-logo-max-width);
+  margin: 0 auto var(--modal-exit-logo-margin-bottom);
+}
+
+.modal.exit dialog picture img {
+  width: 100%;
+  height: auto;
+}
+
+.modal.exit dialog h2,
+.modal.exit dialog h3 {
+  margin: 0 0 var(--modal-exit-heading-margin-bottom);
+}
+
+.modal.exit dialog .modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--modal-exit-button-gap);
+  margin-top: var(--spacing-m);
+}
+
+.modal.exit dialog .modal-actions .button-wrapper {
+  margin: 0;
+}
+
+/* no trailing arrow icon on the interstitial's Continue/Cancel actions */
+.modal.exit dialog .modal-actions a.button::after {
+  content: none;
+}
+
+/* Cancel on the left, Continue on the right, regardless of authoring order */
+.modal.exit dialog .modal-actions .button-wrapper:has(a.button.cancel) {
+  order: 1;
+}
+
+.modal.exit dialog .modal-actions .button-wrapper:has(a.button.ok) {
+  order: 2;
+}
+
 @media (width >= 992px) { /* @boilerplate */
   .modal dialog { /* @boilerplate */
     width: var(--modal-width-desktop); /* @boilerplate */
