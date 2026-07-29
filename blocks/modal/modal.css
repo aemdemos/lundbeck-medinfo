@@ -118,13 +118,13 @@ body.modal-open { /* @boilerplate */
   content: none;
 }
 
-/* Cancel on the left, Continue on the right, regardless of authoring order */
+/* Cancel on the right, Proceed on the left, regardless of authoring order */
 .modal.exit dialog .modal-actions .button-wrapper:has(a.button.cancel) {
-  order: 1;
+  order: 2;
 }
 
 .modal.exit dialog .modal-actions .button-wrapper:has(a.button.ok) {
-  order: 2;
+  order: 1;
 }
 
 @media (width >= 992px) { /* @boilerplate */
