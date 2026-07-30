@@ -16,8 +16,8 @@
   --modal-exit-logo-max-width: 120px;
   --modal-exit-logo-margin-bottom: var(--spacing-m);
   --modal-exit-heading-padding: 0 0 24px;
-  --modal-exit-heading-font-size: 32px;
-  --modal-exit-heading-line-height: 36px;
+  --modal-exit-heading-font-size: 22px;
+  --modal-exit-heading-line-height: 28px;
   --modal-exit-paragraph-padding: 24px 0 46px;
   --modal-exit-button-font-size: 18px;
   --modal-exit-button-line-height: 18px;
@@ -217,8 +217,8 @@
     --modal-exit-max-width: 900px;
     --modal-exit-paragraph-font-size: 28px;
     --modal-exit-paragraph-line-height: 36px;
-    --modal-exit-heading-font-size: 22px;
-    --modal-exit-heading-line-height: 28px;
+    --modal-exit-heading-font-size: 32px;
+    --modal-exit-heading-line-height: 36px;
     --modal-exit-button-font-size: 28px;
     --modal-exit-button-line-height: 35px;
   }
