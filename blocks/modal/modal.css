@@ -86,6 +86,7 @@ body.modal-open { /* @boilerplate */
   line-height: var(--modal-exit-paragraph-line-height);
   padding: var(--modal-exit-paragraph-padding);
   margin-block: 0;
+  color: var(--text-color);
 }
 
 .modal.exit dialog picture {
