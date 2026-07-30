@@ -91,7 +91,7 @@ body.modal-open { /* @boilerplate */
 .modal.exit dialog picture {
   display: inline-block;
   max-width: var(--modal-exit-logo-max-width);
-  margin: 0 auto var(--modal-exit-logo-margin-bottom);
+  margin: var(--modal-exit-logo-margin);
 }
 
 .modal.exit dialog picture img {
@@ -105,6 +105,9 @@ body.modal-open { /* @boilerplate */
   line-height: var(--modal-exit-heading-line-height);
   padding: var(--modal-exit-heading-padding);
   border-bottom: 1px solid #ca411d;
+  display: flex;
+  font-family: inter;
+  font-weight: 200;
 }
 
 .modal.exit dialog .modal-actions {

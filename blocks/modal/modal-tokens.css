@@ -14,7 +14,7 @@
   /* exit interstitial ("you are leaving this site") */
   --modal-exit-max-width: 480px;
   --modal-exit-logo-max-width: 120px;
-  --modal-exit-logo-margin-bottom: var(--spacing-m);
+  --modal-exit-logo-margin: auto 30px 0 0;
   --modal-exit-heading-padding: 0 0 24px;
   --modal-exit-heading-font-size: 22px;
   --modal-exit-heading-line-height: 28px;
