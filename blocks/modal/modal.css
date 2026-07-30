@@ -73,6 +73,83 @@ body.modal-open { /* @boilerplate */
   padding: 0; /* @boilerplate */
 }
 
+/* ==========================================================================
+   Exit interstitial ("you are leaving this site" confirmation)
+   ========================================================================== */
+
+.modal.exit dialog {
+  max-width: var(--modal-exit-max-width);
+}
+
+.modal.exit dialog p {
+  font-size: var(--modal-exit-paragraph-font-size);
+  line-height: var(--modal-exit-paragraph-line-height);
+  padding: var(--modal-exit-paragraph-padding);
+  margin-block: 0;
+  color: var(--text-color);
+}
+
+.modal.exit dialog picture {
+  display: inline-block;
+  max-width: var(--modal-exit-logo-max-width);
+  margin: var(--modal-exit-logo-margin);
+}
+
+.modal.exit dialog picture img {
+  width: 100%;
+  height: auto;
+}
+
+.modal.exit dialog h2,
+.modal.exit dialog h3 {
+  font-size: var(--modal-exit-heading-font-size);
+  line-height: var(--modal-exit-heading-line-height);
+  padding: var(--modal-exit-heading-padding);
+  border-bottom: 1px solid #ca411d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--display-font-family);
+  font-weight: 200;
+}
+
+.modal.exit dialog .modal-actions {
+  display: flex;
+  flex-flow: column;
+  gap: var(--modal-exit-button-gap);
+}
+
+.modal.exit dialog .modal-actions .button-wrapper {
+  margin: 0;
+  padding: 0;
+}
+
+.modal.exit dialog .modal-actions a {
+  font-size: var(--modal-exit-button-font-size);
+  line-height: var(--modal-exit-button-line-height);
+  width: 100%;
+  padding: 29px 0;
+}
+
+/* remove hover color change */
+.modal.exit dialog .modal-actions a:hover{
+  background-color: var(--button-primary-background);
+}
+
+/* no trailing arrow icon on the interstitial's Continue/Cancel actions */
+.modal.exit dialog .modal-actions a.button::after {
+  content: none;
+}
+
+/* Cancel on the right, Proceed on the left, regardless of authoring order */
+.modal.exit dialog .modal-actions .button-wrapper:has(a.button.cancel) {
+  order: 2;
+}
+
+.modal.exit dialog .modal-actions .button-wrapper:has(a.button.ok) {
+  order: 1;
+}
+
 @media (width >= 992px) { /* @boilerplate */
   .modal dialog { /* @boilerplate */
     width: var(--modal-width-desktop); /* @boilerplate */
@@ -82,5 +159,37 @@ body.modal-open { /* @boilerplate */
     max-height: calc(100dvh - (2 * var(--header-height)) - 64px); /* @boilerplate */
     padding: var(--modal-content-padding-desktop); /* @boilerplate */
     padding-top: 0; /* @boilerplate */
+  }
+
+  .modal.exit dialog .modal-actions {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    gap: var(--modal-exit-button-gap);
+  }
+
+  .modal.exit dialog .modal-actions .button-wrapper {
+    margin: 0;
+    width: 42%;
+    padding: 0;
+  }
+
+  .modal.exit dialog .modal-actions a {
+    font-size: 28px;
+    width: 100%;
+    padding: 29px 0;
+  }
+
+  .modal.exit dialog h2,
+  .modal.exit dialog h3 {
+    font-size: var(--modal-exit-heading-font-size);
+    line-height: var(--modal-exit-heading-line-height);
+    padding: var(--modal-exit-heading-padding);
+    border-bottom: 1px solid #ca411d;
+    display: flex;
+    flex-direction: row;
+    align-items: normal;
+    font-family: var(--display-font-family);
+    font-weight: 200;
   }
 }
