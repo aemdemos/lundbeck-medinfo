@@ -1,0 +1,166 @@
+/* medical-inquiry-thank-you — mobile-first */
+
+.thank-you-content {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'icon heading'
+    'sub sub'
+    'button button';
+  column-gap: 16px;
+  row-gap: 12px;
+  align-items: center;
+  max-width: 1100%;
+  margin: 0 auto;
+  padding: 24px 15px;
+  font-family: var(--heading-font-family);
+}
+
+.thank-you-icon {
+  grid-area: icon;
+  display: flex;
+}
+
+.thank-you-icon img {
+  display: block;
+  width: 56px;
+  height: auto;
+}
+
+.thank-you-heading {
+  grid-area: heading;
+  font-size: 22px;
+  line-height: 22px;
+  font-weight: 900;
+  color: #4a4a4a;
+  text-shadow: none;
+  margin-bottom: 5px;
+}
+
+.thank-you-subheading {
+  grid-area: sub;
+  font-size: 18px;
+  line-height: 24px;
+  color: #4a4a4a;
+  font-weight: 300;
+  color: var(--text-color-secondary, #555);
+}
+
+.thank-you-button {
+  grid-area: button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--accent-color, #c1461f);
+  color: var(--background-color, #fff);
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 2px;
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 16px;
+  padding: 15px 51px;
+}
+
+main .section:not(.section-title-container, .hero-banner, .report, .search-product-container) {
+     margin: 10px;
+}
+
+main > .section > div:not(.bg-image) {
+    margin: auto;
+    padding: 0px;
+}
+
+/* ==========================================================================
+   TABLET / IPAD — 768px
+   ========================================================================== */
+@media (width >= 768px) {
+  .thank-you-content {
+    column-gap: 20px;
+    row-gap: 14px;
+    padding: 32px 24px;
+  }
+
+  .thank-you-icon img {
+    width: 64px;
+  }
+
+  .thank-you-heading {
+    font-size: 22px;
+    line-height: 22px;
+    font-weight: 900;
+    color: #4a4a4a;
+    text-shadow: none;
+    margin-bottom: 5px;
+  }
+
+  .thank-you-subheading {
+    font-size: 18px;
+    line-height: 24px;
+    color: #4a4a4a;
+    font-weight: 300;
+  }
+  .thank-you-button {
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 16px;
+    padding: 15px 51px;
+  }
+}
+
+
+/* ==========================================================================
+   DESKTOP — 992px
+   ========================================================================== */
+@media (width >= 992px) {
+  .thank-you-content {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      'icon heading'
+      'icon sub'
+      'icon button';
+    column-gap: 48px;
+    row-gap: 10px;
+    align-items: start;
+    padding: 40px 30px;
+  }
+
+  .thank-you-icon {
+    grid-row: 1 / span 3;
+    align-self: center;
+  }
+
+  .thank-you-icon img {
+    width: 150px;
+  }
+
+  .thank-you-heading {
+    font-size: 22px;
+    line-height: 22px;
+    font-weight: 900;
+    color: #4a4a4a;
+    text-shadow: none;
+    margin-bottom: 5px;
+    font-family: var(--heading-font-family);
+  }
+
+  .thank-you-subheading {
+    font-size: 36px;
+    line-height: 36px;
+    color: #4a4a4a;
+    font-weight: 300 !important;
+    margin:0px;
+    font-family: var(--heading-font-family);
+  }
+
+  .thank-you-button {
+    max-width: 250px;
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 16px;
+    padding: 15px 51px;
+  }
+}
