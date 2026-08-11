@@ -1,0 +1,544 @@
+/* ------------------------------------------------------------------
+   medical-inquiry-form.css
+   ------------------------------------------------------------------ */
+
+
+.medical-inquiry-form-container .medical-inquiry-form-wrapper {
+  max-width: none;
+  margin: 0;
+}
+
+.medical-inquiry-form form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+
+/* ---------- full-width fields ---------- */
+.medical-inquiry-form .full-width {
+  grid-column: 1 / -1;
+}
+
+.product-wrapper,
+.radio-question-wrapper {
+  margin-bottom: 0;
+}
+
+
+/* "Required fields..." */
+#form-formtext,
+#form-formtitle,
+#form-infotitle {
+  color: var(--brand-primary);
+  font-size: 20px;
+  font-weight: var(--font-weight-bold);
+  line-height: 20px;
+  font-family: var(--heading-font-family);
+}
+
+#form-formtext,
+#form-infotitle {
+  margin: 0;
+}
+
+#form-formtitle {
+  margin-bottom: 24px;
+}
+
+#form-firsttext {
+  font-size: 14px;
+  line-height: 24px;
+  margin-bottom: 0;
+  font-family: var(--heading-font-family);
+}
+
+p#form-submitcheck {
+  margin-bottom: 0;
+}
+
+/* ---------- labels & controls ---------- */
+.medical-inquiry-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: var(--font-weight-bold);
+  color: #2f3b4a;
+}
+
+.medical-inquiry-form input:not([type="radio"]),
+.medical-inquiry-form select,
+.medical-inquiry-form textarea {
+  width: 100%;
+  border: 2px solid var(--text-color-muted);
+  background: #fff;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: var(--font-weight-medium);
+  box-sizing: border-box;
+}
+
+.medical-inquiry-form input:not([type="radio"]),
+.medical-inquiry-form select,
+.medical-inquiry-form .custom-select-trigger {
+  padding: 23px 23px 20px 20px;
+}
+
+.medical-inquiry-form textarea {
+  padding: 13px 16px 14px;
+  min-height: 180px;
+  resize: vertical;
+}
+
+.medical-inquiry-form input::placeholder,
+.medical-inquiry-form textarea::placeholder {
+  color: #bdbdbd;
+}
+
+/* focus ring */
+.medical-inquiry-form input:focus,
+.medical-inquiry-form select:focus,
+.medical-inquiry-form textarea:focus {
+  border-radius: 3px;
+  border-color: #000;
+}
+
+/* ---------- city / state / zip row ---------- */
+.medical-inquiry-form .city-state-zip {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+#form-zip-label {
+  margin-top: 40px;
+}
+
+.medical-inquiry-form .city-state-zip .custom-select,
+.medical-inquiry-form .city-state-zip .custom-select-trigger {
+  width: 100%;
+  max-width: 100%;
+}
+
+/*  radio question block  */
+.medical-inquiry-form .radio-question-wrapper legend,
+.medical-inquiry-form .radio-question-wrapper label:first-child,
+.medical-inquiry-form .radio-question-wrapper > p {
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: var(--font-weight-bold);
+  color: #2f3b4a;
+  margin-bottom: 12px;
+}
+
+.medical-inquiry-form .radio-group-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 35px;
+  margin-top: 4px;
+}
+
+.medical-inquiry-form .radio-group-wrapper > div {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.medical-inquiry-form .radio-group-wrapper label {
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 300;
+  margin-bottom: 0;
+  color: var(--text-color);
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.medical-inquiry-form .radio-group-wrapper input[type="radio"] {
+  margin: 0;
+}
+
+.medical-inquiry-form input[type="radio"] {
+  appearance: none;
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-appearance: none;
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -moz-appearance: none;
+  width: 14px;
+  height: 14px;
+  border: 1px solid #bdbdbd;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  margin: 0;
+  box-sizing: border-box;
+
+}
+
+.medical-inquiry-form input[type="radio"]:checked::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: #d54c1d;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+/* fallback styling in case the generic form.js renders radio fields */
+.medical-inquiry-form fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.medical-inquiry-form fieldset legend {
+  font-size: 16px;
+  font-weight: var(--font-weight-bold);
+  color: #2f3b4a;
+  margin-bottom: 12px;
+}
+
+/* Custom dropdown- */
+.medical-inquiry-form .custom-select {
+  position: relative;
+}
+
+.medical-inquiry-form .custom-select select.native-select {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.medical-inquiry-form .custom-select-trigger {
+  border: 2px solid var(--text-color-muted);
+  width: 100%;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: var(--font-weight-medium);
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  min-height: 48px;
+}
+
+.medical-inquiry-form .product-dropdown .custom-select-trigger {
+  cursor: text;
+}
+
+.medical-inquiry-form .product-dropdown .arrow-icon,
+.medical-inquiry-form .product-dropdown .custom-select-menu .custom-select-item {
+  cursor: pointer;
+}
+
+.medical-inquiry-form .custom-select-trigger:focus,
+.medical-inquiry-form .custom-select-trigger:focus-visible {
+  border-radius: 3px;
+  border-color: #000;
+}
+
+.medical-inquiry-form .custom-select.open .custom-select-trigger:focus,
+.medical-inquiry-form .custom-select.open .custom-select-trigger:focus-visible {
+  border-color: #000;
+  border-radius: 3px;
+}
+
+
+.medical-inquiry-form .custom-select-trigger.placeholder {
+  color: #b0b0b0;
+}
+
+
+/* Arrow icon */
+.medical-inquiry-form .custom-select-trigger .arrow-icon {
+  width: 16px;
+  height: 18px;
+  background-image: url('/icons/icons-search-dropdown.png');
+  background-size: 16px 18px;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex: 0 0 16px;
+  transition: transform 0.15s ease;
+}
+
+
+.medical-inquiry-form .custom-select-menu .custom-select-item.flash,
+.medical-inquiry-form .custom-select-menu .custom-select-item.flash:hover {
+  background-color: #d54c1d;
+  color: #fff;
+}
+
+
+/* ---------- dropdown list ---------- */
+.medical-inquiry-form .custom-select-menu {
+  position: absolute;
+  top: 48px;
+  left: 0;
+  width: 100%;
+  max-height: 400px;
+  overflow: auto;
+  background: #fff;
+  box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+  border-radius: 0;
+  z-index: 2;
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+}
+
+.medical-inquiry-form .custom-select.open .custom-select-menu {
+  display: block;
+}
+
+.medical-inquiry-form .custom-select-menu .custom-select-item {
+  padding: 10px 28px;
+  color: #000;
+  border: 1px solid #f4f4f4;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 200;
+  font-family: var(--body-font-family);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+
+.medical-inquiry-form .custom-select-menu .custom-select-item:hover,
+.medical-inquiry-form .custom-select-menu .custom-select-item.highlighted {
+  background-color: #e9ecef;
+}
+
+
+/* ---------- errors ---------- */
+.medical-inquiry-form .field-error {
+  color: var(--brand-primary);
+  font-size: 14px;
+  line-height: 16px;
+  margin-bottom: 0;
+  margin-top: 8px;
+}
+
+.medical-inquiry-form .custom-select-trigger.field-invalid {
+  border-color: #000;
+  padding: 13px 16px 14px;
+  border-radius: 3px;
+}
+
+/* ---------- submit ---------- */
+.medical-inquiry-form .submit-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.medical-inquiry-form button[type="submit"] {
+  padding: 17px;
+  background-color: var(--brand-primary);
+  color: #fff;
+  font-size: 18px;
+  line-height: 18px;
+  font-weight: var(--font-weight-bold);
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  box-sizing: border-box;
+  appearance: none;
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-appearance: none;
+  margin-top: -10px;
+  cursor: pointer;
+}
+
+.medical-inquiry-form button[type="submit"]:hover,
+.medical-inquiry-form button[type="submit"]:focus,
+.medical-inquiry-form button[type="submit"]:active {
+  background-color: var(--brand-primary);
+  border: none;
+  outline: none;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ---------- legal text block (licText + submitCheck merged) ---------- */
+.medical-inquiry-form .legal-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+
+}
+
+.medical-inquiry-form .legal-text-group > * {
+  margin: 0;
+  font-size: 16px;
+  line-height: 22px;
+  color: #2f3b4a;
+}
+
+
+.medical-inquiry-form .legal-text-group a {
+  color: inherit !important;
+  font-weight: inherit !important;
+  text-decoration: underline !important;
+}
+
+
+/* ---------- submission error ---------- */
+.medical-inquiry-form .submit-error {
+  color: var(--brand-primary);
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+  margin: 0 0 20px;
+}
+
+.medical-inquiry-form .submit-error[hidden] {
+  display: none;
+}
+
+
+.medical-inquiry-form button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+
+/* ------------------------------------------------------------------
+   Tablet: >= 768px
+   ------------------------------------------------------------------ */
+@media (width >= 768px) {
+  .medical-inquiry-form form {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .medical-inquiry-form .city-state-zip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+  }
+
+  .medical-inquiry-form .state-zip-column {
+    display: flex;
+    gap: 24px;
+  }
+
+  .medical-inquiry-form .state-zip-column > *:first-child {
+    flex: 1.6;
+  }
+
+  .medical-inquiry-form .state-zip-column > *:last-child {
+    flex: 1;
+  }
+
+  #form-zip-label {
+    margin-top: 0;
+  }
+
+  .medical-inquiry-form button[type="submit"] {
+    width: 228px;
+  }
+
+  .medical-inquiry-form .describe-you-select {
+    width: calc(50% - 20px);
+  }
+
+}
+
+/* ------------------------------------------------------------------
+   Desktop: >= 992px
+   ------------------------------------------------------------------ */
+@media (width >= 992px) {
+  .medical-inquiry-form {
+    max-width: 100%;
+    margin: 0 auto;
+
+  }
+
+  .medical-inquiry-form label {
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 8px;
+  }
+
+  #form-formtext,
+  #form-infotitle {
+    color: var(--brand-primary);
+    font-size: 26px;
+    font-weight: var(--font-weight-bold);
+    line-height: 31px;
+    margin: 0;
+    font-family: var(--heading-font-family);
+  }
+
+  #form-firsttext {
+    font-size: 16px;
+    line-height: 16px;
+    margin-bottom: 48px;
+    font-family: var(--heading-font-family);
+  }
+
+  .medical-inquiry-form form {
+    gap: 24px 40px;
+  }
+
+  .medical-inquiry-form textarea {
+    min-height: 220px;
+  }
+
+  .medical-inquiry-form input:not([type="radio"]),
+  .medical-inquiry-form select,
+  .medical-inquiry-form .custom-select-trigger {
+    padding: 13px 16px 14px;
+  }
+
+  .medical-inquiry-form button[type="submit"] {
+    padding: 15px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .medical-inquiry-form .state-zip-column > *:first-child,
+  .medical-inquiry-form .state-zip-column > *:last-child {
+    flex: 1;
+  }
+
+  .product-wrapper,
+  .radio-question-wrapper {
+    margin-bottom: 40px;
+  }
+
+
+  .medical-inquiry-form .legal-text-group {
+    gap: 0;
+    margin: 40px 70px 0;
+  }
+
+  .field-wrapper.text-area-wrapper.full-width {
+    margin-bottom: 50px;
+  }
+
+  p#form-submitcheck {
+    margin-bottom: 30px;
+  }
+}
