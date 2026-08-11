@@ -25,32 +25,29 @@ export function collectFormData(form) {
   };
 }
 
-/*Reads the API endpoint from the medical-inquiry-form block*/
-
+/* Reads the API endpoint from the medical-inquiry-form block */
 export function getApiEndpoint(block) {
   if (!block) return '';
 
-  const rows = [...block.children];
+  const row = [...block.children].find((candidate) => {
+    const cells = [...candidate.children];
 
-  for (const row of rows) {
-    const cells = [...row.children];
+    return (
+      cells.length >= 2 &&
+      cells[0].textContent.trim().toLowerCase() === 'api endpoint'
+    );
+  });
 
-    if (cells.length < 2) continue;
+  if (!row) return '';
 
-    const label = cells[0].textContent.trim().toLowerCase();
+  const cells = [...row.children];
+  const link = cells[1].querySelector('a');
 
-    if (label === 'api endpoint') {
-      const link = cells[1].querySelector('a');
-
-      return (
-        link?.href ||
-        cells[1].textContent.trim() ||
-        ''
-      );
-    }
-  }
-
-  return '';
+  return (
+    link?.href ||
+    cells[1].textContent.trim() ||
+    ''
+  );
 }
 
 function getSubmitButton(form) {
@@ -132,8 +129,13 @@ export async function submitForm(form, apiEndpoint) {
       throw new Error(`API request failed with status ${response.status}`);
     }
 
-    window.location.assign(THANK_YOU_PAGE);
-  } catch (error) {
+    const thankYouUrl = new URL(THANK_YOU_PAGE, window.location.origin);
+
+   if (thankYouUrl.origin === window.location.origin) {
+  // eslint-disable-next-line browser-security/no-insecure-redirects
+  window.location.assign(thankYouUrl.href);
+  }
+} catch (error) {
     // eslint-disable-next-line no-console
     console.error('Medical inquiry form submission failed:', error);
 

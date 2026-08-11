@@ -7,15 +7,17 @@ import { getFieldWrapper, resolveWrapper } from './domutils.js';
  * Custom dropdown
  * ------------------------------------------------------------------- */
 
-// how long the click-flash stays visible before fading back out
 const CLICK_FLASH_MS = 250;
 
-// builds the custom widget for a single <select> element
 function enhanceCustomDropdown(select) {
   select.classList.add('native-select');
 
   const wrapper = document.createElement('div');
   wrapper.className = 'custom-select';
+
+  if (select.name === 'product') {
+  wrapper.classList.add('product-dropdown');
+}
 
   const trigger = document.createElement('div');
   trigger.className = 'custom-select-trigger placeholder';
@@ -50,7 +52,6 @@ function enhanceCustomDropdown(select) {
     trigger.setAttribute('aria-expanded', 'false');
   }
 
-  // applies a chosen option to the hidden native select + visible trigger
   function setSelected(option, item, { closeMenu = true, focusTrigger = false } = {}) {
     select.value = option.value;
     select.dispatchEvent(new Event('change', { bubbles: true }));
@@ -58,7 +59,6 @@ function enhanceCustomDropdown(select) {
     triggerLabel.textContent = option.textContent;
     trigger.classList.toggle('placeholder', !option.value);
 
-    // Momentary flash on the clicked option only, then close/focus.
     if (item) {
       item.classList.add('flash');
       setTimeout(() => {
@@ -86,7 +86,7 @@ function enhanceCustomDropdown(select) {
     menu.append(item);
   });
 
-  // Initial label: only show a real option's
+  // eslint-disable-next-line secure-coding/detect-object-injection
   const initiallySelected = select.options[select.selectedIndex];
   if (initiallySelected && initiallySelected.value) {
     triggerLabel.textContent = initiallySelected.textContent;
@@ -97,8 +97,11 @@ function enhanceCustomDropdown(select) {
   }
 
   // ---- Interactions ----
-  wrapper.addEventListener('mouseenter', openDropdown);
-  wrapper.addEventListener('mouseleave', closeDropdown);
+  const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (supportsHover) {
+    wrapper.addEventListener('mouseenter', openDropdown);
+    wrapper.addEventListener('mouseleave', closeDropdown);
+  }
 
   trigger.addEventListener('click', () => {
     if (wrapper.classList.contains('open')) closeDropdown();
@@ -106,10 +109,12 @@ function enhanceCustomDropdown(select) {
   });
 
   trigger.addEventListener('keydown', (e) => {
+    // eslint-disable-next-line secure-coding/no-insecure-comparison
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       if (wrapper.classList.contains('open')) closeDropdown();
       else openDropdown();
+      // eslint-disable-next-line secure-coding/no-insecure-comparison
     } else if (e.key === 'Escape') {
       closeDropdown();
     }
@@ -119,7 +124,6 @@ function enhanceCustomDropdown(select) {
     if (!wrapper.contains(e.target)) closeDropdown();
   });
 
-  // IMPORTANT: insert `wrapper` into the document BEFORE moving nodes into
   select.before(wrapper);
   wrapper.append(trigger, menu, select);
 }
@@ -133,7 +137,6 @@ export function enhanceAllDropdowns(form) {
  * Radio grouping
  * ------------------------------------------------------------------- */
 
-// re-groups each configured set of radios under one shared name + row
 export function organizeRadioGroups(form) {
   RADIO_GROUPS.forEach(({ groupName, legendField, radioFields, fullWidth }) => {
 
@@ -152,7 +155,6 @@ export function organizeRadioGroups(form) {
       const originalWrapper = getFieldWrapper(form, radio);
       if (!target) target = originalWrapper; // fallback: host inside the first radio's own wrapper
 
-      // Same `name` on every radio in the group = one mutually-exclusive set.
       radio.name = groupName;
       radio.value = radio.value || radio.id || radioName;
 

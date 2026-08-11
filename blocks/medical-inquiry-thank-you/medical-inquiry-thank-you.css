@@ -7,8 +7,7 @@
     'icon heading'
     'sub sub'
     'button button';
-  column-gap: 16px;
-  row-gap: 12px;
+  gap: 12px 16px;
   align-items: center;
   max-width: 1100%;
   margin: 0 auto;
@@ -41,10 +40,10 @@
   grid-area: sub;
   font-size: 18px;
   line-height: 24px;
-  color: #4a4a4a;
   font-weight: 300;
   color: var(--text-color-secondary, #555);
 }
+
 
 .thank-you-button {
   grid-area: button;
@@ -71,7 +70,7 @@ main .section:not(.section-title-container, .hero-banner, .report, .search-produ
 
 main > .section > div:not(.bg-image) {
     margin: auto;
-    padding: 0px;
+    padding: 0;
 }
 
 /* ==========================================================================
@@ -79,8 +78,7 @@ main > .section > div:not(.bg-image) {
    ========================================================================== */
 @media (width >= 768px) {
   .thank-you-content {
-    column-gap: 20px;
-    row-gap: 14px;
+    gap: 14px 20px;
     padding: 32px 24px;
   }
 
@@ -103,6 +101,7 @@ main > .section > div:not(.bg-image) {
     color: #4a4a4a;
     font-weight: 300;
   }
+
   .thank-you-button {
     font-size: 16px;
     line-height: 20px;
@@ -122,8 +121,7 @@ main > .section > div:not(.bg-image) {
       'icon heading'
       'icon sub'
       'icon button';
-    column-gap: 48px;
-    row-gap: 10px;
+    gap: 10px 48px;
     align-items: start;
     padding: 40px 30px;
   }
@@ -141,7 +139,7 @@ main > .section > div:not(.bg-image) {
     font-size: 22px;
     line-height: 22px;
     font-weight: 900;
-    color: #4a4a4a;
+    color: var(--text-color-secondary, #555);
     text-shadow: none;
     margin-bottom: 5px;
     font-family: var(--heading-font-family);
@@ -152,7 +150,7 @@ main > .section > div:not(.bg-image) {
     line-height: 36px;
     color: #4a4a4a;
     font-weight: 300 !important;
-    margin:0px;
+    margin:0;
     font-family: var(--heading-font-family);
   }
 

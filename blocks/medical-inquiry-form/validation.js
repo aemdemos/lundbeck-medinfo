@@ -1,11 +1,19 @@
-/* medical-inquiry-form/validation.js*/
+/* medical-inquiry-form/validation.js */
 
-import { ERROR_MESSAGES, VALIDATION_RULES, RADIO_GROUPS, SELECTORS } from './constants.js';
+import { ERROR_MESSAGES, VALIDATION_RULES, RADIO_GROUPS, SELECTORS, MESSAGE_MAX_LENGTH } from './constants.js';
+
 import { getFieldWrapper } from './domutils.js';
+
+const ERROR_MESSAGES_MAP = new Map(Object.entries(ERROR_MESSAGES));
 
 const ERROR_CLASS = 'field-error';
 const INVALID_CLASS = 'field-invalid';
 const SUBMIT_ATTEMPTED_ATTR = 'submitAttempted';
+
+// ERROR_MESSAGES is a fixed, internally-defined lookup table (never
+function getErrorMessage(key) {
+  return ERROR_MESSAGES_MAP.get(key);
+}
 
 function hasAttemptedSubmit(form) {
   return form.dataset[SUBMIT_ATTEMPTED_ATTR] === 'true';
@@ -44,14 +52,18 @@ function showFieldError(wrapper, field, message) {
 // checks one field's value against its rule. skipRequired=true means
 function getFieldErrorMessage(name, rule, value, { skipRequired = false } = {}) {
   if (!skipRequired && rule.required && !value) {
-    return ERROR_MESSAGES[name];
+    return getErrorMessage(name);
   }
   if (value && rule.minLength && value.length < rule.minLength) {
-    return ERROR_MESSAGES[`${name}MinLength`];
+    return getErrorMessage(`${name}MinLength`);
   }
-  if (value && rule.pattern && !rule.pattern.test(value)) {
-    return ERROR_MESSAGES[name];
-  }
+  if (
+  value &&
+  ((rule.pattern && !rule.pattern.test(value)) ||
+    (rule.validate && !rule.validate(value)))
+) {
+  return getErrorMessage(name);
+}
   return null;
 }
 
@@ -110,13 +122,12 @@ function validateRadioGroups(form) {
     }
 
     valid = false;
-    showFieldError(wrapper, null, ERROR_MESSAGES[messageKey]);
+    showFieldError(wrapper, null, getErrorMessage(messageKey));
   });
 
   return valid;
 }
 
-// runs every rule; returns true only if the whole form is valid
 export function validateForm(form) {
   let valid = true;
 
@@ -148,8 +159,7 @@ field.addEventListener('change', () => clearFieldError(wrapper, field));
         validateField(form, name, rule);
         return;
       }
-      // pre-submit: only zip/email/telephone check themselves, and only
-      // flag an actually-wrong value, never "required"
+
       if (rule.liveFormatValidation) {
         validateFieldFormatOnly(form, name, rule);
       }
@@ -195,40 +205,17 @@ function applyPhoneMask(field) {
   });
 }
 
-// formats digits as 12345 while <=5 digits are entered, and as
-function formatZip(digits) {
-  const d = digits.slice(0, 9);
-  if (d.length <= 5) return d;
-  return `${d.slice(0, 5)}-${d.slice(5, 9)}`;
-}
-
-function applyZipMask(field) {
-  field.setAttribute('maxlength', '10'); // "12345-6789"
-  field.setAttribute('inputmode', 'numeric');
-
-  field.addEventListener('input', () => {
-    const atEnd = field.selectionEnd === field.value.length;
-    const digits = field.value.replace(/\D/g, '').slice(0, 9);
-    field.value = formatZip(digits);
-    if (atEnd) field.setSelectionRange(field.value.length, field.value.length);
-  });
-
-  field.addEventListener('paste', (event) => {
-    event.preventDefault();
-    const pasted = (event.clipboardData || window.clipboardData).getData('text');
-    field.value = formatZip(pasted.replace(/\D/g, '').slice(0, 9));
-  });
-}
-
 function attachFieldMasks(form) {
   const phoneField = form.querySelector(SELECTORS.telephone);
   if (phoneField) applyPhoneMask(phoneField);
 
   const zipField = form.querySelector(SELECTORS.zip);
-  if (zipField) applyZipMask(zipField);
+  if (zipField) zipField.setAttribute('maxlength', '10'); // "12345-6789"
+
+  const messageField = form.querySelector(SELECTORS.message);
+  if (messageField) messageField.setAttribute('maxlength', String(MESSAGE_MAX_LENGTH));
 }
 
-// wires submit handling: prevents default, marks that a submit was
 export function initValidationListeners(form, onValid) {
   attachFieldValidationEvents(form);
   attachFieldMasks(form);

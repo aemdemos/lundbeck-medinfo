@@ -1,4 +1,4 @@
-/*medical-inquiry-thank-you*/
+/* medical-inquiry-thank-you */
 
 export default function decorate(block) {
   const rows = [...block.children];
