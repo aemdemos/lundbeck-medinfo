@@ -1,5 +1,5 @@
 import { enhanceAllDropdowns, organizeRadioGroups } from './dropdown-radio.js';
-import { setupLayout } from './layout.js';
+import setupLayout from './layout.js';
 import { initValidationListeners } from './validation.js';
 import { submitForm, getApiEndpoint } from './submission.js';
 import { markFieldWrappers, linkifyMarkdownLinks } from './domutils.js';

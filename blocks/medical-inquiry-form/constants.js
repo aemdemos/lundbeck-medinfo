@@ -1,4 +1,4 @@
-/* medical-inquiry-form/constants.js*/
+/* medical-inquiry-form/constants.js */
 
 export const SELECTORS = {
   product: 'select[name="product"]',
@@ -17,7 +17,7 @@ export const SELECTORS = {
   patientProductGroup: 'input[name="patientProduct"]',
 };
 
-/* EDITABLE ERROR COPY*/
+/* EDITABLE ERROR COPY */
 export const ERROR_MESSAGES = {
   product: 'Product selection is required',
   describeYou: 'The Option that best describes you is required',
@@ -35,7 +35,6 @@ export const ERROR_MESSAGES = {
   takenProduct: 'Please select Yes or No',
 };
 
-// fields that should span the full grid width on their own row
 export const FULL_WIDTH_FIELDS = [
   'formText',
   'formTitle',
@@ -49,7 +48,6 @@ export const FULL_WIDTH_FIELDS = [
   'submitBtn',
 ];
 
-// declarative config for the two radio groups on this form
 export const RADIO_GROUPS = [
   {
     groupName: 'responseQuestion',
@@ -69,7 +67,6 @@ export const RADIO_GROUPS = [
   },
 ];
 
-// text fallbacks for rows that never get a `name` attribute (headings/plaintext)
 export const FIELD_TEXT_HINTS = {
   formText: 'Required fields are marked',
   formTitle: 'Your Inquiry',
@@ -81,6 +78,31 @@ export const FIELD_TEXT_HINTS = {
 };
 
 /* VALIDATION RULES */
+function isValidEmail(value) {
+  const parts = value.split('@');
+
+  if (parts.length !== 2) return false;
+
+  const [localPart, domain] = parts;
+
+  if (!localPart || !domain || /\s/.test(value)) return false;
+
+  const domainParts = domain.split('.');
+
+  if (domainParts.length < 2) return false;
+
+  const validDomainParts = domainParts.every(
+    (part) => /^[A-Za-z0-9-]+$/.test(part),
+  );
+
+  if (!validDomainParts) return false;
+
+  const tld = domainParts[domainParts.length - 1];
+
+  return /^[A-Za-z]{2,}$/.test(tld);
+}
+
+
 export const VALIDATION_RULES = {
   product: { selector: SELECTORS.product, required: true },
   describeYou: { selector: SELECTORS.describeYou, required: true },
@@ -90,15 +112,14 @@ export const VALIDATION_RULES = {
   city: { selector: SELECTORS.city, required: true },
   state: { selector: SELECTORS.state, required: true },
 
-  // these three validate their FORMAT live on blur even before the
-  // first submit attempt — required-ness still waits for submit
-  zip: { selector: SELECTORS.zip, required: true, pattern: /^\d{5}$/, liveFormatValidation: true },
+
+  zip: { selector: SELECTORS.zip, required: true, pattern: /^\d{5}(-\d{4})?$/, liveFormatValidation: true },
   email: {
-    selector: SELECTORS.email,
-    required: true,
-    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
-    liveFormatValidation: true,
-  },
+  selector: SELECTORS.email,
+  required: true,
+  validate: isValidEmail,
+  liveFormatValidation: true,
+},
   telephone: {
     selector: SELECTORS.telephone,
     required: true,
@@ -108,3 +129,5 @@ export const VALIDATION_RULES = {
 
   message: { selector: SELECTORS.message, required: true, minLength: 20, liveFormatValidation: true },
 };
+
+export const MESSAGE_MAX_LENGTH = 2000;

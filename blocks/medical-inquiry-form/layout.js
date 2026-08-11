@@ -3,24 +3,7 @@
 import { FULL_WIDTH_FIELDS } from './constants.js';
 import { resolveWrapper, getWrapperByName, getFieldWrapper } from './domutils.js';
 
-export function setupLayout(form) {
-  FULL_WIDTH_FIELDS.forEach((name) => {
-    // 'submitBtn' is handled separately below
-    if (name === 'submitBtn') return;
-    const wrapper = resolveWrapper(form, name);
-    if (wrapper) wrapper.classList.add('full-width');
-  });
 
-  // Structural lookup: every AEM form renders the submit action
-  const submitButton = form.querySelector('button[type="submit"], input[type="submit"]');
-  const submitWrapper = submitButton ? getFieldWrapper(form, submitButton) : null;
-  if (submitWrapper) submitWrapper.classList.add('full-width', 'submit-wrapper');
-
-  createCityStateZipRow(form);
-  groupLegalText(form);
-}
-
-// moves the City, State, and ZIP wrappers into one shared row container
 function createCityStateZipRow(form) {
   const cityWrapper = getWrapperByName(form, 'city');
   const stateWrapper = getWrapperByName(form, 'state');
@@ -39,7 +22,6 @@ function createCityStateZipRow(form) {
 }
 
 // Merges the licText ("This form is intended...") and submitCheck
-// ("By clicking SUBMIT...") paragraphs into a single wrapper so they
 function groupLegalText(form) {
   const licWrapper = resolveWrapper(form, 'licText');
   const checkWrapper = resolveWrapper(form, 'submitCheck');
@@ -49,4 +31,19 @@ function groupLegalText(form) {
   group.className = 'legal-text-group full-width';
   licWrapper.before(group);
   group.append(licWrapper, checkWrapper);
+}
+
+export default function setupLayout(form) {
+  FULL_WIDTH_FIELDS.forEach((name) => {
+    if (name === 'submitBtn') return;
+    const wrapper = resolveWrapper(form, name);
+    if (wrapper) wrapper.classList.add('full-width');
+  });
+
+  const submitButton = form.querySelector('button[type="submit"], input[type="submit"]');
+  const submitWrapper = submitButton ? getFieldWrapper(form, submitButton) : null;
+  if (submitWrapper) submitWrapper.classList.add('full-width', 'submit-wrapper');
+
+  createCityStateZipRow(form);
+  groupLegalText(form);
 }
