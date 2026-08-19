@@ -10,6 +10,7 @@
  * results grouped by product (Full Prescribing Information row + document list).
  */
 
+import { decorateIcons } from '../../scripts/aem.js';
 import { filterDocuments, loadCatalog, toSafeHref } from '../../scripts/medinfo-catalog.js';
 
 const COLUMN_HEADERS = ['Description', 'Access'];
@@ -20,14 +21,15 @@ const VIEW_LABEL = 'View';
 const MAX_PARAM_LENGTH = 500;
 
 /**
- * Creates a "View" link styled as a button. Only http(s) hrefs are applied.
+ * Creates a "View" control. The PI row uses a filled button; document rows use
+ * a text link with an arrow, matching the source site.
  * @param {string} href
+ * @param {{ button?: boolean }} [options]
  * @returns {HTMLAnchorElement}
  */
-function viewLink(href) {
+function viewLink(href, { button = false } = {}) {
   const a = document.createElement('a');
-  a.className = 'results-button';
-  a.textContent = VIEW_LABEL;
+  a.className = button ? 'results-button' : 'search-results-access';
   const safe = toSafeHref(href);
   if (safe) {
     a.href = safe;
@@ -36,14 +38,20 @@ function viewLink(href) {
   } else {
     a.setAttribute('aria-disabled', 'true');
   }
+  a.append(VIEW_LABEL);
+  if (!button) {
+    const icon = document.createElement('span');
+    icon.className = 'icon icon-arrow-right';
+    a.append(icon);
+  }
   return a;
 }
 
 function buildColumnHeaders() {
   const header = document.createElement('div');
-  header.className = 'search-results-headers search-results-doc-headers';
+  header.className = 'search-results-headers';
   COLUMN_HEADERS.forEach((label) => {
-    const cell = document.createElement('div');
+    const cell = document.createElement('h6');
     cell.className = 'search-results-header-cell';
     cell.textContent = label;
     header.append(cell);
@@ -51,21 +59,10 @@ function buildColumnHeaders() {
   return header;
 }
 
-function buildNoResults() {
-  const empty = document.createElement('div');
-  empty.className = 'search-results-empty';
-  const p = document.createElement('p');
-  p.textContent = NO_RESULTS_MESSAGE;
-  empty.append(p);
-  return empty;
-}
-
 function buildMessage(text) {
-  const empty = document.createElement('div');
+  const empty = document.createElement('p');
   empty.className = 'search-results-empty';
-  const p = document.createElement('p');
-  p.textContent = text;
-  empty.append(p);
+  empty.textContent = text;
   return empty;
 }
 
@@ -81,10 +78,8 @@ function renderProductGroup(product, docs) {
   group.className = 'search-results-group';
 
   const header = document.createElement('div');
-  header.className = 'search-results-row search-results-product';
+  header.className = 'search-results-product';
 
-  const titleCell = document.createElement('div');
-  titleCell.className = 'search-results-cell';
   const title = document.createElement('h4');
   const titleHref = toSafeHref(product.Anchor || '');
   if (titleHref) {
@@ -95,41 +90,30 @@ function renderProductGroup(product, docs) {
   } else {
     title.textContent = product.Name;
   }
-  titleCell.append(title);
 
-  const piCell = document.createElement('div');
-  piCell.className = 'search-results-cell';
   const piTitle = document.createElement('h5');
   piTitle.textContent = product.PITitle || 'Full Prescribing Information';
-  piCell.append(piTitle);
 
-  const accessCell = document.createElement('div');
-  accessCell.className = 'search-results-cell';
-  if (product.PIUrl) accessCell.append(viewLink(product.PIUrl));
-
-  header.append(titleCell, piCell, accessCell);
+  header.append(title, piTitle);
+  if (product.PIUrl) header.append(viewLink(product.PIUrl, { button: true }));
   group.append(header);
 
   if (!docs.length) {
-    group.append(buildNoResults());
+    group.append(buildMessage(NO_RESULTS_MESSAGE));
   }
 
   group.append(buildColumnHeaders());
 
   if (docs.length) {
-    const list = document.createElement('div');
+    const list = document.createElement('ul');
     list.className = 'search-results-list';
     docs.forEach((doc) => {
-      const row = document.createElement('div');
-      row.className = 'search-results-row search-results-doc';
-      const desc = document.createElement('div');
-      desc.className = 'search-results-cell';
-      desc.textContent = doc.Title;
-      const access = document.createElement('div');
-      access.className = 'search-results-cell';
-      if (doc.Url) access.append(viewLink(doc.Url));
-      row.append(desc, access);
-      list.append(row);
+      const item = document.createElement('li');
+      const titleEl = document.createElement('p');
+      titleEl.textContent = doc.Title;
+      item.append(titleEl);
+      if (doc.Url) item.append(viewLink(doc.Url));
+      list.append(item);
     });
     group.append(list);
   }
@@ -158,9 +142,9 @@ export default async function decorate(block) {
   heading.className = 'search-results-count';
   section.append(heading);
 
-  const list = document.createElement('div');
-  list.className = 'search-results-body';
-  section.append(list);
+  const body = document.createElement('div');
+  body.className = 'search-results-body';
+  section.append(body);
   block.append(section);
 
   const params = new URLSearchParams(window.location.search);
@@ -186,9 +170,11 @@ export default async function decorate(block) {
   heading.textContent = category ? `${docs.length} ${label}: ${category}` : `${docs.length} ${label}:`;
 
   if (!productRow) {
-    list.append(buildMessage(MISSING_QUERY_MESSAGE));
+    body.append(buildMessage(MISSING_QUERY_MESSAGE));
+    decorateIcons(block);
     return;
   }
 
-  list.append(renderProductGroup(productRow, docs));
+  body.append(renderProductGroup(productRow, docs));
+  decorateIcons(block);
 }

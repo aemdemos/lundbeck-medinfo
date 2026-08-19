@@ -1,137 +1,254 @@
 /* search-results — Lundbeck product-information results listing.
-   Light background; tabular results with column headers and an empty state.
+   Matches source: grey count bar, product + PI row, Description/Access list.
    Mobile-first. */
 
+/* Source paints grey only on the count bar. The section metadata colour would
+   otherwise fill the whole block and read as padding around the list. */
+main > .section:has(.search-results) {
+  background: #fff !important;
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+}
+
+main > .section:has(.search-results) > .search-results-wrapper {
+  max-width: var(--max-width-site, 1140px);
+}
+
 main .search-results .search-results-section {
-  padding: var(--spacing-m, 1.5rem) 0;
+  padding: 0 0 32px;
 }
 
+/* full-bleed count band (source: .results-section h2) */
 main .search-results .search-results-count {
-  margin: 0 0 var(--spacing-s, 1rem);
+  margin: 0;
+  margin-left: calc(50% - 50vw);
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 16px 15px 15px;
   font-family: var(--heading-font-family);
-  font-size: var(--heading-font-size-m);
-  color: var(--text-color);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 18px;
+  color: var(--text-color, #4a4a4a);
+  text-align: center;
+  background: #f4f4f4;
 }
 
-main .search-results .search-results-body,
-main .search-results .search-results-list {
+main .search-results .search-results-body {
+  padding: 0;
+}
+
+main .search-results .search-results-product {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs, 0.5rem);
-}
-
-main .search-results .search-results-group {
-  border-top: 3px solid var(--brand-secondary, #ca411d);
-  padding-top: var(--spacing-s, 1rem);
+  gap: var(--spacing-s, 1rem);
+  margin-top: 16px;
+  padding: 24px 0 27px;
+  border-bottom: 1px solid #eee;
 }
 
 main .search-results .search-results-product h4,
 main .search-results .search-results-product h5 {
   margin: 0;
   font-family: var(--heading-font-family);
+  font-weight: 700;
+  color: var(--text-color, #4a4a4a);
 }
 
 main .search-results .search-results-product h4 {
-  font-size: var(--heading-font-size-s, 1.125rem);
+  font-size: 22px;
+  line-height: 30px;
 }
 
 main .search-results .search-results-product h5 {
-  font-size: var(--body-font-size-m, 1rem);
-  font-weight: 700;
+  font-size: 20px;
+  line-height: 20px;
+  margin-bottom: 8px;
 }
 
 main .search-results .search-results-product h4 a {
-  color: var(--link-color);
-  text-decoration: none;
+  color: var(--text-color, #4a4a4a);
+  font-weight: 700;
+  text-decoration: underline;
 }
 
 main .search-results .search-results-product h4 a:hover {
-  color: var(--link-hover-color);
+  color: var(--brand-primary, #ca411d);
+}
+
+/* PI "View" — filled button, full-width on mobile */
+main .search-results .search-results-product .results-button {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 17px 0;
+  border: 0;
+  border-radius: 0;
+  background: var(--brand-primary, #ca411d);
+  color: #fff;
+  font-family: var(--heading-font-family);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  text-decoration: none;
+}
+
+main .search-results .search-results-product .results-button:hover {
+  background: var(--brand-primary-dark, #9e3216);
+  color: #fff;
+}
+
+/* Description / Access column headings — visible at all breakpoints */
+main .search-results .search-results-headers {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--spacing-s, 1rem);
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--text-color, #4a4a4a);
+}
+
+main .search-results .search-results-header-cell {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 24px;
+  color: var(--text-color, #4a4a4a);
+}
+
+main .search-results .search-results-header-cell:last-child {
+  text-align: right;
+}
+
+main .search-results .search-results-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+main .search-results .search-results-list li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 16px 0;
+  border-bottom: 1px solid #eee;
+}
+
+main .search-results .search-results-list li:last-of-type {
+  border-bottom: 0;
+}
+
+main .search-results .search-results-list li p {
+  margin: 0;
+  flex: 1 1 auto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: var(--text-color, #4a4a4a);
+}
+
+/* document Access link: "View →" in brand red, not a button */
+main .search-results .search-results-access {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  color: var(--brand-primary, #ca411d);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+main .search-results .search-results-access:hover {
+  color: var(--brand-primary-dark, #9e3216);
   text-decoration: underline;
 }
 
-/* Column headers are hidden on mobile (stacked layout); shown at tablet+ */
-main .search-results .search-results-headers {
+main .search-results .search-results-access .icon {
+  display: inline-block;
+  width: 22px;
+  height: 10px;
+  margin-left: 10px;
+  background-color: currentcolor;
+  mask: url('/icons/arrow-right.svg') no-repeat center / contain;
+}
+
+main .search-results .search-results-access .icon img {
   display: none;
 }
 
-main .search-results .search-results-row {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: var(--spacing-s, 1rem) 0;
-  border-bottom: 1px solid var(--search-result-border-color, #e0e0e0);
-}
-
-main .search-results .search-results-cell {
-  font-size: var(--body-font-size-m, 1rem);
-  color: var(--text-color);
-}
-
-main .search-results .search-results-cell a {
-  color: var(--link-color);
-  text-decoration: none;
-}
-
-main .search-results .search-results-cell a:hover {
-  color: var(--link-hover-color);
-  text-decoration: underline;
-}
-
-/* "View"/access action styled as a button, matching search-product's button */
-main .search-results .search-results-cell .results-button,
-main .search-results .search-results-cell a.results-button {
-  display: inline-block;
-  padding: 0.5rem 1.25rem;
-  border: 0;
-  border-radius: var(--search-input-border-radius, 4px);
-  background: var(--brand-secondary, #ca411d);
-  color: var(--background-color, #fff);
-  font-weight: 700;
-  text-decoration: none;
-}
-
-main .search-results .search-results-cell .results-button:hover,
-main .search-results .search-results-cell a.results-button:hover {
-  background: var(--brand-secondary-dark, #9e3216);
-}
-
 main .search-results .search-results-empty {
-  padding: var(--spacing-m, 1.5rem) 0;
-}
-
-main .search-results .search-results-empty p {
   margin: 0;
+  padding: var(--spacing-s, 1rem) 0;
   font-size: var(--body-font-size-m, 1rem);
-  color: var(--text-color-secondary, #666);
+  color: var(--text-color, #4a4a4a);
 }
 
-/* Tablet+ : show column headers and lay results out in a row grid */
-@media (width >= 600px) {
-  main .search-results .search-results-headers {
-    display: grid;
-    grid-template-columns: 5fr 4fr 3fr;
-    gap: var(--spacing-s, 1rem);
-    padding: var(--spacing-xs, 0.5rem) 0;
-    border-bottom: 2px solid var(--brand-secondary, #ca411d);
+@media (width >= 900px) {
+  main .search-results .search-results-section {
+    padding-bottom: 56px;
   }
 
-  main .search-results .search-results-header-cell {
-    font-family: var(--heading-font-family);
-    font-weight: 700;
-    font-size: var(--body-font-size-s, 0.875rem);
-    color: var(--text-color);
+  main .search-results .search-results-count {
+    padding: 25px 45px 19px;
+    font-size: 28px;
+    line-height: 28px;
   }
 
-  main .search-results .search-results-row {
+  main .search-results .search-results-product {
     display: grid;
     grid-template-columns: 5fr 4fr 3fr;
     align-items: center;
     gap: var(--spacing-s, 1rem);
+    margin-top: 56px;
+    margin-bottom: 56px;
+    padding-top: 28px;
+    padding-bottom: 27px;
+    border-top: 1px solid #eee;
   }
 
-  main .search-results .search-results-headers.search-results-doc-headers,
-  main .search-results .search-results-row.search-results-doc {
-    grid-template-columns: 1fr auto;
+  main .search-results .search-results-product h4,
+  main .search-results .search-results-product h4 a {
+    font-size: 26px;
+    line-height: 26px;
+  }
+
+  main .search-results .search-results-product h5 {
+    font-size: 22px;
+    line-height: 22px;
+    margin-bottom: 0;
+  }
+
+  main .search-results .search-results-product .results-button {
+    width: auto;
+    min-width: 187px;
+    justify-self: end;
+    padding: 16px 0 15px;
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  main .search-results .search-results-header-cell {
+    font-size: 22px;
+    line-height: 22px;
+  }
+
+  main .search-results .search-results-list li {
+    padding: 16px 0;
+  }
+
+  main .search-results .search-results-list li p {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  main .search-results .search-results-access {
+    font-size: 16px;
+    line-height: 16px;
+    margin-right: 30px;
   }
 }
