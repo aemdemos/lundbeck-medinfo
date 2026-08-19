@@ -3,10 +3,15 @@
  *
  * Authored content (one block table, rows in order):
  *   Row 1: instructional paragraph (text shown above the controls)
- *   Row 2: a list of product options (first item is the placeholder, e.g. "Select a Product*")
- *   Row 3: a list of category options (first item is the placeholder, e.g. "Category*")
+ *   Row 2: a list whose first item is the product placeholder (e.g. "Select a Product*")
+ *   Row 3: a list whose first item is the category placeholder (e.g. "Category*")
  *   Row 4 (optional): keyword field help text
  *   Row 5 (optional): confirmation text under the search button
+ *   Row 6 (optional): product required-error message
+ *   Row 7 (optional): category required-error message
+ *
+ * Product and category options are loaded from the published catalog
+ * (`/medinfo-catalog.json`) so authors maintain them in one spreadsheet.
  *
  * Renders two custom dropdowns, a keyword input and a search button. Custom
  * dropdowns (button + panel) are used instead of native <select> so the open
@@ -14,18 +19,39 @@
  */
 
 import { decorateIcons } from '../../scripts/aem.js';
+import { loadCatalog } from '../../scripts/medinfo-catalog.js';
+
+const DEFAULT_RESULTS_PATH = '/us/en/hcp/search-results';
 
 let dropdownIdCounter = 0;
 
 /**
- * Builds a custom accessible dropdown. The first option is the placeholder.
+ * Restricts navigation to a same-origin path.
+ * @param {string} path
+ * @returns {string}
+ */
+function safeResultsPath(path) {
+  if (typeof path !== 'string') return DEFAULT_RESULTS_PATH;
+  const trimmed = path.trim();
+  if (!trimmed.startsWith('/') || trimmed.startsWith('//') || trimmed.includes('://')
+    || trimmed.includes('\\') || trimmed.includes('..')) {
+    return DEFAULT_RESULTS_PATH;
+  }
+  const pathname = trimmed.split('?')[0].split('#')[0];
+  return pathname || DEFAULT_RESULTS_PATH;
+}
+
+/**
+ * Builds a custom accessible dropdown.
+ * @param {Array<{value: string, label: string}>} options
+ * @param {string} placeholder
+ * @param {string} errorMessage
  * @returns {{ el: HTMLElement, getValue: () => string, setError: (on: boolean) => void }}
  */
 function buildDropdown(options, placeholder, errorMessage) {
   dropdownIdCounter += 1;
   const listId = `search-product-listbox-${dropdownIdCounter}`;
   const errorId = `search-product-error-${dropdownIdCounter}`;
-  const values = options.slice(1); // drop the placeholder entry
 
   const wrap = document.createElement('div');
   wrap.className = 'search-product-select';
@@ -49,13 +75,14 @@ function buildDropdown(options, placeholder, errorMessage) {
   panel.hidden = true;
   trigger.setAttribute('aria-controls', listId);
 
-  values.forEach((label) => {
+  options.forEach(({ value, label }) => {
+    if (!value || !label) return;
     const item = document.createElement('li');
     item.className = 'search-product-select-option';
     item.setAttribute('role', 'option');
     item.setAttribute('aria-selected', 'false');
     item.tabIndex = -1;
-    item.dataset.value = label;
+    item.dataset.value = value;
     item.textContent = label;
     panel.append(item);
   });
@@ -162,7 +189,7 @@ function getListItems(row) {
   return [...row.querySelectorAll('li')].map((li) => li.textContent.trim()).filter(Boolean);
 }
 
-export default function decorate(block) {
+export default async function decorate(block) {
   const rows = [...block.children];
 
   const intro = rows[0] ? rows[0].textContent.trim() : '';
@@ -175,12 +202,25 @@ export default function decorate(block) {
 
   const productPlaceholder = productOptions[0] || 'Select a Product*';
   const categoryPlaceholder = categoryOptions[0] || 'Category*';
+  const resultsPath = safeResultsPath(DEFAULT_RESULTS_PATH);
+
+  let products = [];
+  let categories = [];
+  try {
+    ({ products, categories } = await loadCatalog());
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('search-product: catalog unavailable', error);
+  }
 
   block.textContent = '';
 
   const form = document.createElement('form');
   form.className = 'search-product-form';
   form.setAttribute('role', 'search');
+  form.action = resultsPath;
+  form.method = 'get';
+  form.setAttribute('novalidate', 'novalidate');
 
   if (intro) {
     const introEl = document.createElement('p');
@@ -192,12 +232,21 @@ export default function decorate(block) {
   const controls = document.createElement('div');
   controls.className = 'search-product-controls';
 
-  const productDropdown = buildDropdown(productOptions, productPlaceholder, productError);
-  const categoryDropdown = buildDropdown(categoryOptions, categoryPlaceholder, categoryError);
+  const productDropdown = buildDropdown(
+    products.map((p) => ({ value: p.Key, label: p.Name })),
+    productPlaceholder,
+    productError,
+  );
+  const categoryDropdown = buildDropdown(
+    categories.map((c) => ({ value: c.Name, label: c.Name })),
+    categoryPlaceholder,
+    categoryError,
+  );
 
   const keyword = document.createElement('input');
   keyword.type = 'text';
   keyword.id = 'search-product-keywords';
+  keyword.name = 'keyword';
   keyword.className = 'search-product-keywords';
   keyword.placeholder = 'Keyword(s)';
   keyword.setAttribute('aria-label', 'Keywords');
@@ -243,12 +292,13 @@ export default function decorate(block) {
     categoryDropdown.setError(!categoryValue);
     if (!productValue || !categoryValue) return;
 
-    const resultsUrl = new URL('/us/en/hcp/products', window.location.origin);
+    const resultsUrl = new URL(resultsPath, window.location.origin);
+    if (resultsUrl.origin !== window.location.origin) return;
     resultsUrl.searchParams.set('product', productValue);
     resultsUrl.searchParams.set('category', categoryValue);
     const trimmedKeyword = keyword.value.trim();
-    if (trimmedKeyword) resultsUrl.searchParams.set('q', trimmedKeyword);
-    window.location.href = `${resultsUrl.pathname}${resultsUrl.search}`;
+    if (trimmedKeyword) resultsUrl.searchParams.set('keyword', trimmedKeyword);
+    window.location.assign(`${resultsUrl.pathname}${resultsUrl.search}`);
   });
 
   block.append(form);
