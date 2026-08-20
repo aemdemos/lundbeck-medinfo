@@ -112,6 +112,8 @@ export async function submitForm(form, apiEndpoint) {
   }
 
   const payload = collectFormData(form);
+  const body = new URLSearchParams(payload).toString();
+
 
   setSubmitting(form, true);
 
@@ -119,10 +121,10 @@ export async function submitForm(form, apiEndpoint) {
     const response = await fetch(apiEndpoint, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded; _charset_=UTF-8',
         Accept: 'application/json',
       },
-      body: JSON.stringify(payload),
+      body,
     });
 
     if (!response.ok) {
