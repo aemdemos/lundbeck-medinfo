@@ -189,7 +189,7 @@ main .search-product .search-product-confirm {
   margin: var(--spacing-xs, 0.5rem) 0 0;
   font-size: 12px;
   line-height: 14px; /* source subtext LH (12px text) */
-  color: var(--text-color-muted, #c8c8c8);
+  color: var(--text-color-light, #666);
 }
 
 @media (width >= 768px) {
